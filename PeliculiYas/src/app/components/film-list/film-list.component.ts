@@ -22,5 +22,9 @@ export class FilmListComponent implements OnInit {
   getFullImagePath(posterPath: string): string {
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
     return `${baseUrl}${posterPath}`;
-}
+  }
+
+  getAverageVote(voteAverage: number): string {
+    return voteAverage.toFixed(1);
+  }
 }

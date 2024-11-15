@@ -1,1 +1,12 @@
-<p>film-list works!</p>
+@for (film of listadoPeliculas; track film.id) {
+
+<img [src]="getFullImagePath(film.poster_path)" alt="img peli">
+<h1>{{film.title}}</h1>
+
+<ngb-rating [(rate)]="rating" />
+<hr />
+<pre>Rate: <b>{{ rating }}</b></pre>
+
+<p>getAverageVote(film.vote_average)</p>
+
+}

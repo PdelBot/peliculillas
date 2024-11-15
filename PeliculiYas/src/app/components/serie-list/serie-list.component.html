@@ -1,0 +1,6 @@
+@for (serie of listadoSeries; track serie.id) {
+
+<img [src]="getFullImagePath(serie?.poster_path || '')" alt="img serie">
+<h1>{{serie.name}}</h1>
+
+}

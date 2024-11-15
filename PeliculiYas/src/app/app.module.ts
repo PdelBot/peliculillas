@@ -7,11 +7,13 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideHttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FilmListComponent } from './components/film-list/film-list.component';
+import { SerieListComponent } from './components/serie-list/serie-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FilmListComponent
+    FilmListComponent,
+    SerieListComponent
   ],
   imports: [
     BrowserModule,
