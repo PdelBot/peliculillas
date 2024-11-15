@@ -1,0 +1,37 @@
+
+    <!--
+    <div class="banner w-0 bg-white">
+        <div class="text">
+            <h1 class="ms-3">Echen a victor</h1>
+            <div class="detalles d-flex gap-4 ms-3">
+                <p id="fecha">2004</p>
+                <p>|</p>
+                <p id="tipo">porfavor</p>
+                <p>|</p>
+                <p id="temporadas">es urgente</p>
+            </div>
+            <button class="watch-now btn btn-primary align-items-center justify-content-beetwen ">Watch now</button>
+        </div>
+    </div>
+    -->
+    <div class="scroll-lateral m-4">
+
+        <div class="title">
+            <h1 class="text-white">Movie Trending</h1>
+        </div>
+        <div class="cards d-flex mt-4">
+            @for (film of listadoPeliculas; track film.id){
+            <div class="card" style="background: no-repeat 100%;">
+                <div class="text-card">
+                    <h3 class="ms-4">{{film.title}}</h3>
+                    <div class="detalles d-flex gap-4 ms-4 mb-3">
+                        <p id="fecha">2004</p>
+                        <p>|</p>
+                        <p id="tipo">porfavor</p>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+
