@@ -1,14 +1,17 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideHttpClient } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FilmListComponent } from './components/film-list/film-list.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FilmListComponent
   ],
   imports: [
     BrowserModule,
@@ -16,7 +19,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     NgbModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    provideHttpClient()
   ],
   bootstrap: [AppComponent]
 })
