@@ -11,6 +11,9 @@ export class SerieListComponent implements OnInit {
 
 
   listadoSeries: Serie[] = [];
+  num: number = 1;
+
+  
 
   constructor(private serieService: ListService) { }
 
@@ -24,5 +27,18 @@ export class SerieListComponent implements OnInit {
     return `${baseUrl}${posterPath}`;
   }
 
-
+  getNextPage() {
+    this.num += 1;
+    this.listadoSeries = [];
+    this.serieService.getSeriesPage(this.num).subscribe((response) => {
+      this.listadoSeries = response.results;
+    });
+  }
+  getLastPage() {
+    this.num -= 1;
+    this.listadoSeries = [];
+    this.serieService.getSeriesPage(this.num).subscribe((response) => {
+      this.listadoSeries = response.results;
+    });
+  }
 }

@@ -1,0 +1,13 @@
+<button (click)="getNextPage()">Siguiente</button>
+<br>
+<button (click)="getLastPage()">Anterior</button>
+<br>
+
+@for (actor of listadoActores; track actor.id) {
+
+<img [src]="getFullImagePath(actor.profile_path)" alt="img peli">
+<h1>{{actor.name}}</h1>
+
+<p>{{actor.popularity}}</p>
+
+}

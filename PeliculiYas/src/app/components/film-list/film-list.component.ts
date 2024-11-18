@@ -10,21 +10,34 @@ import { ListService } from '../../services/list.service';
 export class FilmListComponent implements OnInit {
 
   listadoPeliculas: Film[] = [];
-
-  constructor(private movieService: ListService) { }
+  num = 1;
+  constructor(private filmService: ListService) { }
 
   ngOnInit(): void {
-    this.movieService.getMovies().subscribe((response) => {
+    this.filmService.getMovies().subscribe((response) => {
       this.listadoPeliculas = response.results;
     });
   }
 
+  //Obtener la imagen
   getFullImagePath(posterPath: string): string {
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
     return `${baseUrl}${posterPath}`;
   }
 
-  getAverageVote(voteAverage: number): string {
-    return voteAverage.toFixed(1);
+  //A lante y atras paginas
+  getNextPage() {
+    this.num += 1;
+    this.listadoPeliculas = [];
+    this.filmService.getFilmPage(this.num).subscribe((response) => {
+      this.listadoPeliculas = response.results;
+    });
+  }
+  getLastPage() {
+    this.num -= 1;
+    this.listadoPeliculas = [];
+    this.filmService.getFilmPage(this.num).subscribe((response) => {
+      this.listadoPeliculas = response.results;
+    });
   }
 }

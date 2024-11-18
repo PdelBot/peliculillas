@@ -1,3 +1,7 @@
+<button (click)="getNextPage()">Siguiente</button>
+<br>
+<button (click)="getLastPage()">Anterior</button>
+<br>
 @for (serie of listadoSeries; track serie.id) {
 
 <img [src]="getFullImagePath(serie?.poster_path || '')" alt="img serie">

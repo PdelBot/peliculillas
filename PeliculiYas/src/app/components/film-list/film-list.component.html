@@ -1,3 +1,8 @@
+<button (click)="getNextPage()">Siguiente</button>
+<br>
+<button (click)="getLastPage()">Anterior</button>
+<br>
+
 @for (film of listadoPeliculas; track film.id) {
 
 <img [src]="getFullImagePath(film.poster_path)" alt="img peli">
@@ -7,6 +12,6 @@
 <hr />
 <pre>Rate: <b>{{ rating }}</b></pre>
  -->
-<p>getAverageVote(film.vote_average)</p>
+<p>{{film.vote_average}}</p>
 
 }
