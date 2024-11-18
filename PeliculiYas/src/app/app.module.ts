@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
+import { FilmDetailsComponent } from './components/film-details/film-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SerieDetailsComponent
+    SerieDetailsComponent,
+    FilmDetailsComponent
   ],
   imports: [
     BrowserModule,
