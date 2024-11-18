@@ -1,0 +1,164 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #101223;
+  color: #ffffff;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Contenedor principal */
+.container {
+  width: 90%;
+  max-width: 2000px;
+  padding: 20px;
+  margin-top: 0;
+}
+
+/* Encabezado de la serie */
+.header {
+  margin-top: 15px;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.header h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.title1 {
+  margin-top: 0%;
+  background-color: #2c2e46;
+  border-radius: 10px;
+  padding: 0.25rem;
+  width: 700px;
+}
+
+.image img {
+  width: 700px;
+  height: auto;
+  border-radius: 5px;
+  margin-right: 50px;
+}
+
+.description {
+  color: #cccccc;
+}
+
+.description .title {
+  font-weight: bold;
+  color: #e0e0e0;
+}
+
+/* Botón de Trailer */
+.trailer-button {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.trailer-button button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #2c2e46;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.trailer-button button:hover {
+  background-color: #0c1674;
+}
+
+button {
+  position: relative;
+  font-size: 1.2em;
+  padding: 0.7em 1.4em;
+  background-color: #2637d4;
+  text-decoration: none;
+  border: none;
+  border-radius: 0.5em;
+  color: #dedede;
+  box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.3);
+}
+
+button::before {
+  position: absolute;
+  content: '';
+  height: 0;
+  width: 0;
+  top: 0;
+  left: 0;
+  background: linear-gradient(
+    135deg,
+    rgb(255, 255, 255) 0%,
+    #2c2e46 50%,
+    rgb(48, 2, 255) 50%,
+    rgb(6, 3, 187) 60%
+  );
+  border-radius: 0 0 0.5em 0;
+  box-shadow: 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.3);
+  transition: 0.3s;
+}
+
+button:hover::before {
+  width: 1.6em;
+  height: 1.6em;
+}
+
+button:active {
+  box-shadow: 0.2em 0.2em 0.3em rgba(0, 0, 0, 0.3);
+  transform: translate(0.1em, 0.1em);
+}
+
+/* Diseño del reparto */
+.reparto-container {
+  margin-top: 30px;
+  text-align: center;
+  padding: 20px;
+}
+
+.reparto-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.card {
+  background-color: #2c2e46;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 120px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card-image {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-bottom: 2px solid #444;
+}
+
+.card-text {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #ffffff;
+}
