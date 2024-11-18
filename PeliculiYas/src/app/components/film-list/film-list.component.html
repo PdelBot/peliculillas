@@ -11,6 +11,8 @@
 
     <p>{{film.vote_average}}</p>
     <p>Géneros: {{getGenreNames(film.genre_ids).join(', ')}}</p>
+    <p>Géneros: {{getFirstGenreName(film.genre_ids)}}</p>
+
 
     }
 </div>
