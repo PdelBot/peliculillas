@@ -7,12 +7,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MenuComponent } from './shared/menu/menu.component';
 import { PrincipalMenuComponent } from './components/principal-menu/principal-menu.component';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { SerieListComponent } from './components/serie-list/serie-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    PrincipalMenuComponent
+    PrincipalMenuComponent,
+    SerieListComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +23,8 @@ import { PrincipalMenuComponent } from './components/principal-menu/principal-me
     NgbModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    provideHttpClient()
   ],
   bootstrap: [AppComponent]
 })

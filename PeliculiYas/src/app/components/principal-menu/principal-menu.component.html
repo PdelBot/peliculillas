@@ -1,10 +1,10 @@
 
-    <!--
-    <div class="banner w-0 bg-white">
+    
+    <div class="banner w-0 bg-white" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(peliculaMasPopular?.poster_path || '') + ')'}">
         <div class="text">
-            <h1 class="ms-3">Echen a victor</h1>
+            <h1 class="ms-3">{{peliculaMasPopular?.title}}</h1>
             <div class="detalles d-flex gap-4 ms-3">
-                <p id="fecha">2004</p>
+                <p id="fecha">{{peliculaMasPopular?.release_date}}</p>
                 <p>|</p>
                 <p id="tipo">porfavor</p>
                 <p>|</p>
@@ -13,7 +13,7 @@
             <button class="watch-now btn btn-primary align-items-center justify-content-beetwen ">Watch now</button>
         </div>
     </div>
-    -->
+    
     <div class="scroll-lateral m-4">
 
         <div class="title">
@@ -21,11 +21,32 @@
         </div>
         <div class="cards d-flex mt-4">
             @for (film of listadoPeliculas; track film.id){
-            <div class="card" style="background: no-repeat 100%;">
+            <div class="card" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(film?.poster_path || '') + ')'}">
                 <div class="text-card">
                     <h3 class="ms-4">{{film.title}}</h3>
                     <div class="detalles d-flex gap-4 ms-4 mb-3">
-                        <p id="fecha">2004</p>
+                        <p id="fecha">{{film.release_date}}</p>
+                        <p>|</p>
+                        <p id="tipo">porfavor</p>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+
+    <div class="scroll-lateral m-4">
+
+        <div class="title">
+            <h1 class="text-white">Serie Trending</h1>
+        </div>
+        <div class="cards d-flex mt-4">
+            @for (film of listadoPeliculas; track film.id){
+            <div class="card" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(film?.poster_path || '') + ')'}">
+                <div class="text-card">
+                    <h3 class="ms-4">{{film.title}}</h3>
+                    <div class="detalles d-flex gap-4 ms-4 mb-3">
+                        <p id="fecha">{{film.release_date}}</p>
                         <p>|</p>
                         <p id="tipo">porfavor</p>
                     </div>

@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { PrincipalMenuComponent } from './components/principal-menu/principal-menu.component';
 
 const routes: Routes = [
-  {path: 'principalMenu', component: PrincipalMenuComponent}
+  {path: 'principal', component: PrincipalMenuComponent},
+  {path: '', redirectTo: '/principal', pathMatch: 'full'},
 ];
 
 @NgModule({
