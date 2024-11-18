@@ -16,6 +16,14 @@ export class ListService {
   //Obtener peliculas
 
   getMovies(): Observable<FilmListResponse> {
+    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/movie', {
+      headers: {
+        'Authorization': `Bearer ${ACCESS_TOKEN}`
+      }
+    });
+  }
+
+  getPopularMovies(): Observable<FilmListResponse> {
     return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/movie/popular', {
       headers: {
         'Authorization': `Bearer ${ACCESS_TOKEN}`
@@ -33,7 +41,7 @@ export class ListService {
 
   //Obtener series
 
-  getSeries(): Observable<SerieListResponse> {
+  getPopularSeries(): Observable<SerieListResponse> {
     return this.http.get<SerieListResponse>(`https://api.themoviedb.org/3/tv/popular?language=es-US&page=1`, {
       headers: {
         'Authorization': `Bearer ${ACCESS_TOKEN}`,
@@ -59,4 +67,13 @@ export class ListService {
     });
   }
 
+  getColorValoracion({ valoracion }: { valoracion: number }): { [key: string]: string } {
+    if (valoracion <= 4) {
+      return { background: 'linear-gradient(-45deg, #ff0000 0%, #edad8f 100%)' };
+    } 
+    if (valoracion > 4 && valoracion < 8) {
+      return { background: 'linear-gradient(-45deg, #fc00ff 0%, #00dbde 100%)' };
+    } 
+    return { background: 'linear-gradient(-45deg, #2bff00 0%, #00dbde 100%)' };
+  }
 }

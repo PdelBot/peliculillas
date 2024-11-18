@@ -1,0 +1,38 @@
+
+
+<div class="films d-flex row">
+
+    <app-menu-lateral class="col-2"></app-menu-lateral>
+    <div class="listado col-9">
+        <div class="menu d-flex justify-content-between">
+            <div class="left-menu d-flex gap-4 text-white fs-4 mt-4 ms-4">
+                <p>Peliculas</p>
+                <p>Series</p>
+                <p>Actores</p>
+            </div>
+            <div class="right-menu d-flex gap-4 text-white fs-4 mt-4 ms-4">
+                <i class="bi bi-search"></i>
+                <i class="bi bi-bell-fill"></i>
+                <i class="bi bi-circle-fill"></i>
+                <p>Jei el</p>
+            </div>
+        </div>
+        <div class="listado-pelis">
+            @for (peli of listadoPeliculas; track peli.id) {
+                <div class="card card-serie" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(peli?.poster_path || '') + ')'}">
+                    <div class="valoracion-serie" [ngStyle]="getColor({ valoracion: peli.vote_average })">
+                        <h2 class="text-white">{{peli.vote_average | roundedVote}}</h2>
+                    </div>
+                    <div class="text-card">
+                        <h3 class="ms-4">{{peli.title}}</h3>
+                        <div class="detalles d-flex gap-4 ms-4 mb-3">
+                            <p id="fecha">{{peli.release_date}}</p>
+                            <p>|</p>
+                            <p id="temporadas">{{peli.vote_average}}</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

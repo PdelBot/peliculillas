@@ -1,4 +1,4 @@
-
+<app-menu></app-menu>
     
     <div class="banner w-0 bg-white" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(peliculaMasPopular?.poster_path || '') + ')'}">
         <div class="text">
@@ -10,18 +10,21 @@
                 <p>|</p>
                 <p id="temporadas">es urgente</p>
             </div>
-            <button class="watch-now btn btn-primary align-items-center justify-content-beetwen ">Watch now</button>
+            <button class="watch-now btn btn-primary align-items-center justify-content-beetwen ">Ver ahora</button>
         </div>
     </div>
     
     <div class="scroll-lateral m-4">
 
         <div class="title">
-            <h1 class="text-white">Movie Trending</h1>
+            <h1 class="text-white">Peliculas populares</h1>
         </div>
         <div class="cards d-flex mt-4">
             @for (film of listadoPeliculas; track film.id){
-            <div class="card" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(film?.poster_path || '') + ')'}">
+            <div class="card card-film" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(film?.poster_path || '') + ')'}">
+                <div class="valoracion-film" [ngStyle]="getColor({ valoracion: film.vote_average })">
+                    <h2 class="text-white">{{film.vote_average | roundedVote}}</h2>
+                </div>
                 <div class="text-card">
                     <h3 class="ms-4">{{film.title}}</h3>
                     <div class="detalles d-flex gap-4 ms-4 mb-3">
@@ -38,17 +41,21 @@
     <div class="scroll-lateral m-4">
 
         <div class="title">
-            <h1 class="text-white">Serie Trending</h1>
+            <h1 class="text-white">Series populares</h1>
         </div>
+        
         <div class="cards d-flex mt-4">
-            @for (film of listadoPeliculas; track film.id){
-            <div class="card" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(film?.poster_path || '') + ')'}">
+            @for (serie of listadoSeries; track serie.id){
+            <div class="card card-serie" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(serie?.poster_path || '') + ')'}">
+                <div class="valoracion-serie" [ngStyle]="getColor({ valoracion: serie.vote_average })">
+                    <h2 class="text-white">{{serie.vote_average | roundedVote}}</h2>
+                </div>
                 <div class="text-card">
-                    <h3 class="ms-4">{{film.title}}</h3>
+                    <h3 class="ms-4">{{serie.name}}</h3>
                     <div class="detalles d-flex gap-4 ms-4 mb-3">
-                        <p id="fecha">{{film.release_date}}</p>
+                        <p id="fecha">{{serie.first_air_date}}</p>
                         <p>|</p>
-                        <p id="tipo">porfavor</p>
+                        <p id="temporadas">{{serie.vote_average}}</p>
                     </div>
                 </div>
             </div>

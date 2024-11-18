@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Film } from '../../models/film.interface';
 import { ListService } from '../../services/list.service';
+import { Serie } from '../../models/serie.interface';
 
 @Component({
   selector: 'app-principal-menu',
@@ -11,15 +12,21 @@ export class PrincipalMenuComponent {
 
   listadoPeliculas: Film[] = [];
   peliculaMasPopular: Film | undefined
+  
+  listadoSeries: Serie[] = [];
 
   constructor(private movieService: ListService) { }
 
   ngOnInit(): void {
-    this.movieService.getMovies().subscribe((response) => {
+    this.movieService.getPopularMovies().subscribe((response) => {
       this.listadoPeliculas = response.results;
 
       this.movieService.getOneMovie(this.masPopular(this.listadoPeliculas)).subscribe((response) =>{
         this.peliculaMasPopular = response;
+      });
+
+      this.movieService.getPopularSeries().subscribe((response) => {
+        this.listadoSeries = response.results;
       });
       
     });
@@ -47,6 +54,9 @@ export class PrincipalMenuComponent {
     return id;
   }
 
+  getColor({ valoracion }: { valoracion: number }): { [key: string]: string } {
+    return this.movieService.getColorValoracion({ valoracion });
+  }
  
-
+ 
 }
