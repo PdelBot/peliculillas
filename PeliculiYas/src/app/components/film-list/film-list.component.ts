@@ -40,4 +40,19 @@ export class FilmListComponent implements OnInit {
       this.listadoPeliculas = response.results;
     });
   }
+
+  //Obtener generos
+  getGenreNames(genreIds: number[]): string[] {
+    return genreIds.map(id => this.filmService.getGenreName(id));
+  }
+
+  //Obtener el primer genero
+  getFirstGenreName(genreIds: number[]): string {
+    if (genreIds.length === 0) {
+      return 'Unknown';
+    }
+    return this.filmService.getGenreName(genreIds[0]);
+  }
+
+
 }

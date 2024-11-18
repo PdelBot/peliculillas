@@ -3,15 +3,14 @@
 <button (click)="getLastPage()">Anterior</button>
 <br>
 
-@for (film of listadoPeliculas; track film.id) {
+<div>
+    @for (film of listadoPeliculas; track film.id) {
 
-<img [src]="getFullImagePath(film.poster_path)" alt="img peli">
-<h1>{{film.title}}</h1>
+    <img [src]="getFullImagePath(film.poster_path)" alt="img peli">
+    <h1>{{film.title}}</h1>
 
-<!-- <ngb-rating [(rate)]="rating" />
-<hr />
-<pre>Rate: <b>{{ rating }}</b></pre>
- -->
-<p>{{film.vote_average}}</p>
+    <p>{{film.vote_average}}</p>
+    <p>Géneros: {{getGenreNames(film.genre_ids).join(', ')}}</p>
 
-}
+    }
+</div>
