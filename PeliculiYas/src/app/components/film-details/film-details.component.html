@@ -1,1 +1,9 @@
-<p>film-details works!</p>
+<h2>{{film?.original_title}}</h2>
+<p>{{film?.overview}}</p>
+<img [src]="getImgUrl(film?.poster_path || '')">
+<p> {{film?.vote_average}}</p>
+
+@for (credits of listCast ; track listCast.indexOf(credits)) {
+    
+    <p>{{credits.name}}</p>
+}

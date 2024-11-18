@@ -15,9 +15,15 @@ export class PeopleDetailsComponent implements OnInit {
 
   constructor(private detailsService: DetailsService) { }
   ngOnInit(): void {
-    const personId = 2888; // ID de la persona que quieres obtener
-    this.detailsService.getPeopleDetails(personId).subscribe(data => {
-      this.person = data;
+    const personId = 1428896;
+    this.detailsService.getPeopleDetails(personId, 'es-ES').subscribe(data => {
+      if (data.biography) {
+        this.person = data;
+      } else {
+        this.detailsService.getPeopleDetails(personId, 'en-US').subscribe(englishData => {
+          this.person = englishData;
+        });
+      }
     });
 
     this.detailsService.getPeopleCredits(personId).subscribe(data => {

@@ -1,18 +1,13 @@
 <h2>{{ person?.name }}</h2>
 <p>Birthday: {{ person?.birthday }}</p>
 <p>Biography: {{ person?.biography }}</p>
-<p>Place of Birth: {{ person?.place_of_birth }}</p>
-<p>Popularity: {{ person?.popularity }}</p>
 <img [src]="getImgUrl(person?.profile_path || '')">
 
 <div>
-    @for (credits of listCrew; track listCrew.indexOf(credits)) {
-    <p>{{credits.title}}</p>
-    }
-</div>
-
-<div>
     @for (credits of listCast; track listCast.indexOf(credits)) {
-    <p>{{credits.title}}</p>
+
+    <p >{{credits.original_title}}</p>
+    <img *ngIf="credits.original_title" [src]="getImgUrl(credits.poster_path || '')">
+
     }
 </div>
