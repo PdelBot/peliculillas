@@ -40,4 +40,12 @@ export class FilmListComponent implements OnInit {
       this.listadoPeliculas = response.results;
     });
   }
+
+  getOneGender() {
+    let genero = 0;
+    for (let i = 0; i < this.listadoPeliculas.length; i++) {
+      genero = this.listadoPeliculas[i].genre_ids[0];
+    }
+    return genero;
+  }
 }
