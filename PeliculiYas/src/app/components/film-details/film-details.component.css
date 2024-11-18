@@ -18,6 +18,13 @@
   margin-top: 0;
 }
 
+.guion {
+  margin-top: 1em;
+  background-color: white;
+  border-radius: 10px;
+  padding: 0.15rem;
+}
+
 /* Encabezado de la serie */
 .header {
   margin-top: 15px;
@@ -55,29 +62,9 @@
   color: #e0e0e0;
 }
 
-/* Botón de Trailer */
-.trailer-button {
-  margin-top: 1rem;
-  text-align: left;
-}
-
-.trailer-button button {
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
-  color: #ffffff;
-  background-color: #2c2e46;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.trailer-button button:hover {
-  background-color: #0c1674;
-}
-
 button {
-  position: relative;
+  margin-top: 1em;
+  position: center;
   font-size: 1.2em;
   padding: 0.7em 1.4em;
   background-color: #2637d4;
