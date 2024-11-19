@@ -1,3 +1,16 @@
+<h2>{{ person?.name }}</h2>
+<p>Birthday: {{ person?.birthday }}</p>
+<p>Biography: {{ person?.biography }}</p>
+<img [src]="getImgUrl(person?.profile_path || '')">
+
+<div>
+    @for (credits of listCast; track listCast.indexOf(credits)) {
+
+    <p >{{credits.original_title}}</p>
+    <img *ngIf="credits.original_title" [src]="getImgUrl(credits.poster_path || '')">
+
+    }
+</div>
 <div class="container">
     <div class="title1">
       <h2>NOMBRE DE LA PERSONA</h2>

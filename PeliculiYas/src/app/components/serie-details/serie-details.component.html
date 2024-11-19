@@ -1,3 +1,24 @@
+<h2>
+    {{ seriesDetails?.original_name }}
+</h2>
+
+<p>
+    {{seriesDetails?.overview}}
+</p>
+
+<p>
+    {{seriesDetails?.vote_average}}
+</p>
+
+<p>
+    {{seriesDetails?.first_air_date}}
+</p>
+
+<div>
+@for (season of seasons; track seasons.indexOf(season)) {
+    {{season.name}}
+}
+</div>
 <div class="container">
     <div class="title1">
         <h2>TITULO DE LA SERIE</h2>
