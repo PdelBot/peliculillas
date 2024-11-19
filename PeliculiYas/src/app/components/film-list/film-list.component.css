@@ -1,0 +1,75 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+.listado-pelis{
+    margin: 20px; 
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  
+    gap: 20px; 
+}
+
+.cards{
+    display: flex;
+    overflow-x: auto; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+    gap: 30px; 
+    padding: 10px; 
+}
+
+
+
+.card-serie{
+    min-width: 270px;
+    height: 250px;
+    border-radius: 10px;
+    justify-content: flex-end;
+}
+
+.text-card{
+    height: 110px;
+    background-color:rgba(255, 255, 255, 80%);
+    border-radius: 0px 0px 10px 10px / 0px 0px 10px 10px;
+    padding-top: 20px;
+}
+
+.text-card h3{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    font-size: clamp(18px, 1.2vw, 50px); /* Ajustar texto dinámicamente */
+    line-height: 1.2; /* Espaciado entre líneas */
+    word-wrap: break-word; /* Romper palabras largas */
+}
+
+
+
+.valoracion-serie{
+    width: 2.5em;
+    height: 2.5em;
+    text-align: center;
+    position: relative;
+    left: 80%;
+    bottom: 35%;
+    border-radius: 50%; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    color: white; 
+    font-size: 1em; 
+    opacity: 0.9;
+}
+
+.valoracion-serie h2{
+    font-size: 20px;
+}
+
+.paginacion{
+    border: 0;
+    background-color: #101223;
+    color: white;
+}
+
+.inicio{
+    position:absolute;
+    right: 75%;
+}

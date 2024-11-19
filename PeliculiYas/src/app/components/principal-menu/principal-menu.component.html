@@ -1,0 +1,67 @@
+<app-menu></app-menu>
+    
+    <div class="banner-home" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(peliculaMasPopular?.poster_path || '') + ')'}">
+        <div class="text">
+            <h1 class="ms-3">{{peliculaMasPopular?.title}}</h1>
+            <div class="detalles d-flex gap-4 ms-3">
+                <p id="fecha">{{peliculaMasPopular?.release_date}}</p>
+                <p>|</p>
+                <p id="tipo">porfavor</p>
+                <p>|</p>
+                <p id="temporadas">es urgente</p>
+            </div>
+            <button class="watch-now btn btn-primary align-items-center justify-content-beetwen ">Ver ahora</button>
+        </div>
+    </div>
+    
+    <div class="scroll-lateral m-4">
+
+        <div class="title d-flex row align-items-end">
+            <h1 class="text-white">Peliculas populares</h1>
+            <h4 class="ver-mas text-white d-flex justify-content-end pe-4"><a routerLink="/peliculas">+ ver más</a></h4>
+        </div>
+        <div class="cards d-flex mt-4">
+            @for (film of listadoPeliculas; track film.id){
+            <div class="card card-film" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(film?.poster_path || '') + ')'}">
+                <div class="valoracion-film" [ngStyle]="getColor({ valoracion: film.vote_average })">
+                    <h2 class="text-white">{{film.vote_average | roundedVote}}</h2>
+                </div>
+                <div class="text-card">
+                    <h3 class="ms-4">{{film.title}}</h3>
+                    <div class="detalles d-flex gap-4 ms-4 mb-3">
+                        <p id="fecha">{{film.release_date}}</p>
+                        <p>|</p>
+                        <p id="tipo">{{getFirstGenreName(film.genre_ids)}}</p>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+
+    <div class="scroll-lateral m-4">
+
+        <div class="title d-flex row align-items-end">
+            <h1 class="text-white">Series populares</h1>
+            <h4 class="ver-mas text-white d-flex justify-content-end pe-4"><a routerLink="/series">+ ver más</a></h4>
+        </div>
+        
+        <div class="cards d-flex mt-4">
+            @for (serie of listadoSeries; track serie.id){
+            <div class="card card-serie" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(serie?.poster_path || '') + ')'}">
+                <div class="valoracion-serie" [ngStyle]="getColor({ valoracion: serie.vote_average })">
+                    <h2 class="text-white">{{serie.vote_average | roundedVote}}</h2>
+                </div>
+                <div class="text-card">
+                    <h3 class="ms-4">{{serie.name}}</h3>
+                    <div class="detalles d-flex gap-4 ms-4 mb-3">
+                        <p id="fecha">{{serie.first_air_date}}</p>
+                        <p>|</p>
+                        <p id="temporadas">{{serie.vote_average}}</p>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+

@@ -1,0 +1,43 @@
+<div class="films d-flex row">
+
+    <app-menu-lateral class="col-2"></app-menu-lateral>
+    <div class="listado col-9">
+        <app-menu-list></app-menu-list>
+
+        <div class="listado-pelis">
+            @for (serie of listadoSeries; track serie.id) {
+                <a [routerLink]="['/series', serie.id]">
+                    
+                <div class="card card-serie" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(serie?.poster_path || '') + ')'}">
+                    <div class="valoracion-serie" [ngStyle]="getColor({ valoracion: serie.vote_average })">
+                        <h2 class="text-white">{{serie.vote_average | roundedVote}}</h2>
+                    </div>
+                    <div class="text-card">
+                        <h3 class="ms-4">{{serie.name}}</h3>
+                        <div class="detalles d-flex gap-4 ms-4 mb-3">
+                            <p id="fecha">{{serie.first_air_date}}</p>
+                            <p>|</p>
+                            <p id="temporadas"></p>
+                        </div>
+                    </div>
+                </div>
+                </a>
+            }
+        </div>
+        <div class="d-flex justify-content-center align-items-center gap-5">
+            @if(page>2){
+                <div class="inicio">
+                    <button class="paginacion" (click)="getPaginaUno()">Volver al inicio</button>
+                </div>
+            }
+            
+            @if(page > 1) {
+                <button class="paginacion" (click)="getLastPage()"><i class="bi bi-caret-left-fill"></i></button>
+                <button class="paginacion fs-3" (click)="getLastPage()">{{page-1}}</button>
+            }
+            <button class="paginacion fs-1">{{page}}</button>
+            <button class="paginacion fs-3" (click)="getNextPage()">{{page+1}}</button>
+            <button class="paginacion" (click)="getNextPage()"><i class="bi bi-caret-right-fill"></i></button>
+        </div>
+    </div>
+</div>
