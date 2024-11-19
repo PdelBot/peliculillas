@@ -41,11 +41,18 @@ export class FilmListComponent implements OnInit {
     });
   }
 
-  getOneGender() {
-    let genero = 0;
-    for (let i = 0; i < this.listadoPeliculas.length; i++) {
-      genero = this.listadoPeliculas[i].genre_ids[0];
-    }
-    return genero;
+  //Obtener generos
+  getGenreNames(genreIds: number[]): string[] {
+    return genreIds.map(id => this.filmService.getGenreName(id));
   }
+
+  //Obtener el primer genero
+  getFirstGenreName(genreIds: number[]): string {
+    if (genreIds.length === 0) {
+      return 'Unknown';
+    }
+    return this.filmService.getGenreName(genreIds[0]);
+  }
+
+
 }
