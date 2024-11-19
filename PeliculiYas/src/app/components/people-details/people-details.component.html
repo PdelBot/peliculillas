@@ -1,4 +1,5 @@
 <div class="container">
+  <app-menu-list></app-menu-list>
   <div class="title1">
     <h2>{{ person?.name }}</h2>
   </div>
@@ -23,11 +24,11 @@
       </div>
       }
     </div>
-  </div> -->    
+  </div> -->
 
   <div class="reparto-container">
     <div class="title2"> Reparto </div>
-    
+
     <div class="card-grid">
       @for (credits of listCast; track listCast.indexOf(credits)) {
       <div class="card" *ngIf="credits.poster_path && credits.original_title">
