@@ -8,6 +8,7 @@ import { SeasonDetailsResponse } from '../../models/season-details.interface';
   templateUrl: './serie-details.component.html',
   styleUrl: './serie-details.component.css'
 })
+<<<<<<< HEAD
 export class SerieDetailsComponent implements OnInit {
 
   seriesDetails: SerieDetaisResponse | undefined;
@@ -33,5 +34,8 @@ export class SerieDetailsComponent implements OnInit {
     });
 
   }
+=======
+export class SerieDetailsComponent {
+>>>>>>> MaquetacionDetalles
 
 }
