@@ -13,7 +13,8 @@ export class FilmDetailsComponent implements OnInit {
 
   film: FilmDetailsResponse | undefined;
   listCast: Cast[] = [];
-  listCrew: Crew[]= [];
+  listCrew: Crew[] = [];
+
 
   constructor(private detailsService: DetailsService) { }
 
@@ -21,12 +22,7 @@ export class FilmDetailsComponent implements OnInit {
     const filmId = 912649;
 
 
-    this.detailsService.getFilmCredits(filmId).subscribe(filmCreditsCast => {
-      this.listCast = filmCreditsCast.filmCast;
-      this.listCrew = filmCreditsCast.filmCrew;
-      console.log(this.listCast);
-    });
-
+    
     this.detailsService.getFilmdeatils(filmId, 'es-ES').subscribe(data => {
       if (data.overview) {
         this.film = data;
@@ -36,8 +32,13 @@ export class FilmDetailsComponent implements OnInit {
         });
       }
     });
+    
+    this.detailsService.getFilmCredits(filmId).subscribe(filmCreditsCast => {
+      this.listCast = filmCreditsCast.cast;
+   
 
-
+    });
+    
 
   }
 
