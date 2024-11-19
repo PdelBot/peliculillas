@@ -11,7 +11,11 @@ const ACCESS_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMjA0YWMyNTA4ZmFmYTllN2Y5Y
 })
 export class ListService {
 
-  constructor(private http: HttpClient) { }
+  private genres: { [id: number]: string } = {};
+
+  constructor(private http: HttpClient) { 
+    this.loadGenres();
+  }
 
   //Obtener peliculas
 
@@ -75,5 +79,21 @@ export class ListService {
       return { background: 'linear-gradient(-45deg, #fc00ff 0%, #00dbde 100%)' };
     } 
     return { background: 'linear-gradient(-45deg, #2bff00 0%, #00dbde 100%)' };
+  }
+
+  private loadGenres() {
+    this.http.get<{ genres: { id: number, name: string }[] }>('https://api.themoviedb.org/3/genre/movie/list?language=es-US', {
+      headers: {
+        'Authorization': `Bearer ${ACCESS_TOKEN}`,
+      }
+    }).subscribe(response => {
+      response.genres.forEach(genre => {
+        this.genres[genre.id] = genre.name;
+      });
+    });
+  }
+  //Obtener el nombre del genero
+  getGenreName(id: number): string {
+    return this.genres[id] || 'Unknown';
   }
 }

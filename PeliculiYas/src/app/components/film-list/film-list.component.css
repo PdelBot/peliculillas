@@ -36,7 +36,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
-    font-size: clamp(20px, 1.5vw, 50px); /* Ajustar texto dinámicamente */
+    font-size: clamp(18px, 1.2vw, 50px); /* Ajustar texto dinámicamente */
     line-height: 1.2; /* Espaciado entre líneas */
     word-wrap: break-word; /* Romper palabras largas */
 }
@@ -48,8 +48,8 @@
     height: 2.5em;
     text-align: center;
     position: relative;
-    left: 220px;
-    bottom: 90px;
+    left: 80%;
+    bottom: 35%;
     border-radius: 50%; 
     display: flex;
     align-items: center; 

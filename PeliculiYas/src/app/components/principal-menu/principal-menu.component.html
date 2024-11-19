@@ -1,6 +1,6 @@
 <app-menu></app-menu>
     
-    <div class="banner w-0 bg-white" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(peliculaMasPopular?.poster_path || '') + ')'}">
+    <div class="banner-home" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(peliculaMasPopular?.poster_path || '') + ')'}">
         <div class="text">
             <h1 class="ms-3">{{peliculaMasPopular?.title}}</h1>
             <div class="detalles d-flex gap-4 ms-3">
@@ -30,7 +30,7 @@
                     <div class="detalles d-flex gap-4 ms-4 mb-3">
                         <p id="fecha">{{film.release_date}}</p>
                         <p>|</p>
-                        <p id="tipo">porfavor</p>
+                        <p id="tipo">{{getFirstGenreName(film.genre_ids)}}</p>
                     </div>
                 </div>
             </div>

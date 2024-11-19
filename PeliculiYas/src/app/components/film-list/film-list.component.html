@@ -28,7 +28,7 @@
                         <div class="detalles d-flex gap-4 ms-4 mb-3">
                             <p id="fecha">{{peli.release_date}}</p>
                             <p>|</p>
-                            <p id="temporadas">{{peli.vote_average}}</p>
+                            <p id="temporadas">{{getFirstGenreName(peli.genre_ids)}}</p>
                         </div>
                     </div>
                 </div>

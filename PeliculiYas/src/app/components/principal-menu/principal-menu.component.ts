@@ -58,5 +58,16 @@ export class PrincipalMenuComponent {
     return this.movieService.getColorValoracion({ valoracion });
   }
  
+  getGenreNames(genreIds: number[]): string[] {
+    return genreIds.map(id => this.movieService.getGenreName(id));
+  }
+
+  //Obtener el primer genero
+  getFirstGenreName(genreIds: number[]): string {
+    if (genreIds.length === 0) {
+      return 'Unknown';
+    }
+    return this.movieService.getGenreName(genreIds[0]);
+  }
  
 }
