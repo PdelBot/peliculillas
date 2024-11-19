@@ -7,10 +7,41 @@
       <img [src]="getImgUrl(film?.poster_path || '')" alt="NOMBRE">
     </div>
     <div class="description">
-      <p>{{film?.overview}}
-      </p>
+      <p class="title1">{{film?.tagline}}</p>
+      <div>
+        <div>
+          <p>{{film?.overview}}</p>
+        </div>
+        <div>
+          <p><strong> Duración: {{film?.runtime}} min </strong></p>
+        </div>
+
+        <div>
+          <p><strong> Lanzamiento: {{film?.release_date}} </strong></p>
+        </div>
+
+        <div>
+          <p><strong>  Calificación: ({{ film?.vote_average }} / 10) </strong> <ngb-rating class="amarillo" [(rate)]="rating" [max]="5" [readonly]="true"></ngb-rating> </p>       
+          
+          
+        </div>
+
+      
+      
+      </div>
+      
     </div>
+
   </div>
+  <div>
+    @for (item of film?.genres; track $index) {
+    <div class="badge" href="#">
+      {{item.name}}
+      <span></span>
+    </div>
+    }
+  </div>
+
 
   <button class="button" (click)="watchTrailer()">Ver Trailer</button>
 
@@ -19,13 +50,9 @@
 
   <!-- Sección del reparto -->
   <div class="reparto-container">
+    <div class="title2"> Reparto </div>
     <div class="card-grid">
-      <!-- @for (credits of listCast ; track listCast.indexOf(credits)) {
-
-        <img [src]="getImgUrl(credits?.profile_path || '')">
-        <p>{{credits.name}}</p>
-
-        } -->
+      
       @for (credits of listCast; track listCast.indexOf(credits)) {
 
       <div class="card" *ngIf="credits.profile_path && credits.name">

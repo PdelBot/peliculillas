@@ -18,38 +18,48 @@
   padding: 20px;
   margin-top: 0;
 }
-
-.header {
+/* Encabezado de la serie */
+.header { 
   margin-top: 15px;
   display: flex;
   gap: 1rem;
   align-items: flex-start;
 }
 
-.title1 {
-  margin-top: 0%;
-  background-color: #20283E;
-  border-radius: 10px;
-  padding: 0.25rem;
-  width: 700px;
-}
-.title1 h2 {
-  margin-left: 20px; /* Ajusta el valor según tus necesidades */
-}
-
 .header h2 {
   font-size: 2rem;
   margin: 0;
-  
+}
+
+.title1 {
+  margin-top: 0%;
+  background-color: #2c2e46;
+  border-radius: 10px;
+  padding: 0.25rem 1rem; /* Espaciado interno para que el fondo sea visible */
+  display: inline-block; /* Permite que el ancho se ajuste al contenido */
+  text-align: center; /* Centra el texto dentro del contenedor */
+}
+
+.title1 h2 {
+  margin: 0; /* Elimina margen para alinearlo correctamente */
+}
+
+
+.title2 {
+  text-align: center;
+  margin: 1em auto;
+  background-color: #2c2e46;
+  border-radius: 1em;
+  padding: 0.25rem;
+  width: 5%;
 }
 
 .image img {
-  width: 325px;
+  width: 405px;
   height: auto;
   border-radius: 5px;
   margin-right: 50px;
 }
-
 .description {
   color: #cccccc;
 }

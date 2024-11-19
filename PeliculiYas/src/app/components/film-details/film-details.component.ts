@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DetailsService } from '../../services/details.service';
 import { FilmDetailsResponse } from '../../models/film-details.interface';
 import { Cast, Crew } from '../../models/film-credits.interface';
@@ -13,11 +13,13 @@ import { TrailerDetailsResponse } from '../../models/trailer-details.interface';
 })
 export class FilmDetailsComponent implements OnInit {
   trailerUrl: SafeResourceUrl | null = null;
+  
 
   trailer: TrailerDetailsResponse | undefined;
   film: FilmDetailsResponse | undefined;
   listCast: Cast[] = [];
   listCrew: Crew[] = [];
+  rating: number = 0; 
 
 
   constructor(private detailsService: DetailsService, private sanitizer: DomSanitizer) { }
@@ -30,6 +32,7 @@ export class FilmDetailsComponent implements OnInit {
     this.detailsService.getFilmdeatils(filmId, 'es-ES').subscribe(data => {
       if (data.overview) {
         this.film = data;
+        this.rating = (this.film.vote_average || 0) / 2; 
       } else {
         this.detailsService.getFilmdeatils(filmId, 'en-US').subscribe(englishData => {
           this.film = englishData;
@@ -68,6 +71,9 @@ export class FilmDetailsComponent implements OnInit {
     return `${baseUrl}${path}`;
   }
 
+
+  
+  
 
 }
 

@@ -33,22 +33,34 @@
     <div class="image">
       <img [src]="getImgUrl(seriesDetails?.poster_path || '')" alt="">
     </div>
-    <div class="description">
-      <p> {{seriesDetails?.overview}}</p>
+    <div>
+      <p class="title1" *ngIf="seriesDetails?.tagline">{{ seriesDetails?.tagline }}</p>
+      <div>
+        <p>{{seriesDetails?.overview}}</p>
+      </div>
+
+      <div>
+        <p><strong> Lanzamiento: {{seriesDetails?.first_air_date}} </strong></p>
+      </div>
+
+      <div>
+        <p><strong>  Calificación: ({{ seriesDetails?.vote_average }} / 10) </strong> <ngb-rating class="amarillo" [(rate)]="rating" [max]="5" [readonly]="true"></ngb-rating> </p>       
+      </div>
+
+    
+    
     </div>
-  </div>
-  <div class="description">
-    <p> {{seriesDetails?.vote_average}}</p>
-  </div>
-  <div class="description">
-    @for (genre of seriesDetails?.genres; track $index) {
-    <p>{{genre.name}}</p>
-    }
-  </div>
-  <div class="description">
-    <p>{{seriesDetails?.first_air_date}}</p>
+    
   </div>
 
+<div>
+  @for (item of seriesDetails?.genres; track $index) {
+  <div class="badge" href="#">
+    {{item.name}}
+    <span></span>
+  </div>
+  }
+</div>
   <hr class="guion">
 
 
@@ -128,4 +140,3 @@
       </div>
     </div>
   </div>
-</div>

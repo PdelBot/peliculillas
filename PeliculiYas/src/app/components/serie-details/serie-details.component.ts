@@ -14,6 +14,8 @@ export class SerieDetailsComponent implements OnInit {
   seasonsId: Season[] = [];
   seasons: SeasonDetailsResponse[] = [];  
   selectedSeason: SeasonDetailsResponse | undefined;
+  rating: number = 0; 
+
 
 
   constructor(private detailsService: DetailsService) { }
@@ -25,6 +27,7 @@ export class SerieDetailsComponent implements OnInit {
         this.seriesDetails = data;
         this.seasonsId = data.seasons;
         this.loadSeasons(124364, this.seasonsId);
+        this.rating = (this.seriesDetails.vote_average || 0) / 2; 
       } else {
         this.detailsService.getSeriesDetails(124364, 'en-US').subscribe(englishData => {
           this.seriesDetails = englishData;
