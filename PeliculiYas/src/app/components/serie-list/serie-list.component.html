@@ -1,1 +1,25 @@
-<p>serie-list works!</p>
+<div class="films d-flex row">
+
+    <app-menu-lateral class="col-2"></app-menu-lateral>
+    <div class="listado col-9">
+        <app-menu-list></app-menu-list>
+
+        <div class="listado-pelis">
+            @for (serie of listadoSeries; track serie.id) {
+                <div class="card card-serie" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(serie?.poster_path || '') + ')'}">
+                    <div class="valoracion-serie" [ngStyle]="getColor({ valoracion: serie.vote_average })">
+                        <h2 class="text-white">{{serie.vote_average | roundedVote}}</h2>
+                    </div>
+                    <div class="text-card">
+                        <h3 class="ms-4">{{serie.name}}</h3>
+                        <div class="detalles d-flex gap-4 ms-4 mb-3">
+                            <p id="fecha">{{serie.first_air_date}}</p>
+                            <p>|</p>
+                            <p id="temporadas"></p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

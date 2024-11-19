@@ -39,4 +39,8 @@ export class SerieListComponent {
       this.listadoSeries = response.results;
     });
   }
+
+  getColor({ valoracion }: { valoracion: number }): { [key: string]: string } {
+    return this.serieService.getColorValoracion({ valoracion });
+  }
 }

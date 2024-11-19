@@ -15,17 +15,17 @@ export class PrincipalMenuComponent {
   
   listadoSeries: Serie[] = [];
 
-  constructor(private movieService: ListService) { }
+  constructor(private filmService: ListService) { }
 
   ngOnInit(): void {
-    this.movieService.getPopularMovies().subscribe((response) => {
+    this.filmService.getPopularFilm().subscribe((response) => {
       this.listadoPeliculas = response.results;
 
-      this.movieService.getOneMovie(this.masPopular(this.listadoPeliculas)).subscribe((response) =>{
+      this.filmService.getOneFilm(this.masPopular(this.listadoPeliculas)).subscribe((response) =>{
         this.peliculaMasPopular = response;
       });
 
-      this.movieService.getPopularSeries().subscribe((response) => {
+      this.filmService.getPopularSeries().subscribe((response) => {
         this.listadoSeries = response.results;
       });
       
@@ -55,11 +55,11 @@ export class PrincipalMenuComponent {
   }
 
   getColor({ valoracion }: { valoracion: number }): { [key: string]: string } {
-    return this.movieService.getColorValoracion({ valoracion });
+    return this.filmService.getColorValoracion({ valoracion });
   }
  
   getGenreNames(genreIds: number[]): string[] {
-    return genreIds.map(id => this.movieService.getGenreName(id));
+    return genreIds.map(id => this.filmService.getGenreName(id));
   }
 
   //Obtener el primer genero
@@ -67,7 +67,7 @@ export class PrincipalMenuComponent {
     if (genreIds.length === 0) {
       return 'Unknown';
     }
-    return this.movieService.getGenreName(genreIds[0]);
+    return this.filmService.getGenreName(genreIds[0]);
   }
  
 }

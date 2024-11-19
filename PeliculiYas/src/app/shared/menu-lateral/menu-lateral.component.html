@@ -1,15 +1,21 @@
 <div class="menu-lateral" [ngStyle]="{'height': altura+ 'px'}">
-    <div class="titulo d-flex align-items-flex justify-content-center text-white">
-        
-        <div class="text d-flex gap-0 align-items-end justify-content-center mb-4">
-            <h2 class="text-white mb-1 fs-3">Peliculi</h2>
-            <h1 class="text-danger mb-0">Ya!</h1>
-        </div>
+    <div class="titulo d-flex align-items-center justify-content-center text-white">
+        <a href="https://imgbb.com/"><img class="logo"
+                src="https://i.ibb.co/3hhHdyH/Peliculillas-removebg-preview-1.png"
+                alt="Peliculillas-removebg-preview-1"></a><br /><a target='_blank'
+            href='https://es.imgbb.com/'></a><br />
+        <a routerLink="/principal">
+            <div class="text d-flex gap-0 align-items-end justify-content-center mb-4">
+                <h2 class="text-white mb-1 fs-3">Peliculi</h2>
+                <h1 class="text-danger mb-0">Ya!</h1>
+            </div>
+        </a>
+
     </div>
     <div class="menu d-flex row align-items-flex justify-content-start text-white gap-4">
         <div class="home d-flex gap-2 align-items-center justify-content-center">
             <i class="bi bi-house-door-fill"></i>
-            <p class="mb-0">Página principal</p>
+            <p class="mb-0"><a routerLink="/principal">Página principal</a></p>
         </div>
         <div class="trending d-flex row gap-2 align-items-center justify-content-center">
             <div class="button d-flex align-items-center justify-content-center gap-0">
@@ -19,8 +25,8 @@
 
             <div class="desplegable d-flex column">
                 <div *ngIf="isOpen" class="open d-flex row align-items-center justify-content-center">
-                    <p>Peliculas</p>
-                    <p>Series</p>
+                    <p> <a routerLink="/peliculas"> Peliculas</a></p>
+                    <p> <a routerLink="/series">Series</a></p>
                 </div>
             </div>
         </div>

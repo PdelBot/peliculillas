@@ -1,22 +1,8 @@
-
-
 <div class="films d-flex row">
 
     <app-menu-lateral class="col-2"></app-menu-lateral>
     <div class="listado col-9">
-        <div class="menu d-flex justify-content-between">
-            <div class="left-menu d-flex gap-4 text-white fs-4 mt-4 ms-4">
-                <p>Peliculas</p>
-                <p>Series</p>
-                <p>Actores</p>
-            </div>
-            <div class="right-menu d-flex gap-4 text-white fs-4 mt-4 ms-4">
-                <i class="bi bi-search"></i>
-                <i class="bi bi-bell-fill"></i>
-                <i class="bi bi-circle-fill"></i>
-                <p>Jei el</p>
-            </div>
-        </div>
+        <app-menu-list></app-menu-list>
         <div class="listado-pelis">
             @for (peli of listadoPeliculas; track peli.id) {
                 <div class="card card-serie" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(peli?.poster_path || '') + ')'}">

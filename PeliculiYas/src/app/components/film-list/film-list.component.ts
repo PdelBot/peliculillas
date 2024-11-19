@@ -12,10 +12,10 @@ export class FilmListComponent implements OnInit {
   num = 1;
   listadoPeliculas: Film[] = [];
 
-  constructor(private movieService : ListService){};
+  constructor(private filmService : ListService){};
   
   ngOnInit(): void {
-    this.movieService.getPopularMovies().subscribe((response) =>
+    this.filmService.getPopularFilm().subscribe((response) =>
     {
       this.listadoPeliculas= response.results;
     })
@@ -29,7 +29,7 @@ export class FilmListComponent implements OnInit {
   getNextPage() {
     this.num += 1;
     this.listadoPeliculas = [];
-    this.movieService.getFilmPage(this.num).subscribe((response) => {
+    this.filmService.getFilmPage(this.num).subscribe((response) => {
       this.listadoPeliculas = response.results;
     });
   }
@@ -37,17 +37,17 @@ export class FilmListComponent implements OnInit {
   getLastPage() {
     this.num -= 1;
     this.listadoPeliculas = [];
-    this.movieService.getFilmPage(this.num).subscribe((response) => {
+    this.filmService.getFilmPage(this.num).subscribe((response) => {
       this.listadoPeliculas = response.results;
     });
   }
 
   getColor({ valoracion }: { valoracion: number }): { [key: string]: string } {
-    return this.movieService.getColorValoracion({ valoracion });
+    return this.filmService.getColorValoracion({ valoracion });
   }
 
   getGenreNames(genreIds: number[]): string[] {
-    return genreIds.map(id => this.movieService.getGenreName(id));
+    return genreIds.map(id => this.filmService.getGenreName(id));
   }
 
   //Obtener el primer genero
@@ -55,7 +55,7 @@ export class FilmListComponent implements OnInit {
     if (genreIds.length === 0) {
       return 'Unknown';
     }
-    return this.movieService.getGenreName(genreIds[0]);
+    return this.filmService.getGenreName(genreIds[0]);
   }
 
 }

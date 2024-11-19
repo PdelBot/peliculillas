@@ -13,6 +13,8 @@ import { RoundedVotePipe } from './pipes/rounded-vote.pipe';
 import { FooterComponent } from './shared/footer/footer.component';
 import { MenuLateralComponent } from './shared/menu-lateral/menu-lateral.component';
 import { FilmListComponent } from './components/film-list/film-list.component';
+import { PeopleListComponent } from './components/people-list/people-list.component';
+import { MenuListComponent } from './shared/menu-list/menu-list.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { FilmListComponent } from './components/film-list/film-list.component';
     RoundedVotePipe,
     FooterComponent,
     MenuLateralComponent,
-    FilmListComponent
+    FilmListComponent,
+    PeopleListComponent,
+    MenuListComponent
   ],
   imports: [
     BrowserModule,

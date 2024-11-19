@@ -1,0 +1,19 @@
+<div class="actors d-flex row">
+
+    <app-menu-lateral class="col-2"></app-menu-lateral>
+    <div class="listado col-9">
+        <app-menu-list></app-menu-list>
+        <div class="listado-pelis">
+            @for (actor of listadoActores; track actor.id){
+                <div class="card card-actor" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(actor?.profile_path || '') + ')'}">
+                    <div class="text-card">
+                        <h3 class="ms-4">{{actor.name}}</h3>
+                        <div class="detalles d-flex gap-4 ms-4 mb-3">
+                            <p id="gender"></p>
+                        </div>
+                    </div>
+                </div>
+                }
+        </div>
+    </div>
+</div>
