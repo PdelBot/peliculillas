@@ -21,5 +21,20 @@
                 </div>
             }
         </div>
+        <div class="d-flex justify-content-center align-items-center gap-5">
+            @if(page>2){
+                <div class="inicio">
+                    <button class="paginacion" (click)="getPaginaUno()">Volver al inicio</button>
+                </div>
+            }
+            
+            @if(page > 1) {
+                <button class="paginacion" (click)="getLastPage()"><i class="bi bi-caret-left-fill"></i></button>
+                <button class="paginacion fs-3" (click)="getLastPage()">{{page-1}}</button>
+            }
+            <button class="paginacion fs-1">{{page}}</button>
+            <button class="paginacion fs-3" (click)="getNextPage()">{{page+1}}</button>
+            <button class="paginacion" (click)="getNextPage()"><i class="bi bi-caret-right-fill"></i></button>
+        </div>
     </div>
 </div>

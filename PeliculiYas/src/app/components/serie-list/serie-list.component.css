@@ -62,3 +62,14 @@
 .valoracion-serie h2{
     font-size: 20px;
 }
+
+.paginacion{
+    border: 0;
+    background-color: #101223;
+    color: white;
+}
+
+.inicio{
+    position:absolute;
+    right: 75%;
+}

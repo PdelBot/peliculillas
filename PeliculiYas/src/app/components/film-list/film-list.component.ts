@@ -9,7 +9,8 @@ import { Film } from '../../models/film.interface';
 })
 export class FilmListComponent implements OnInit {
 
-  num = 1;
+
+  page = 1;
   listadoPeliculas: Film[] = [];
 
   constructor(private filmService : ListService){};
@@ -26,18 +27,23 @@ export class FilmListComponent implements OnInit {
     return `${baseUrl}${posterPath}`;
   }
 
+  getPaginaUno() {
+    this.page = 1;
+    this.filmService.getFilmPage(this.page).subscribe((response) => {
+      this.listadoPeliculas = response.results;
+    });
+    }
+
   getNextPage() {
-    this.num += 1;
-    this.listadoPeliculas = [];
-    this.filmService.getFilmPage(this.num).subscribe((response) => {
+    this.page += 1;
+    this.filmService.getFilmPage(this.page).subscribe((response) => {
       this.listadoPeliculas = response.results;
     });
   }
 
   getLastPage() {
-    this.num -= 1;
-    this.listadoPeliculas = [];
-    this.filmService.getFilmPage(this.num).subscribe((response) => {
+    this.page -= 1;
+    this.filmService.getFilmPage(this.page).subscribe((response) => {
       this.listadoPeliculas = response.results;
     });
   }

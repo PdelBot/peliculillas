@@ -10,7 +10,7 @@ import { ListService } from '../../services/list.service';
 export class PeopleListComponent {
 
   listadoActores: Actor[] = [];
-  num: number = 1;
+  page: number = 1;
 
   
 
@@ -26,17 +26,22 @@ export class PeopleListComponent {
     return `${baseUrl}${posterPath}`;
   }
 
+  getPaginaUno() {
+    this.page = 1;
+    this.peopleService.getActorPage(this.page).subscribe((response) => {
+      this.listadoActores = response.results;
+    });
+  }
+
   getNextPage() {
-    this.num += 1;
-    this.listadoActores = [];
-    this.peopleService.getActorPage(this.num).subscribe((response) => {
+    this.page += 1;
+    this.peopleService.getActorPage(this.page).subscribe((response) => {
       this.listadoActores = response.results;
     });
   }
   getLastPage() {
-    this.num -= 1;
-    this.listadoActores = [];
-    this.peopleService.getActorPage(this.num).subscribe((response) => {
+    this.page -= 1;
+    this.peopleService.getActorPage(this.page).subscribe((response) => {
       this.listadoActores = response.results;
     });
   }

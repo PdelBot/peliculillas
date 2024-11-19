@@ -8,8 +8,9 @@ import { Serie } from '../../models/serie.interface';
   styleUrl: './serie-list.component.css'
 })
 export class SerieListComponent {
+
   listadoSeries: Serie[] = [];
-  num: number = 1;
+  page: number = 1;
 
   
 
@@ -25,17 +26,22 @@ export class SerieListComponent {
     return `${baseUrl}${posterPath}`;
   }
 
+  getPaginaUno() {
+    this.page = 1;
+    this.serieService.getSeriesPage(this.page).subscribe((response) => {
+      this.listadoSeries = response.results;
+    });
+    }
+
   getNextPage() {
-    this.num += 1;
-    this.listadoSeries = [];
-    this.serieService.getSeriesPage(this.num).subscribe((response) => {
+    this.page += 1;
+    this.serieService.getSeriesPage(this.page).subscribe((response) => {
       this.listadoSeries = response.results;
     });
   }
   getLastPage() {
-    this.num -= 1;
-    this.listadoSeries = [];
-    this.serieService.getSeriesPage(this.num).subscribe((response) => {
+    this.page -= 1;
+    this.serieService.getSeriesPage(this.page).subscribe((response) => {
       this.listadoSeries = response.results;
     });
   }

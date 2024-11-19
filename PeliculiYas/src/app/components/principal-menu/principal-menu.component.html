@@ -18,7 +18,7 @@
 
         <div class="title d-flex row align-items-end">
             <h1 class="text-white">Peliculas populares</h1>
-            <h4 class="ver-mas text-white d-flex justify-content-end pe-4">+ ver más</h4>
+            <h4 class="ver-mas text-white d-flex justify-content-end pe-4"><a routerLink="/peliculas">+ ver más</a></h4>
         </div>
         <div class="cards d-flex mt-4">
             @for (film of listadoPeliculas; track film.id){
@@ -43,7 +43,7 @@
 
         <div class="title d-flex row align-items-end">
             <h1 class="text-white">Series populares</h1>
-            <h4 class="ver-mas text-white d-flex justify-content-end pe-4">+ ver más</h4>
+            <h4 class="ver-mas text-white d-flex justify-content-end pe-4"><a routerLink="/series">+ ver más</a></h4>
         </div>
         
         <div class="cards d-flex mt-4">

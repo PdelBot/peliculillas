@@ -27,7 +27,7 @@ import { MenuListComponent } from './shared/menu-list/menu-list.component';
     MenuLateralComponent,
     FilmListComponent,
     PeopleListComponent,
-    MenuListComponent
+    MenuListComponent,
   ],
   imports: [
     BrowserModule,
