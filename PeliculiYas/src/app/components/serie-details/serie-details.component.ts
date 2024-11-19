@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DetailsService } from '../../services/details.service';
-import { SerieDetaisResponse } from '../../models/series-details.interface';
+import { Season, SerieDetaisResponse } from '../../models/series-details.interface';
 import { SeasonDetailsResponse } from '../../models/season-details.interface';
 
 @Component({
@@ -8,11 +8,12 @@ import { SeasonDetailsResponse } from '../../models/season-details.interface';
   templateUrl: './serie-details.component.html',
   styleUrl: './serie-details.component.css'
 })
-<<<<<<< HEAD
 export class SerieDetailsComponent implements OnInit {
 
   seriesDetails: SerieDetaisResponse | undefined;
-  seasons: SeasonDetailsResponse[] = [];
+  seasonsId: Season[] = [];
+  seasons: SeasonDetailsResponse[] = [];  
+  selectedSeason: SeasonDetailsResponse | undefined;
 
 
   constructor(private detailsService: DetailsService) { }
@@ -22,20 +23,36 @@ export class SerieDetailsComponent implements OnInit {
     this.detailsService.getSeriesDetails(124364, 'es-ES').subscribe(data => {
       if (data.overview) {
         this.seriesDetails = data;
+        this.seasonsId = data.seasons;
+        this.loadSeasons(124364, this.seasonsId);
       } else {
         this.detailsService.getSeriesDetails(124364, 'en-US').subscribe(englishData => {
           this.seriesDetails = englishData;
+          this.seasonsId = englishData.seasons;
+          this.loadSeasons(124364, this.seasonsId);
         });
       }
     });
 
-    this.detailsService.getSeasonDetails(124364, 1, 'es-ES').subscribe(data => {
-      this.seasons.push(data);
-    });
 
   }
-=======
-export class SerieDetailsComponent {
->>>>>>> MaquetacionDetalles
+
+  loadSeasons (serieId:number, seasons: Season[]):void{
+    seasons.forEach(season => {
+      this.detailsService.getSeasonDetails(serieId, season.season_number, 'es-ES').subscribe(data => {
+        this.seasons.push(data);
+      });
+    });
+  }
+
+  selectSeason(event: Event, season: SeasonDetailsResponse): void {
+    event.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
+    this.selectedSeason = season;
+  }
+
+  getImgUrl(path: string): string {
+    const baseUrl = 'https://image.tmdb.org/t/p/w500';
+    return `${baseUrl}${path}`;
+  }
 
 }

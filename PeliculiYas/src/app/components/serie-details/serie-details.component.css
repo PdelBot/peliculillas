@@ -1,6 +1,5 @@
 
 
-/* Fondo de pantalla completo */
 :host {
     display: flex;
     justify-content: center;
@@ -12,14 +11,12 @@
     font-family: Arial, sans-serif;
   }
   
-  /* Contenedor principal */
   .container {
     width: 90%;
     max-width: 2000px;
     padding: 20px;
   }
   
-  /* Encabezado de la serie */
   .header {
     margin-top: 15px;
     display: flex;
@@ -56,7 +53,6 @@
     color: #e0e0e0;
   }
   
-  /* Temporadas */
   .seasons {
     margin-top: 2rem;
     background-color: #1c1e2f;
@@ -76,7 +72,6 @@
     padding: 0.15rem;
   }
   
-  /* Tarjeta de Episodio */
   .episode-card {
     display: flex;
     align-items: center;

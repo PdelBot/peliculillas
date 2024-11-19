@@ -1,43 +1,48 @@
-<h2>
-    {{ seriesDetails?.original_name }}
-</h2>
-
-<p>
-    {{seriesDetails?.overview}}
+<!-- <p>
+  {{seriesDetails?.vote_average}}
 </p>
 
 <p>
-    {{seriesDetails?.vote_average}}
-</p>
-
-<p>
-    {{seriesDetails?.first_air_date}}
+  {{seriesDetails?.first_air_date}}
 </p>
 
 <div>
-@for (season of seasons; track seasons.indexOf(season)) {
-    {{season.name}}
-}
-</div>
+  @for (season of seasons; track seasons.indexOf(season)) {
+  {{season.name}}
+  @for (episodes of season.episodes; track $index) {
+  <p> {{episodes.name}} </p>
+  <img [src]="getImgUrl(episodes.still_path)" alt="">
+  <p>{{episodes.overview}}</p>
+
+
+  }
+  }
+
+  @for (seasonNumber of seasonsId; track $index) {
+    {{seasonNumber.season_number}}
+  }
+  @for (genre of seriesDetails?.genres; track $index) {
+  <p>{{genre.name}}</p>
+  }
+  </div> -->
 <div class="container">
-    <div class="title1">
-        <h2>TITULO DE LA SERIE</h2>
+  <div class="title1">
+    <h2> {{ seriesDetails?.original_name }} </h2>
+  </div>
+  <div class="header">
+    <div class="image">
+      <img [src]="getImgUrl(seriesDetails?.poster_path || '')" alt="">
     </div>
-    <div class="header">
-      <div class="image">
-        <img src="https://i.ytimg.com/vi/QqjnlQ55Jnw/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBrJedK__03bPTySvwlDVPeX3R3iw" alt="Saul Image">
-      </div>
-      <div class="description">
-        <p class="title">EL OTRO TITULILLO (SI NO TIENE NADA LA API QUITALE ESTO)</p>
-        <p>DESCRIPCIÓN DE LA SERIEEEEEE</p>
-      </div>
+    <div class="description">
+      <p> {{seriesDetails?.overview}}</p>
     </div>
-  
-    <hr class="guion">
+  </div>
+
+  <hr class="guion">
 
 
-    <!-- Temporadas y Episodios -->
-    <div class="seasons">
+  <!-- Temporadas y Episodios -->
+  <!-- <div class="seasons">
       <h3>Temporada 1</h3>
       <div class="episode-card">
         <div class="episode-thumbnail">
@@ -83,5 +88,32 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+
+  <div *ngIf="seasons.length > 0">
+    <h3>Seasons</h3>
+    <ul class="nav justify-content-center">
+      <li class="nav-item" *ngFor="let season of seasons">
+        <a class="nav-link" href="#" (click)="selectSeason($event, season)">
+          Season {{ season.season_number }}
+        </a>
+      </li>
+    </ul>
   
+    <div *ngIf="selectedSeason">
+     
+      <div *ngIf="selectedSeason.episodes.length > 0">
+        <h5>Episodes</h5>
+        <div *ngFor="let episode of selectedSeason.episodes" class="episode-card">
+          <div class="episode-thumbnail">
+            <img *ngIf="episode.still_path" [src]="getImgUrl(episode.still_path)" alt="{{ episode.name }}">
+          </div>
+          <div class="episode-info">
+            <h6>{{ episode.episode_number }}. {{ episode.name }}</h6>
+            <span>{{ episode.air_date }} | {{ episode.runtime }} minutes</span>
+            <p>{{ episode.overview }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
