@@ -1,0 +1,287 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1e1e1e;
+  color: #ffffff;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Contenedor principal */
+.container {
+  width: 90%;
+  max-width: 2000px;
+  padding: 20px;
+  margin-top: 0;
+}
+
+.guion {
+  margin-top: 1em;
+  background-color: white;
+  border-radius: 10px;
+  padding: 0.15rem;
+}
+
+/* Encabezado de la serie */
+.header { 
+  margin-top: 15px;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.header h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.title1 {
+  margin-top: 0%;
+  background-color: #2c2e46;
+  border-radius: 10px;
+  padding: 0.25rem 1rem; /* Espaciado interno para que el fondo sea visible */
+  display: inline-block; /* Permite que el ancho se ajuste al contenido */
+  text-align: center; /* Centra el texto dentro del contenedor */
+}
+
+.title1 h2 {
+  margin: 0; /* Elimina margen para alinearlo correctamente */
+}
+
+
+.title2 {
+  text-align: center;
+  margin: 1em auto;
+  background-color: #2c2e46;
+  border-radius: 1em;
+  padding: 0.25rem;
+  width: 5%;
+}
+
+.image img {
+  width: 405px;
+  height: auto;
+  border-radius: 5px;
+  margin-right: 50px;
+}
+
+.description {
+  color: #cccccc;
+}
+
+.description .title {
+  font-weight: bold;
+  color: #e0e0e0;
+}
+
+button {
+  margin-top: 1em;
+  position: relative;
+  font-size: 1.2em;
+  padding: 0.7em 1.4em;
+  background-color: #2637d4;
+  text-decoration: none;
+  border: none;
+  border-radius: 0.5em;
+  color: #dedede;
+  box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.3);
+}
+
+button::before {
+  position: absolute;
+  content: '';
+  height: 0;
+  width: 0;
+  top: 0;
+  left: 0;
+  background: linear-gradient(
+    135deg,
+    rgb(255, 255, 255) 0%,
+    #2c2e46 50%,
+    rgb(48, 2, 255) 50%,
+    rgb(6, 3, 187) 60%
+  );
+  border-radius: 0 0 0.5em 0;
+  box-shadow: 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.3);
+  transition: 0.3s;
+}
+
+button:hover::before {
+  width: 1.6em;
+  height: 1.6em;
+}
+
+button:active {
+  box-shadow: 0.2em 0.2em 0.3em rgba(0, 0, 0, 0.3);
+  transform: translate(0.1em, 0.1em);
+}
+
+/* Diseño del reparto */
+
+
+.reparto-container {
+  margin-top: 30px;
+  text-align: center;
+  padding: 20px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+/* Tarjeta */
+.card {
+  position: relative;
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 150px;
+  height: 220px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+}
+
+/* Imagen */
+.card img {
+  width: 100%;
+  height: 70%;
+  object-fit: cover;
+}
+
+.card-text {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30%;
+  background: rgba(95, 95, 95, 0.5);
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+
+
+/*generos*/
+.badge {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-right: 0.5em;
+  position: relative;
+  text-decoration: none;
+  padding: 8px 16px;
+  color: white;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  background: #2637d4;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  box-shadow: 0 2px 4px rgb(255, 255, 255);
+  user-select: none;
+}
+.badge span {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: -12px;
+  right: -2px;
+  transform: rotate(-20deg);
+  filter: blur(0.5px);
+}
+.badge span:before,
+.badge span:after {
+  content: "";
+  position: absolute;
+}
+.badge span:before {
+  width: 1px;
+  height: 100%;
+  left: 12px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 255, 255, 0.7),
+    transparent
+  );
+}
+.badge span:after {
+  width: 100%;
+  height: 1px;
+  top: 12px;
+  background: linear-gradient(
+    to left,
+    transparent,
+    rgba(255, 255, 255, 0.7),
+    transparent
+  );
+}
+.badge:hover span:after {
+  display: block;
+  animation: rotate 3s ease-in-out;  
+}
+.badge:hover span::before {
+  display: block;
+  animation: rotate 3s ease-in-out;  
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.8);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+.badge:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(0, 41, 245, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(231, 0, 0, 0.18);
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  border-radius: 999px;
+}
+.inspired {
+  position: absolute;
+  bottom: 8%;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.inspired:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+ 
+
+/*Cosas varias*/
+
+.amarillo {
+  color: #ffc107; /* Color amarillo */
+  font-weight: bold; /* Opcional: hace que el texto sea más llamativo */
+}

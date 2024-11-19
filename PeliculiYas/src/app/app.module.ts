@@ -15,6 +15,9 @@ import { MenuLateralComponent } from './shared/menu-lateral/menu-lateral.compone
 import { FilmListComponent } from './components/film-list/film-list.component';
 import { PeopleListComponent } from './components/people-list/people-list.component';
 import { MenuListComponent } from './shared/menu-list/menu-list.component';
+import { FilmDetailsComponent } from './components/film-details/film-details.component';
+import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
+import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 
 @NgModule({
   declarations: [
@@ -28,11 +31,16 @@ import { MenuListComponent } from './shared/menu-list/menu-list.component';
     FilmListComponent,
     PeopleListComponent,
     MenuListComponent,
+    FilmDetailsComponent,
+    SerieDetailsComponent,
+    PeopleDetailsComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    
   ],
   providers: [
     provideAnimationsAsync(),
