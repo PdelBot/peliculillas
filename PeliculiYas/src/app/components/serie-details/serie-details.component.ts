@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DetailsService } from '../../services/details.service';
 import { Season, SerieDetaisResponse } from '../../models/series-details.interface';
 import { SeasonDetailsResponse } from '../../models/season-details.interface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-serie-details',
@@ -12,35 +13,41 @@ export class SerieDetailsComponent implements OnInit {
 
   seriesDetails: SerieDetaisResponse | undefined;
   seasonsId: Season[] = [];
-  seasons: SeasonDetailsResponse[] = [];  
+  seasons: SeasonDetailsResponse[] = [];
   selectedSeason: SeasonDetailsResponse | undefined;
-  rating: number = 0; 
+  rating: number = 0;
 
 
 
-  constructor(private detailsService: DetailsService) { }
+  constructor(private detailsService: DetailsService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    const serieId = this.route.snapshot.paramMap.get('id');
+    if (serieId) {
+      this.detailsService.getSeriesDetails(+serieId, 'es-ES').subscribe((response) => {
+        this.seriesDetails = response;
+      });
 
-    this.detailsService.getSeriesDetails(124364, 'es-ES').subscribe(data => {
-      if (data.overview) {
-        this.seriesDetails = data;
-        this.seasonsId = data.seasons;
-        this.loadSeasons(124364, this.seasonsId);
-        this.rating = (this.seriesDetails.vote_average || 0) / 2; 
-      } else {
-        this.detailsService.getSeriesDetails(124364, 'en-US').subscribe(englishData => {
-          this.seriesDetails = englishData;
-          this.seasonsId = englishData.seasons;
+
+      this.detailsService.getSeriesDetails(+serieId, 'es-ES').subscribe(data => {
+        if (data.overview) {
+          this.seriesDetails = data;
+          this.seasonsId = data.seasons;
           this.loadSeasons(124364, this.seasonsId);
-        });
-      }
-    });
-
+          this.rating = (this.seriesDetails.vote_average || 0) / 2;
+        } else {
+          this.detailsService.getSeriesDetails(+serieId, 'en-US').subscribe(englishData => {
+            this.seriesDetails = englishData;
+            this.seasonsId = englishData.seasons;
+            this.loadSeasons(124364, this.seasonsId);
+          });
+        }
+      });
+    }
 
   }
 
-  loadSeasons (serieId:number, seasons: Season[]):void{
+  loadSeasons(serieId: number, seasons: Season[]): void {
     seasons.forEach(season => {
       this.detailsService.getSeasonDetails(serieId, season.season_number, 'es-ES').subscribe(data => {
         this.seasons.push(data);

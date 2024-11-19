@@ -6,6 +6,8 @@
 
         <div class="listado-pelis">
             @for (serie of listadoSeries; track serie.id) {
+                <a [routerLink]="['/series', serie.id]">
+                    
                 <div class="card card-serie" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(serie?.poster_path || '') + ')'}">
                     <div class="valoracion-serie" [ngStyle]="getColor({ valoracion: serie.vote_average })">
                         <h2 class="text-white">{{serie.vote_average | roundedVote}}</h2>
@@ -19,6 +21,7 @@
                         </div>
                     </div>
                 </div>
+                </a>
             }
         </div>
         <div class="d-flex justify-content-center align-items-center gap-5">

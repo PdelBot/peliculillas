@@ -5,6 +5,7 @@ import { FilmDetailsResponse } from '../../models/film-details.interface';
 import { Cast, Crew } from '../../models/film-credits.interface';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TrailerDetailsResponse } from '../../models/trailer-details.interface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-film-details',
@@ -13,50 +14,54 @@ import { TrailerDetailsResponse } from '../../models/trailer-details.interface';
 })
 export class FilmDetailsComponent implements OnInit {
   trailerUrl: SafeResourceUrl | null = null;
-  
+
 
   trailer: TrailerDetailsResponse | undefined;
   film: FilmDetailsResponse | undefined;
   listCast: Cast[] = [];
   listCrew: Crew[] = [];
-  rating: number = 0; 
+  rating: number = 0;
 
 
-  constructor(private detailsService: DetailsService, private sanitizer: DomSanitizer) { }
+  constructor(private detailsService: DetailsService, private sanitizer: DomSanitizer, private route: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
-    const filmId = 912649;
+    const filmId = this.route.snapshot.paramMap.get('id');
+
+    if (filmId) {
+      this.detailsService.getFilmdeatils(+filmId, 'es-ES').subscribe((response) => {
+        this.film = response;
+      });
+
+      this.detailsService.getFilmdeatils(+filmId, 'es-ES').subscribe(data => {
+        if (data.overview) {
+          this.film = data;
+          this.rating = (this.film.vote_average || 0) / 2;
+        } else {
+          this.detailsService.getFilmdeatils(+filmId, 'en-US').subscribe(englishData => {
+            this.film = englishData;
+          });
+        }
+      });
+
+      this.detailsService.getFilmCredits(+filmId).subscribe(filmCreditsCast => {
+        this.listCast = filmCreditsCast.cast;
 
 
-
-    this.detailsService.getFilmdeatils(filmId, 'es-ES').subscribe(data => {
-      if (data.overview) {
-        this.film = data;
-        this.rating = (this.film.vote_average || 0) / 2; 
-      } else {
-        this.detailsService.getFilmdeatils(filmId, 'en-US').subscribe(englishData => {
-          this.film = englishData;
-        });
-      }
-    });
-
-    this.detailsService.getFilmCredits(filmId).subscribe(filmCreditsCast => {
-      this.listCast = filmCreditsCast.cast;
+      });
 
 
-    });
-
-
-
+    }
   }
 
   watchTrailer() {
-    this.detailsService.getTrailer(912649).subscribe(data => {
+    this.detailsService.getTrailer(this.film!.id | 0).subscribe(data => {
       if (data.results.length > 0) {
-        const lastTrailer = data.results[data.results.length - 1]; 
+        const lastTrailer = data.results[data.results.length - 1];
         const youtubeUrl = `https://www.youtube.com/embed/${lastTrailer.key}`;
         this.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(youtubeUrl);
-        window.open(youtubeUrl, '_blank'); 
+        window.open(youtubeUrl, '_blank');
 
         console.log(this.trailerUrl);
       } else {
@@ -65,16 +70,15 @@ export class FilmDetailsComponent implements OnInit {
     });
   }
 
-  
+
   getImgUrl(path: string): string {
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
     return `${baseUrl}${path}`;
   }
 
 
-  
-  
+
+
 
 }
-
 
