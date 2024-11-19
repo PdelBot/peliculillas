@@ -37,6 +37,17 @@
       <p> {{seriesDetails?.overview}}</p>
     </div>
   </div>
+  <div class="description">
+    <p> {{seriesDetails?.vote_average}}</p>
+  </div>
+  <div class="description">
+    @for (genre of seriesDetails?.genres; track $index) {
+    <p>{{genre.name}}</p>
+    }
+  </div>
+  <div class="description">
+    <p>{{seriesDetails?.first_air_date}}</p>
+  </div>
 
   <hr class="guion">
 
@@ -90,8 +101,8 @@
     </div>
   </div> -->
 
-  <div *ngIf="seasons.length > 0">
-    <h3>Seasons</h3>
+  <div>
+
     <ul class="nav justify-content-center">
       <li class="nav-item" *ngFor="let season of seasons">
         <a class="nav-link" href="#" (click)="selectSeason($event, season)">
@@ -99,21 +110,22 @@
         </a>
       </li>
     </ul>
-  
+
     <div *ngIf="selectedSeason">
-     
-      <div *ngIf="selectedSeason.episodes.length > 0">
-        <h5>Episodes</h5>
-        <div *ngFor="let episode of selectedSeason.episodes" class="episode-card">
+      <div>
+        @for (episode of selectedSeason.episodes; track selectedSeason.episodes.indexOf(episode)) {
+        <div class="episode-card">
           <div class="episode-thumbnail">
             <img *ngIf="episode.still_path" [src]="getImgUrl(episode.still_path)" alt="{{ episode.name }}">
           </div>
           <div class="episode-info">
             <h6>{{ episode.episode_number }}. {{ episode.name }}</h6>
-            <span>{{ episode.air_date }} | {{ episode.runtime }} minutes</span>
+            <span>{{ episode.air_date }} | {{ episode.runtime }} minutos</span>
             <p>{{ episode.overview }}</p>
           </div>
         </div>
+        }
       </div>
     </div>
   </div>
+</div>

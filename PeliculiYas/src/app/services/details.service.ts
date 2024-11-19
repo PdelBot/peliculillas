@@ -58,11 +58,19 @@ export class DetailsService {
     });
   }
 
-  getSeasonDetails(id: number, seasonNumber: number, language: string): Observable <SeasonDetailsResponse>{
+  getSeasonDetails(id: number, seasonNumber: number, language: string): Observable<SeasonDetailsResponse> {
     return this.http.get<SeasonDetailsResponse>(`https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber}?language=${language}`, {
       headers: {
         Authorization: `Bearer ${ACCESS_TOKEN}`,
       },
+    });
+  }
+
+  getTrailer(id: number): Observable<any> {
+    return this.http.get(`https://api.themoviedb.org/3/movie/${id}/videos`, {
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      }
     });
   }
 

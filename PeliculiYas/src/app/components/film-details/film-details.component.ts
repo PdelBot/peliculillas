@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { DetailsService } from '../../services/details.service';
 import { FilmDetailsResponse } from '../../models/film-details.interface';
 import { Cast, Crew } from '../../models/film-credits.interface';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { TrailerDetailsResponse } from '../../models/trailer-details.interface';
 
 @Component({
   selector: 'app-film-details',
@@ -10,19 +12,21 @@ import { Cast, Crew } from '../../models/film-credits.interface';
   styleUrl: './film-details.component.css'
 })
 export class FilmDetailsComponent implements OnInit {
+  trailerUrl: SafeResourceUrl | null = null;
 
+  trailer: TrailerDetailsResponse | undefined;
   film: FilmDetailsResponse | undefined;
   listCast: Cast[] = [];
   listCrew: Crew[] = [];
 
 
-  constructor(private detailsService: DetailsService) { }
+  constructor(private detailsService: DetailsService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     const filmId = 912649;
 
 
-    
+
     this.detailsService.getFilmdeatils(filmId, 'es-ES').subscribe(data => {
       if (data.overview) {
         this.film = data;
@@ -32,16 +36,33 @@ export class FilmDetailsComponent implements OnInit {
         });
       }
     });
-    
+
     this.detailsService.getFilmCredits(filmId).subscribe(filmCreditsCast => {
       this.listCast = filmCreditsCast.cast;
-   
+
 
     });
-    
+
+
 
   }
 
+  watchTrailer() {
+    this.detailsService.getTrailer(912649).subscribe(data => {
+      if (data.results.length > 0) {
+        const lastTrailer = data.results[data.results.length - 1]; // Obtén el último trailer de la lista
+        const youtubeUrl = `https://www.youtube.com/embed/${lastTrailer.key}`;
+        this.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(youtubeUrl);
+        window.open(youtubeUrl, '_blank'); // Abre el enlace en una nueva pestaña
+
+        console.log(this.trailerUrl);
+      } else {
+        this.trailerUrl = null;
+      }
+    });
+  }
+
+  
   getImgUrl(path: string): string {
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
     return `${baseUrl}${path}`;
@@ -49,3 +70,5 @@ export class FilmDetailsComponent implements OnInit {
 
 
 }
+
+
