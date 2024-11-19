@@ -1,7 +1,7 @@
 export interface FilmCreditsResponse {
     id: number
-    filmCast: Cast[]
-    filmCrew: Crew[]
+    cast: Cast[]
+    crew: Crew[]
   }
   
   export interface Cast {

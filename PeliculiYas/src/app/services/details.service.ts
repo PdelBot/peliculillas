@@ -6,6 +6,8 @@ import { PeopleDetailsResponse } from '../models/people-details.interface';
 import { CombinedCreditsResponse } from '../models/combined-credits.interface';
 import { FilmDetailsResponse } from '../models/film-details.interface';
 import { FilmCreditsResponse } from '../models/film-credits.interface';
+import { SerieDetaisResponse } from '../models/series-details.interface';
+import { SeasonDetailsResponse } from '../models/season-details.interface';
 
 const ACCESS_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYjNkZWUxOWU0OTVjYTFiN2M0MTcxYjYwMzIxNjc0YSIsIm5iZiI6MTczMTY3MDE0Ny45ODcyOTM3LCJzdWIiOiI2NzMxYmUyNzdlZjJjMzFkNzhlZGFjMDIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.pRL3NTdK1UwZt0giRHed4U1GbTS_y1htIp-k_LMXOp0'
 @Injectable({
@@ -14,7 +16,7 @@ const ACCESS_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYjNkZWUxOWU0OTVjYTFiN2M0M
 export class DetailsService {
 
   constructor(private http: HttpClient) { }
-  
+
   getPeopleDetails(id: number, language: string): Observable<PeopleDetailsResponse> {
     return this.http.get<PeopleDetailsResponse>(`https://api.themoviedb.org/3/person/${id}?language=${language}`, {
       headers: {
@@ -47,5 +49,21 @@ export class DetailsService {
       },
     });
   }
- 
+
+  getSeriesDetails(id: number, language: string): Observable<SerieDetaisResponse> {
+    return this.http.get<SerieDetaisResponse>(`https://api.themoviedb.org/3/tv/${id}?language=${language}`, {
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+  }
+
+  getSeasonDetails(id: number, seasonNumber: number, language: string): Observable <SeasonDetailsResponse>{
+    return this.http.get<SeasonDetailsResponse>(`https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber}?language=${language}`, {
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+  }
+
 }
