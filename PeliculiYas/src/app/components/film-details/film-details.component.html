@@ -1,70 +1,67 @@
-<h2>{{film?.original_title}}</h2>
-<p>{{film?.overview}}</p>
-<img [src]="getImgUrl(film?.poster_path || '')">
-<p> {{film?.vote_average}}</p>
-<div>
-    @for (credits of listCast ; track listCast.indexOf(credits)) {
-
-        <img [src]="getImgUrl(credits?.profile_path || '')">
-    <p>{{credits.name}}</p>
-    
-    }
 <div class="container">
-    <div class="title1">
-      <h2>TITULO DE LA SERIE</h2>
+  <div class="title1">
+    <h2>{{film?.original_title}}</h2>
+  </div>
+  <div class="header">
+    <div class="image">
+      <img [src]="getImgUrl(film?.poster_path || '')">
     </div>
-    <div class="header">
-      <div class="image">
-        <img src="https://i.ytimg.com/vi/QqjnlQ55Jnw/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBrJedK__03bPTySvwlDVPeX3R3iw" alt="NOMBRE">
+    <div class="description">
+      <div>
+        <p>{{film?.overview}}</p>
       </div>
-      <div class="description">
-        <p class="title">EL OTRO TITULILLO (SI NO TIENE NADA LA API QUITALE ESTO)</p>
-        <p>DESCRIPCIÓN DE LA PELIIIIIIIIIII <br><br><br><br><br>Felicidades luuu<br><br><br><br><br> Ese primo!!!
-        </p>
+      <div>
+        @for (item of film?.genres; track $index) {
+        <div class="badge" href="#">
+          {{item.name}}
+          <span></span>
+        </div>
+        }
+      </div>
+
+      <div>
+        <div class="badge">
+
+
+        </div>
+      </div>
+
+
+
+      <div>
+
+        <p> {{film?.vote_average}}</p>
+
+        <p> {{film?.release_date}}</p>
+        <p> {{film?.runtime}} min</p>
       </div>
     </div>
-  
-    <div class="button">
-    <!--<button (click)="watchTrailer()" >Ver Trailer</button> -->   
-    <button>  Ver trailer </button>
-    </div>
-  
-    
+
+  </div>
+
+  <div class="button">
+    <!--<button (click)="watchTrailer()" >Ver Trailer</button> -->
+    <button> Ver trailer </button>
+  </div>
+
+
 
 
   <!-- Sección del reparto -->
   <div class="reparto-container">
     <h2>Reparto</h2>
     <div class="card-grid">
+
+      @for (credits of listCast ; track listCast.indexOf(credits)) {
       <div class="card">
-        <img src="ruta-a-imagen-1.jpg" alt="Bradley Cooper" class="card-image" />
-        <p class="card-text">Bradley Cooper</p>
+        <img [src]="getImgUrl(credits?.profile_path || '')">
+        <p>{{credits.name}}</p>
       </div>
-      <div class="card">
-        <img src="ruta-a-imagen-2.jpg" alt="Peterson" class="card-image" />
-        <p class="card-text">Peterson</p>
-      </div>
-      <div class="card">
-        <img src="ruta-a-imagen-3.jpg" alt="Benja" class="card-image" />
-        <p class="card-text">Benja</p>
-      </div>
-      <div class="card">
-        <img src="ruta-a-imagen-4.jpg" alt="Tey" class="card-image" />
-        <p class="card-text">Tey</p>
-      </div>
-      <div class="card">
-        <img src="ruta-a-imagen-5.jpg" alt="Bradley Cooper" class="card-image" />
-        <p class="card-text">Bradley Cooper</p>
-      </div>
-      <div class="card">
-        <img src="ruta-a-imagen-6.jpg" alt="Nao Nao" class="card-image" />
-        <p class="card-text">Nao Nao</p>
-      </div>
-      <div class="card">
-        <img src="ruta-a-imagen-7.jpg" alt="Manuel (Hermano de luu)" class="card-image" />
-        <p class="card-text">Manuel (Hermano de luu)</p>
-      </div>
+      }
     </div>
-    
-</div>
+
+
+
+
+  </div>
 </div>
