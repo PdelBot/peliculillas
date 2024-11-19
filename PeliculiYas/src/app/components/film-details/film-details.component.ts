@@ -53,10 +53,10 @@ export class FilmDetailsComponent implements OnInit {
   watchTrailer() {
     this.detailsService.getTrailer(912649).subscribe(data => {
       if (data.results.length > 0) {
-        const lastTrailer = data.results[data.results.length - 1]; // Obtén el último trailer de la lista
+        const lastTrailer = data.results[data.results.length - 1]; 
         const youtubeUrl = `https://www.youtube.com/embed/${lastTrailer.key}`;
         this.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(youtubeUrl);
-        window.open(youtubeUrl, '_blank'); // Abre el enlace en una nueva pestaña
+        window.open(youtubeUrl, '_blank'); 
 
         console.log(this.trailerUrl);
       } else {

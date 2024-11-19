@@ -15,7 +15,8 @@ import { provideHttpClient } from '@angular/common/http';
     AppComponent,
     FilmDetailsComponent,
     SerieDetailsComponent,
-    PeopleDetailsComponent
+    PeopleDetailsComponent,
+    
   ],
   imports: [
     BrowserModule,
