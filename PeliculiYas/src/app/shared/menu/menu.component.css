@@ -1,0 +1,39 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+.navbar{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #06080f;
+  color: white;
+  z-index: 1000;
+  transition: top 0.3s;
+}
+
+.list-menu{
+    gap: 40px;
+    list-style: none;
+    font-size: 30px;
+}
+
+.left-menu{
+    margin: 10px 0px 0px 20px;
+}
+
+.right-menu{
+    margin: 10px 60px 0px 0px;
+    gap: 40px;
+    font-size: 30px;
+}
+
+.right-menu i{
+    margin-bottom: 10px;
+}
+
+#nombre-usuario{
+    font-size: 15px;
+}
+a{
+    text-decoration: none;
+    color: white;
+}

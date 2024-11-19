@@ -21,8 +21,3 @@ export interface Film {
     vote_average: number
     vote_count: number
 }
-
-export interface Genre {
-    id: number
-    name: string
-}

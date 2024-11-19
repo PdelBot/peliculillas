@@ -7,9 +7,7 @@ import { ListService } from '../../services/list.service';
   templateUrl: './serie-list.component.html',
   styleUrl: './serie-list.component.css'
 })
-export class SerieListComponent implements OnInit {
-
-
+export class SerieListComponent {
   listadoSeries: Serie[] = [];
   num: number = 1;
 
@@ -18,7 +16,7 @@ export class SerieListComponent implements OnInit {
   constructor(private serieService: ListService) { }
 
   ngOnInit(): void {
-    this.serieService.getSeries().subscribe((response) => {
+    this.serieService.getPopularSeries().subscribe((response) => {
       this.listadoSeries = response.results;
     });
   }

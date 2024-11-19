@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Film } from '../../models/film.interface';
 import { ListService } from '../../services/list.service';
+import { Film } from '../../models/film.interface';
 
 @Component({
   selector: 'app-film-list',
@@ -9,41 +9,44 @@ import { ListService } from '../../services/list.service';
 })
 export class FilmListComponent implements OnInit {
 
+  page = 1;
   listadoPeliculas: Film[] = [];
-  num = 1;
-  constructor(private filmService: ListService) { }
+
+  constructor(private movieService: ListService) { };
 
   ngOnInit(): void {
-    this.filmService.getMovies().subscribe((response) => {
+    this.movieService.getPopularFilm().subscribe((response) => {
       this.listadoPeliculas = response.results;
-    });
+    })
   }
 
-  //Obtener la imagen
   getFullImagePath(posterPath: string): string {
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
     return `${baseUrl}${posterPath}`;
   }
 
-  //A lante y atras paginas
   getNextPage() {
-    this.num += 1;
+    this.page += 1;
     this.listadoPeliculas = [];
-    this.filmService.getFilmPage(this.num).subscribe((response) => {
-      this.listadoPeliculas = response.results;
-    });
-  }
-  getLastPage() {
-    this.num -= 1;
-    this.listadoPeliculas = [];
-    this.filmService.getFilmPage(this.num).subscribe((response) => {
+    this.movieService.getFilmPage(this.page).subscribe((response) => {
       this.listadoPeliculas = response.results;
     });
   }
 
-  //Obtener generos
+  getLastPage() {
+    this.page -= 1;
+    this.listadoPeliculas = [];
+    this.movieService.getFilmPage(this.page).subscribe((response) => {
+      this.listadoPeliculas = response.results;
+    });
+  }
+
+  getColor({ valoracion }: { valoracion: number }): { [key: string]: string } {
+    return this.movieService.getColorValoracion({ valoracion });
+  }
+
   getGenreNames(genreIds: number[]): string[] {
-    return genreIds.map(id => this.filmService.getGenreName(id));
+    return genreIds.map(id => this.movieService.getGenreName(id));
   }
 
   //Obtener el primer genero
@@ -51,8 +54,7 @@ export class FilmListComponent implements OnInit {
     if (genreIds.length === 0) {
       return 'Unknown';
     }
-    return this.filmService.getGenreName(genreIds[0]);
+    return this.movieService.getGenreName(genreIds[0]);
   }
-
 
 }

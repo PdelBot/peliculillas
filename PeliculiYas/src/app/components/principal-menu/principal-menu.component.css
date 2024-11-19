@@ -1,0 +1,105 @@
+.banner-home {
+    width: 100%;
+    height: 550px;
+}
+
+.banner-home .text {
+    color: white;
+    position: relative;
+    padding-top: 300px;
+    padding-left: 40px;
+}
+
+.watch-now {
+    color: white;
+    font-size: 25px;
+    padding: 15px 80px 15px 0px;
+    width: 300px;
+    border-radius: 20px;
+}
+
+.detalles p {
+    font-size: 12px;
+}
+
+/*
+cards
+*/
+
+.cards {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    gap: 30px;
+    padding: 10px;
+}
+
+
+
+.card-film {
+    min-width: 250px;
+    height: 350px;
+    border-radius: 10px;
+    justify-content: flex-end;
+}
+
+.card-serie {
+    min-width: 400px;
+    height: 350px;
+    border-radius: 10px;
+    justify-content: flex-end;
+}
+
+.text-card {
+    height: 110px;
+    background-color: rgba(255, 255, 255, 80%);
+    border-radius: 0px 0px 10px 10px / 0px 0px 10px 10px;
+    padding-top: 20px;
+}
+
+.text-card h3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    font-size: clamp(18px, 1vw, 30px);
+    line-height: 1.2;
+    word-wrap: break-word;
+}
+
+.valoracion-film {
+    width: 3.5em;
+    height: 3.5em;
+    text-align: center;
+    position: relative;
+    left: 70%;
+    bottom: 45%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+
+.valoracion-serie {
+    width: 3.5em;
+    height: 3.5em;
+    text-align: center;
+    position: relative;
+    left: 300px;
+    bottom: 160px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
