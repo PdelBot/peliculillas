@@ -10,6 +10,7 @@ import { Serie } from '../../models/serie.interface';
 })
 export class PrincipalMenuComponent {
 
+  
   listadoPeliculas: Film[] = [];
   peliculaMasPopular: Film | undefined
   
@@ -30,9 +31,6 @@ export class PrincipalMenuComponent {
       });
       
     });
-
-   
-    
   }
 
   getFullImagePath(posterPath: string): string {
@@ -70,4 +68,7 @@ export class PrincipalMenuComponent {
     return this.filmService.getGenreName(genreIds[0]);
   }
  
+
+
+
 }
