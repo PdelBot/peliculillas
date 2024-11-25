@@ -7,6 +7,7 @@ import { PeopleListComponent } from './components/people-list/people-list.compon
 import { FilmDetailsComponent } from './components/film-details/film-details.component';
 import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
   {path: 'principal', component: PrincipalMenuComponent},
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path: 'peliculas/:id', component: FilmDetailsComponent}, 
   {path: 'series/:id', component: SerieDetailsComponent},
   {path: 'actores/:id', component: PeopleDetailsComponent},
-  {path: '', redirectTo: '/principal', pathMatch: 'full'},
+  {path: 'login', component: HomeComponent},
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
 ];
 
 @NgModule({
