@@ -57,7 +57,7 @@
     display: block;
 }
 
-.dropdown-content a{
+.dropdown-content a, button{
     display: block;
     color: black;
     padding: 3px 10px 0px 10px;
@@ -101,6 +101,11 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+}
+
+.login:hover{
+    background-color: blue;
+    color: white;
 }
 
 .login i,p{
