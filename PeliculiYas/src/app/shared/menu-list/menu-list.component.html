@@ -4,10 +4,30 @@
         <p><a routerLink="/series">Series</a></p>
         <p><a routerLink="/actores">Actores</a></p>
     </div>
-    <div class="right-menu d-flex gap-4 text-white fs-4 mt-4 ms-4">
+    <div class="right-menu d-flex align-items-stretch gap-4 text-white fs-4 mt-4 ms-4">
         <i class="bi bi-search"></i>
-        <i class="bi bi-bell-fill"></i>
-        <i class="bi bi-circle-fill"></i>
-        <p>Jei el</p>
+            @if(isLoggedIn()) {
+                <div class="dropdown">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <img [src]="verificarImg()" alt="avatar" class="avatar" />
+                        <p class="username">{{userName}}</p>
+                    </div>
+                    
+                    <div class="dropdown-content">
+                        <a><p>Favoritos</p></a>
+                        <a><p>Mis listas</p></a>
+                        <a><p>Valorant</p></a>
+                        <button (click)="logout()" class="gap-3 d-flex justify-content-center align-items-start">
+                            <i class="bi bi-box-arrow-left"></i> Cerrar sesión
+                        </button>
+                    </div>
+                </div>
+                
+            }@else {
+                <button class="login btn btn-danger btn-sm" (click)="createRequestToken()">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <p>Iniciar sesión</p>
+                </button>
+            }
     </div>
 </div>

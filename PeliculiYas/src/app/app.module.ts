@@ -18,6 +18,7 @@ import { MenuListComponent } from './shared/menu-list/menu-list.component';
 import { FilmDetailsComponent } from './components/film-details/film-details.component';
 import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
+import { ApprovedComponent } from './components/approved/approved.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { PeopleDetailsComponent } from './components/people-details/people-detai
     FilmDetailsComponent,
     SerieDetailsComponent,
     PeopleDetailsComponent,
+    ApprovedComponent,
     
   ],
   imports: [
