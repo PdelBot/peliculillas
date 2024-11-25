@@ -56,12 +56,18 @@ export class FilmListComponent implements OnInit {
     return genreIds.map(id => this.filmService.getGenreName(id));
   }
 
-  //Obtener el primer genero
   getFirstGenreName(genreIds: number[]): string {
     if (genreIds.length === 0) {
       return 'Unknown';
     }
     return this.filmService.getGenreName(genreIds[0]);
+  }
+
+
+  addToFavourites(film: Film): void {
+    this.filmService.addFilmToFavourites(film).subscribe(response => {
+      console.log('Film added to favourites:', response);
+    });
   }
 
 }

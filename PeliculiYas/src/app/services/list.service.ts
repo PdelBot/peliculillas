@@ -4,17 +4,24 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SerieListResponse } from '../models/serie.interface';
 import { ActorListResponse } from '../models/people.interface';
+import { FavoriteFilmResponse } from '../models/favorite-list.interface';
 
 const ACCESS_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMjA0YWMyNTA4ZmFmYTllN2Y5YjU0NDY1OGFjYjI1MCIsIm5iZiI6MTczMTY3Njk0NC43Mzg4MjcyLCJzdWIiOiI2NzMxYmRkNzYxNjI2YWMxMDZiZTY4MDMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.fE-T_bfqIFWaQZ3YjfPigPZFwtmGaCJ50Zf4dAnov4c'
+const API_KEY = '1b3dee19e495ca1b7c4171b60321674a'
+const API_BASE_URL = 'https://api.themoviedb.org/3';
+
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListService {
 
+
   private genres: { [id: number]: string } = {};
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.loadGenres();
   }
 
@@ -29,7 +36,7 @@ export class ListService {
     });
   }
 
-  getOneFilm (id:number): Observable<Film>{
+  getOneFilm(id: number): Observable<Film> {
     return this.http.get<Film>(`https://api.themoviedb.org/3/movie/${id}`, {
       headers: {
         'Authorization': `Bearer ${ACCESS_TOKEN}`,
@@ -86,10 +93,10 @@ export class ListService {
   getColorValoracion({ valoracion }: { valoracion: number }): { [key: string]: string } {
     if (valoracion <= 4) {
       return { background: 'linear-gradient(-45deg, #ff0000 0%, #edad8f 100%)' };
-    } 
+    }
     if (valoracion > 4 && valoracion < 8) {
       return { background: 'linear-gradient(-45deg, #fc00ff 0%, #00dbde 100%)' };
-    } 
+    }
     return { background: 'linear-gradient(-45deg, #2bff00 0%, #00dbde 100%)' };
   }
 
@@ -107,5 +114,29 @@ export class ListService {
   //Obtener el nombre del genero
   getGenreName(id: number): string {
     return this.genres[id] || 'Unknown';
+  }
+
+  addFilmToFavourites(film: Film): Observable<any> {
+    const sessionId = localStorage.getItem('session_id');
+    const accountId = localStorage.getItem('account_id');
+    const body = {
+      media_id: film.id,
+      media_type: 'movie',
+      favorite: true
+    };
+
+    return this.http.post<any>(
+      `${API_BASE_URL}/account/${accountId}/favorite?api_key=${API_KEY}&session_id=${sessionId}`,
+      body
+    );
+
+  }
+  getFavouriteFilms(): Observable<FavoriteFilmResponse> {
+    const sessionId = localStorage.getItem('session_id');
+    const accountId = localStorage.getItem('account_id');
+
+    return this.http.get<FavoriteFilmResponse>(
+      `${API_BASE_URL}/account/${accountId}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}`
+    );
   }
 }

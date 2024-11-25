@@ -5,9 +5,9 @@
         <app-menu-list></app-menu-list>
         <div class="listado-pelis">
             @for (peli of listadoPeliculas; track peli.id) {
-            <a [routerLink]="['/peliculas', peli.id]">
-                <div class="card card-serie"
-                    [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(peli?.poster_path || '') + ')'}">
+            <div class="card card-serie"
+                [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(peli?.poster_path || '') + ')'}">
+                <a [routerLink]="['/peliculas', peli.id]">
 
                     <div class="valoracion-serie" [ngStyle]="getColor({ valoracion: peli.vote_average })">
                         <h2 class="text-white">{{peli.vote_average | roundedVote}}</h2>
@@ -19,10 +19,13 @@
                             <p>|</p>
                             <p id="temporadas">{{getFirstGenreName(peli.genre_ids)}}</p>
                         </div>
+
                     </div>
 
-                </div>
-            </a>
+                </a>
+                <button (click)="addToFavourites(peli)">Add to favourites
+                </button>
+            </div>
             }
         </div>
 
