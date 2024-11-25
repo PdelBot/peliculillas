@@ -232,4 +232,9 @@
     color: #ffc107; /* Color amarillo */
     font-weight: bold; /* Opcional: hace que el texto sea más llamativo */
   }
+
+
+.menu-details{
+  background-color: #1e1e1e;
+}
   

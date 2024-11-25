@@ -1,8 +1,10 @@
 <div class="menu">
     <nav id="navbar" class="navbar justify-content-beetwen">
         <div class="left-menu d-flex align-items-center">
-            <img class="logo" src="https://i.ibb.co/3hhHdyH/Peliculillas-removebg-preview-1.png"
-                alt="Peliculillas-removebg-preview-1">
+            <a routerLink="/principal">
+                <img class="logo" src="https://i.ibb.co/3hhHdyH/Peliculillas-removebg-preview-1.png"
+                    alt="Peliculillas-removebg-preview-1">
+            </a>
             <ul class="list-menu d-flex">
                 <li><a routerLink="/peliculas">Peliculas</a></li>
                 <li><a routerLink="/series">Series</a></li>
@@ -11,21 +13,32 @@
         </div>
         <div class="right-menu d-flex align-items-center">
             <i class="bi bi-search"></i>
-            <p class="btn border rounded-circle bg-white py-3 text-white">logo</p>
-            <p id="nombre-usuario">Jei El</p>
             @if(isLoggedIn()) {
-                <img [src]="userPhoto" alt="Avatar" class="avatar" />{{ userName }}
-                <button class="btn btn-danger btn-sm" (click)="logout()">
-                    Cerrar sesión
-                </button>
+                <div class="dropdown">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <img [src]="verificarImg()" alt="avatar" class="avatar" />
+                        <p class="username">{{userName}}</p>
+                    </div>
+                    
+                    <div class="dropdown-content">
+                        <a><p>Favoritos</p></a>
+                        <a><p>Mis listas</p></a>
+                        <a><p>Valorant</p></a>
+                        <button (click)="logout()" class="logout">
+                            <i class="bi bi-box-arrow-left"></i> 
+                            <p>Cerrar sesión</p>
+                        </button>
+                    </div>
+                </div>
+                
             }@else {
-                <button class="btn btn-primary btn-sm" (click)="createRequestToken()">
-                    Iniciar sesión en TMDB
+                <button class="login btn btn-danger btn-sm" (click)="createRequestToken()">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <p>Iniciar sesión</p>
                 </button>
             }
 
             
         </div>
-
     </nav>
 </div>
