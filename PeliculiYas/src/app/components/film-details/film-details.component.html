@@ -1,16 +1,16 @@
 <app-menu></app-menu>
-
 <div class="container">
-
-  <div class="title1">
-    <h2>{{film?.original_title}}</h2>
-  </div>
   <div class="header">
     <div class="image">
       <img [src]="getImgUrl(film?.poster_path || '')" alt="NOMBRE">
     </div>
     <div class="description">
-      <p class="title1">{{film?.tagline}}</p>
+      <div class="title1">
+        <h2>{{film?.original_title}}</h2>
+      </div>
+      <div>
+        <p class="title2" *ngIf="film?.tagline">{{ film?.tagline }}</p>
+      </div>
       <div>
         <div>
           <p>{{film?.overview}}</p>
@@ -18,54 +18,43 @@
         <div>
           <p><strong> Duración: {{film?.runtime}} min </strong></p>
         </div>
-
         <div>
           <p><strong> Lanzamiento: {{film?.release_date}} </strong></p>
         </div>
-
         <div>
-          <p><strong>  Calificación: ({{ film?.vote_average }} / 10) </strong> <ngb-rating class="amarillo" [(rate)]="rating" [max]="5" [readonly]="true"></ngb-rating> </p>       
-          
-          
+          <p><strong> Calificación: ({{ film?.vote_average }} / 10) </strong> <ngb-rating class="amarillo"
+              [(rate)]="rating" [max]="5" [readonly]="true"></ngb-rating> </p>
         </div>
-
-      
-      
+        <div>
+          @for (item of film?.genres; track $index) {
+          <div class="badge" href="#">
+            {{item.name}}
+            <span></span>
+          </div>
+          }
+        </div>
+        <div>
+          <button class="watch-now btn btn-primary align-items-center justify-content-beetwen " (click)="watchTrailer()">Ver Trailer</button>
+        </div>
       </div>
-      
     </div>
-
   </div>
-  <div>
-    @for (item of film?.genres; track $index) {
-    <div class="badge" href="#">
-      {{item.name}}
-      <span></span>
-    </div>
-    }
-  </div>
-
-
-  <button class="button" (click)="watchTrailer()">Ver Trailer</button>
-
-
-
 
   <!-- Sección del reparto -->
   <div class="reparto-container">
     <div class="title2"> Reparto </div>
     <div class="card-grid">
-      
-      @for (credits of listCast; track listCast.indexOf(credits)) {
 
+      @for (credits of listCast; track listCast.indexOf(credits)) {
       <div class="card" *ngIf="credits.profile_path && credits.name">
-        <img [src]="getImgUrl(credits?.profile_path || '')" alt="NOMBRE">
+        <a [routerLink]="['/actores', credits.id]">    
+        <img [src]="getImgUrl(credits.profile_path || '')" alt="NOMBRE">
         <div class="card-text">
           <p>{{credits.name}}</p>
         </div>
+      </a>
       </div>
-      }
-
+    }
     </div>
 
   </div>
