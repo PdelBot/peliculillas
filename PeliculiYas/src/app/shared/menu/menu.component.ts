@@ -55,4 +55,14 @@ export class MenuComponent implements OnInit {
     localStorage.clear();
     window.location.href = 'http://localhost:4200';
   }
+
+  verificarImg(){
+    const partes: string[] = this.userPhoto.split("/").filter(part => part !== '');
+    
+    if(partes[partes.length-1]==="originalnull"){
+      this.userPhoto = "https://static.wikia.nocookie.net/mamarre-estudios-espanol/images/9/9f/Benjamin.png/revision/latest?cb=20201222175350&path-prefix=es"
+    }
+      return this.userPhoto;
+ 
+  }
 }

@@ -33,13 +33,13 @@ export class SerieDetailsComponent implements OnInit {
         if (data.overview) {
           this.seriesDetails = data;
           this.seasonsId = data.seasons;
-          this.loadSeasons(124364, this.seasonsId);
+          this.loadSeasons(+serieId, this.seasonsId);
           this.rating = (this.seriesDetails.vote_average || 0) / 2;
         } else {
           this.detailsService.getSeriesDetails(+serieId, 'en-US').subscribe(englishData => {
             this.seriesDetails = englishData;
             this.seasonsId = englishData.seasons;
-            this.loadSeasons(124364, this.seasonsId);
+            this.loadSeasons(+serieId, this.seasonsId);
           });
         }
       });
