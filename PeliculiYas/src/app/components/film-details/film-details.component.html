@@ -2,19 +2,22 @@
 
 <div class="container">
 
-  <div class="title1">
-    <h2>{{film?.original_title}}</h2>
-  </div>
+
   <div class="header">
     <div class="image">
       <img [src]="getImgUrl(film?.poster_path || '')" alt="NOMBRE">
     </div>
     <div class="description">
-      <p class="title1">{{film?.tagline}}</p>
+      <div class="title1">
+        <h2>{{film?.original_title}}</h2>
+      </div>
+      <div>
+        <p class="title2">{{film?.tagline}}</p></div>
       <div>
         <div>
           <p>{{film?.overview}}</p>
         </div>
+        
         <div>
           <p><strong> Duración: {{film?.runtime}} min </strong></p>
         </div>
@@ -29,24 +32,27 @@
           
         </div>
 
+        <div>
+          @for (item of film?.genres; track $index) {
+          <div class="badge" href="#">
+            {{item.name}}
+            <span></span>
+          </div>
+          }
+        </div>
       
-      
+
+        <DIv>
+          <button class="button" (click)="watchTrailer()">Ver Trailer</button>
+
+        </DIv>
       </div>
       
     </div>
 
   </div>
-  <div>
-    @for (item of film?.genres; track $index) {
-    <div class="badge" href="#">
-      {{item.name}}
-      <span></span>
-    </div>
-    }
-  </div>
 
 
-  <button class="button" (click)="watchTrailer()">Ver Trailer</button>
 
 
 

@@ -13,7 +13,7 @@
 /* Contenedor principal */
 .container {
   width: 90%;
-  max-width: 2000px;
+  max-width: 1800px;
   padding: 20px;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .header h2 {
-  font-size: 2rem;
+  font-size: 50px;
   margin: 0;
 }
 
@@ -41,35 +41,40 @@
   margin-top: 0%;
   background-color: #2c2e46;
   border-radius: 10px;
-  padding: 0.25rem 1rem; /* Espaciado interno para que el fondo sea visible */
-  display: inline-block; /* Permite que el ancho se ajuste al contenido */
-  text-align: center; /* Centra el texto dentro del contenedor */
+  padding: 0.5rem 2rem;  
+  display: inline-block; 
+  text-align: center; 
+  margin-bottom: 1em; 
+  text-decoration: underline;
+
 }
 
 .title1 h2 {
-  margin: 0; /* Elimina margen para alinearlo correctamente */
+  margin: 0; 
 }
 
 
 .title2 {
-  text-align: center;
-  margin: 1em auto;
-  background-color: #2c2e46;
-  border-radius: 1em;
-  padding: 0.25rem;
-  width: 5%;
+  background-color: #3e3e3e;
+  margin-top: 0%;
+  border-radius: 10px;
+  padding: 0.25rem 1rem;  
+  display: inline-block;  
+  text-align: center;  
+  margin-bottom: 1em; 
 }
 
 .image img {
   width: 405px;
   height: auto;
-  border-radius: 5px;
+  border-radius: 5px; 
   margin-right: 50px;
 }
 
 .description {
-  color: #cccccc;
-}
+  width: 90%;
+  max-width: 1000px;
+  padding: 20px;}
 
 .description .title {
   font-weight: bold;
@@ -281,6 +286,6 @@ button:active {
 /*Cosas varias*/
 
 .amarillo {
-  color: #ffc107; /* Color amarillo */
-  font-weight: bold; /* Opcional: hace que el texto sea más llamativo */
+  color: #ffc107; 
+  font-weight: bold;  
 }
