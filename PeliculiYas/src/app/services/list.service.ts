@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { SerieListResponse } from '../models/serie.interface';
 import { ActorListResponse } from '../models/people.interface';
 import { environment } from '../../environments/environment';
-import { FavoriteFilmResponse } from '../models/favorite-list.interface';
+import { FavoriteFilmResponse } from '../models/favorite-film-list.interface';
 
 
 @Injectable({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ListService } from '../../services/list.service';
-import { FavoriteFilmResponse, FilmFavorite } from '../../models/favorite-list.interface';
+import { FavoriteFilmResponse, FilmFavorite } from '../../models/favorite-film-list.interface';
 import { Film } from '../../models/film.interface';
 import { FavoritesService } from '../../services/favorites.service';
 import { Router } from '@angular/router';
