@@ -1,0 +1,34 @@
+<app-menu></app-menu>
+<div class="banner" [ngStyle]="{'background': 'no-repeat center/cover url(' + bannerImg() + ')'}">
+    <div class="text">
+        @if (isLoggedIn()) {
+        <div class="d-flex justify-content-start align-items-start gap-3">
+            <img [src]="verificarImg()" alt="avatar" class="avatar" />
+            <p class="username">{{userName}}</p>
+        </div>
+        }
+
+    </div>
+</div>
+
+<div class="content d-flex row">
+    <div class="mislistas col-9">
+        <div class="title d-flex">
+            <i class="bi bi-list-ul"></i>
+            <h1>Mis listas</h1>
+        </div>
+        <div class="content-list">
+            @if(nListas === 0){
+            <div class="card null-card">
+                    <p>No ha creado todavia una lista</p>
+                    <button class="createList d-flex gap-2"><i class="bi bi-plus-circle"></i>Crear lista</button>
+            </div>
+            }@else {
+
+            }
+        </div>
+    </div>
+    <div class="right-menu">
+        <!--Menu lateral-->
+    </div>
+</div>
