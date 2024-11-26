@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ListService } from '../../services/list.service';
 import { Film } from '../../models/film.interface';
+import { FavoritesService } from '../../services/favorites.service';
 
 @Component({
   selector: 'app-film-list',
@@ -10,16 +11,23 @@ import { Film } from '../../models/film.interface';
 export class FilmListComponent implements OnInit {
 
 
+
   page = 1;
   listadoPeliculas: Film[] = [];
+  favouriteFilms: Film[] = [];
 
-  constructor(private filmService : ListService){};
-  
+
+  constructor(private filmService: ListService, private favoriteService: FavoritesService) { };
+
   ngOnInit(): void {
-    this.filmService.getPopularFilm().subscribe((response) =>
-    {
-      this.listadoPeliculas= response.results;
+    this.filmService.getPopularFilm().subscribe((response) => {
+      this.listadoPeliculas = response.results;
     })
+
+    this.favoriteService.getFavouriteFilms().subscribe(response => {
+      this.favouriteFilms = response.results;
+    });
+
   }
 
   getFullImagePath(posterPath: string): string {
@@ -32,7 +40,7 @@ export class FilmListComponent implements OnInit {
     this.filmService.getFilmPage(this.page).subscribe((response) => {
       this.listadoPeliculas = response.results;
     });
-    }
+  }
 
   getNextPage() {
     this.page += 1;
@@ -65,9 +73,28 @@ export class FilmListComponent implements OnInit {
 
 
   addToFavourites(film: Film): void {
-    this.filmService.addFilmToFavourites(film).subscribe(response => {
+    this.favoriteService.addFilmToFavourites(film).subscribe(response => {
       console.log('Film added to favourites:', response);
     });
+    window.location.reload();
   }
+
+  removeFromFavourites(film: Film) {
+    this.favoriteService.deleteFilmFromFavorite(film).subscribe(response => {
+      console.log('Film removed from favourites:', response);
+    });
+    window.location.reload();
+  }
+
+
+  isAdded(film: Film): boolean {
+
+    return this.favouriteFilms.some(favouriteFilm => favouriteFilm.id === film.id);
+
+
+  }
+
+
+
 
 }

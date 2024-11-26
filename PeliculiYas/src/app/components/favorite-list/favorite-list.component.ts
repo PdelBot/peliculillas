@@ -2,25 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { ListService } from '../../services/list.service';
 import { FavoriteFilmResponse, FilmFavorite } from '../../models/favorite-list.interface';
 import { Film } from '../../models/film.interface';
+import { FavoritesService } from '../../services/favorites.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-favorite-list',
   templateUrl: './favorite-list.component.html',
   styleUrl: './favorite-list.component.css'
 })
-export class FavoriteListComponent implements OnInit {
+export class FavoriteListComponent {
 
-  favouriteFilms: FilmFavorite[] = [];
-  constructor(private listService: ListService) { }
+  constructor(private router: Router) { }
 
-  ngOnInit(): void {
-    this.listService.getFavouriteFilms().subscribe((response) => {
-      this.favouriteFilms = response.results;
-    });
+  navigateToMovies(): void {
+    this.router.navigate(['/favourites/movies']);
   }
 
-  getFullImagePath(posterPath: string): string {
-    const baseUrl = 'https://image.tmdb.org/t/p/w500';
-    return `${baseUrl}${posterPath}`;
+  navigateToSeries(): void {
+    this.router.navigate(['/favourites/series']);
   }
+
 }

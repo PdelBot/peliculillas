@@ -23,8 +23,16 @@
                     </div>
 
                 </a>
-                <button (click)="addToFavourites(peli)">Add to favourites
-                </button>
+
+                @if (!isAdded(peli)) {
+                    <button (click)="addToFavourites(peli)">Add to favourites
+                    </button>
+                }
+                @else {
+                    <button (click)="removeFromFavourites(peli)">Remove from favourites
+                    </button>
+                }
+
             </div>
             }
         </div>

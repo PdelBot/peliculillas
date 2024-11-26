@@ -20,6 +20,8 @@ import { SerieDetailsComponent } from './components/serie-details/serie-details.
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 import { ApprovedComponent } from './components/approved/approved.component';
 import { FavoriteListComponent } from './components/favorite-list/favorite-list.component';
+import { FavoriteFilmsComponent } from './components/favorite-films/favorite-films.component';
+import { FavoriteSerieComponent } from './components/favorite-serie/favorite-serie.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { FavoriteListComponent } from './components/favorite-list/favorite-list.
     PeopleDetailsComponent,
     ApprovedComponent,
     FavoriteListComponent,
+    FavoriteFilmsComponent,
+    FavoriteSerieComponent,
     
   ],
   imports: [

@@ -1,10 +1,22 @@
-<div class="favourite-films">
-    <h1>Favourite Films</h1>
-    <div class="films-list">
-      <div *ngFor="let film of favouriteFilms" class="film-card">
-        <img [src]="getFullImagePath(film.poster_path)" alt="{{ film.title }}">
-        <h3>{{ film.title }}</h3>
-        <p>{{ film.release_date }}</p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Películas Favoritas</h5>
+          <p class="card-text">Ver tu lista de películas favoritas.</p>
+          <button class="btn btn-primary" (click)="navigateToMovies()">Ver Películas</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Series Favoritas</h5>
+          <p class="card-text">Ver tu lista de series favoritas.</p>
+          <button class="btn btn-primary" (click)="navigateToSeries()">Ver Series</button>
+        </div>
       </div>
     </div>
   </div>
+</div>

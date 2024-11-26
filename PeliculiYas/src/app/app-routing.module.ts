@@ -9,6 +9,8 @@ import { SerieDetailsComponent } from './components/serie-details/serie-details.
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 import { ApprovedComponent } from './components/approved/approved.component';
 import { FavoriteListComponent } from './components/favorite-list/favorite-list.component';
+import { FavoriteSerieComponent } from './components/favorite-serie/favorite-serie.component';
+import { FavoriteFilmsComponent } from './components/favorite-films/favorite-films.component';
 
 const routes: Routes = [
   {path: 'principal', component: PrincipalMenuComponent},
@@ -20,6 +22,8 @@ const routes: Routes = [
   {path: 'actores/:id', component: PeopleDetailsComponent},
   { path: 'approved', component: ApprovedComponent },
   {path: 'favorites', component: FavoriteListComponent},
+  { path: 'favourites/movies', component: FavoriteFilmsComponent },
+  { path: 'favourites/series', component: FavoriteSerieComponent },
   {path: '', redirectTo: '/principal', pathMatch: 'full'},
 ];
 
