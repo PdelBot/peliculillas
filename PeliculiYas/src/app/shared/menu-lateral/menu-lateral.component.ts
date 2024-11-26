@@ -1,27 +1,51 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import { Film } from '../../models/film.interface';
+import { ListService } from '../../services/list.service';
 
 @Component({
   selector: 'app-menu-lateral',
   templateUrl: './menu-lateral.component.html',
   styleUrl: './menu-lateral.component.css'
 })
-export class MenuLateralComponent {
+export class MenuLateralComponent implements OnInit {
+
+  listado: Film[] = [];
+  @Output() listadoChange = new EventEmitter<Film[]>();
+
+
   isOpen: boolean = false;
-  
+
   altura: number = 1780;
+
+  constructor(private listService: ListService) { }
+
+  ngOnInit() {
+    //Para que salgan las películas más populares al cargar la página de forma descendente
+    this.listService.getPopularFilmDesc().subscribe(response => {
+      this.listado = response.results;
+      this.listadoChange.emit(this.listado);
+    });
+  }
+
+  //Para cuando se cambie al ordenar 
+  actualizarListado(nuevoListado: Film[]) {
+    this.listado = nuevoListado;
+    this.listadoChange.emit(this.listado);
+  }
+
 
   desplegable() {
     this.isOpen = !this.isOpen;
 
     this.reajustar;
   }
-  
-  @HostListener ('window:resize', ['$event'])
+
+  @HostListener('window:resize', ['$event'])
   reajustar(event: Event) {
     this.actualizarAltura(); // Actualiza la altura cuando cambia el tamaño de la ventana
   }
-  
-  actualizarAltura(){
+
+  actualizarAltura() {
     this.altura = Math.max(
       document.body.scrollHeight,
       document.documentElement.scrollHeight,

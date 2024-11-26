@@ -14,7 +14,7 @@ export class ListService {
 
   private genres: { [id: number]: string } = {};
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.loadGenres();
   }
 
@@ -29,7 +29,7 @@ export class ListService {
     });
   }
 
-  getOneFilm (id:number): Observable<Film>{
+  getOneFilm(id: number): Observable<Film> {
     return this.http.get<Film>(`https://api.themoviedb.org/3/movie/${id}`, {
       headers: {
         'Authorization': `Bearer ${ACCESS_TOKEN}`,
@@ -86,10 +86,10 @@ export class ListService {
   getColorValoracion({ valoracion }: { valoracion: number }): { [key: string]: string } {
     if (valoracion <= 4) {
       return { background: 'linear-gradient(-45deg, #ff0000 0%, #edad8f 100%)' };
-    } 
+    }
     if (valoracion > 4 && valoracion < 8) {
       return { background: 'linear-gradient(-45deg, #fc00ff 0%, #00dbde 100%)' };
-    } 
+    }
     return { background: 'linear-gradient(-45deg, #2bff00 0%, #00dbde 100%)' };
   }
 
@@ -107,5 +107,43 @@ export class ListService {
   //Obtener el nombre del genero
   getGenreName(id: number): string {
     return this.genres[id] || 'Unknown';
+  }
+
+
+  //peliculas populares descendentemente
+  getPopularFilmDesc(): Observable<FilmListResponse> {
+    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
+      , {
+        headers: {
+          'Authorization': `Bearer ${ACCESS_TOKEN}`
+        }
+      });
+  }
+  //peliculas populares ascendentemente
+  getPopularFilmAsc(): Observable<FilmListResponse> {
+    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.asc'
+      , {
+        headers: {
+          'Authorization': `Bearer ${ACCESS_TOKEN}`
+        }
+      });
+  }
+
+  getRatedFilmDesc(): Observable<FilmListResponse> {
+    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_average.desc'
+      , {
+        headers: {
+          'Authorization': `Bearer ${ACCESS_TOKEN}`
+        }
+      });
+  }
+
+  getRatedFilmAsc(): Observable<FilmListResponse> {
+    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_average.asc'
+      , {
+        headers: {
+          'Authorization': `Bearer ${ACCESS_TOKEN}`
+        }
+      });
   }
 }

@@ -64,4 +64,9 @@ export class FilmListComponent implements OnInit {
     return this.filmService.getGenreName(genreIds[0]);
   }
 
+  //Para el ordenar
+  actualizarListado(nuevoListado: Film[]) {
+    this.listadoPeliculas = nuevoListado;
+  }
+
 }

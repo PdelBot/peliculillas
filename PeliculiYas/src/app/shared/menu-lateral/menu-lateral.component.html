@@ -1,6 +1,7 @@
 <div class="menu-lateral" [ngStyle]="{'height': altura+ 'px'}">
     <div class="titulo d-flex align-items-center justify-content-center text-white">
-        <img class="logo" src="https://i.ibb.co/3hhHdyH/Peliculillas-removebg-preview-1.png" alt="Peliculillas-removebg-preview-1">
+        <img class="logo" src="https://i.ibb.co/3hhHdyH/Peliculillas-removebg-preview-1.png"
+            alt="Peliculillas-removebg-preview-1">
         <a routerLink="/principal">
             <div class="text d-flex gap-0 align-items-end justify-content-center mb-4">
                 <h2 class="text-white mb-1 fs-3">Peliculi</h2>
@@ -9,6 +10,11 @@
         </a>
 
     </div>
+    <div class="menu d-flex row align-items-flex justify-content-start text-white gap-4">
+        <app-order-bar></app-order-bar>
+    </div>
+
+    <!-- Esto se va a borrar -->
     <div class="menu d-flex row align-items-flex justify-content-start text-white gap-4">
         <div class="home d-flex gap-2 align-items-center justify-content-center">
             <i class="bi bi-house-door-fill"></i>
@@ -33,7 +39,8 @@
             <i class="bi bi-calendar"></i>
             <p class="mb-0">Proximamente</p>
         </div>
-
-
     </div>
+
+
+
 </div>
