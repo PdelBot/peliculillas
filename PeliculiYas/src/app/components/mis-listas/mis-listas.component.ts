@@ -1,5 +1,8 @@
 import { Component, HostListener, input, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { ListService } from '../../services/list.service';
+import { MisListasService } from '../../services/mis-listas.service';
+import { myList, myListResponse } from '../../models/my-list.interface';
 
 @Component({
   selector: 'app-mis-listas',
@@ -9,12 +12,14 @@ import { AuthService } from '../../services/auth.service';
 export class MisListasComponent implements OnInit {
 
 
+  misListas: myList[] = [];
+  nameList: string = "Nueva lista"
+  description: string = "NO HAY"
   userName = '';
   userPhoto = '';
-  nListas: number = 0;
   banner: string = "/q8eejQcg1bAqImEV8jh8RtBD4uH.jpg";  
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private mylistService: MisListasService) { }
   ngOnInit(): void {
   this.userName = localStorage.getItem('user_name') ?? '';
     this.userPhoto = localStorage.getItem('user_photo')
@@ -22,6 +27,12 @@ export class MisListasComponent implements OnInit {
           'user_photo'
         )}`
       : '';
+
+      this.mylistService.getListas().subscribe((response)=>{
+        this.misListas = response.results;
+      });
+
+      
   }
 
   private prevScrollPos: number = window.scrollY;
@@ -73,4 +84,21 @@ export class MisListasComponent implements OnInit {
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
     return `${baseUrl}${this.banner}`;
     }
+
+  createList (){
+    
+      this.mylistService.createList(this.nameList, this.description).subscribe(response =>{
+        console.log('hola', response)
+        window.location.reload();
+      }
+      ) ;
+  }
+
+  deleteList(id: number) {
+    this.mylistService.deleteList(id).subscribe(response=>{
+      console.log('borrate', response);
+      window.location.reload();
+    });
+    }
+
 }
