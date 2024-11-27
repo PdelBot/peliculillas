@@ -22,7 +22,7 @@ export class ListService {
 
 
   getPopularFilm(): Observable<FilmListResponse> {
-    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/movie/popular', {
+    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/movie/popular?language=es-US&page=1', {
       headers: {
         'Authorization': `Bearer ${ACCESS_TOKEN}`
       }

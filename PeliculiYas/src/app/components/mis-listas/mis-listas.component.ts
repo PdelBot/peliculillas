@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, input, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class MisListasComponent implements OnInit {
   userName = '';
   userPhoto = '';
   nListas: number = 0;
+  banner: string = "/q8eejQcg1bAqImEV8jh8RtBD4uH.jpg";  
 
   constructor(private authService: AuthService) { }
   ngOnInit(): void {
@@ -69,6 +70,7 @@ export class MisListasComponent implements OnInit {
   }
 
   bannerImg() {
-    return 'https://imgcdn.stablediffusionweb.com/2024/4/22/aaaed00c-d987-4c6d-8870-b763a2674869.jpg'
+    const baseUrl = 'https://image.tmdb.org/t/p/w500';
+    return `${baseUrl}${this.banner}`;
     }
 }
