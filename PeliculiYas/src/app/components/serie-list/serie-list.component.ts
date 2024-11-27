@@ -49,4 +49,8 @@ export class SerieListComponent {
   getColor({ valoracion }: { valoracion: number }): { [key: string]: string } {
     return this.serieService.getColorValoracion({ valoracion });
   }
+
+  actualizarListado(nuevoListado: Serie[]) {
+    this.listadoSeries = nuevoListado;
+  }
 }

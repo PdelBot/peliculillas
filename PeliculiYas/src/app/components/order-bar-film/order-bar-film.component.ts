@@ -3,11 +3,11 @@ import { ListService } from '../../services/list.service';
 import { Film } from '../../models/film.interface';
 
 @Component({
-  selector: 'app-order-bar',
-  templateUrl: './order-bar.component.html',
-  styleUrl: './order-bar.component.css'
+  selector: 'app-order-bar-film',
+  templateUrl: './order-bar-film.component.html',
+  styleUrl: './order-bar-film.component.css'
 })
-export class OrderBarComponent {
+export class OrderBarFilmComponent {
 
   @Input() listado: Film[] = [];
   @Output() listadoChange = new EventEmitter<Film[]>();

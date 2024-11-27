@@ -11,9 +11,19 @@
 
     </div>
     <div class="menu d-flex row align-items-flex justify-content-start text-white gap-4">
-        <app-order-bar [listado]="listado" (listadoChange)="actualizarListado($event)"></app-order-bar>
-    </div>
+        @if (tipo === 'peliculas') {
+        <div>
+            <app-order-bar-film [listado]="listadoPeliculas"
+                (listadoChange)="actualizarListadoPeliculas($event)"></app-order-bar-film>
+        </div>
+        }@else{
+        <div #seriesOrderBar>
+            <app-order-bar-series [listado]="listadoSeries"
+                (listadoChange)="actualizarListadoSeries($event)"></app-order-bar-series>
+        </div>
+        }
 
+    </div>
     <!-- Esto se va a borrar -->
     <div class="menu d-flex row align-items-flex justify-content-start text-white gap-4">
         <div class="home d-flex gap-2 align-items-center justify-content-center">

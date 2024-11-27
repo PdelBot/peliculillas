@@ -1,6 +1,7 @@
-import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Film } from '../../models/film.interface';
 import { ListService } from '../../services/list.service';
+import { Serie } from '../../models/serie.interface';
 
 @Component({
   selector: 'app-menu-lateral',
@@ -13,21 +14,40 @@ export class MenuLateralComponent implements OnInit {
 
   altura: number = 1780;
 
-  listado: Film[] = [];
-  @Output() listadoChange = new EventEmitter<Film[]>();
+  @Input() tipo: 'peliculas' | 'series' = 'peliculas';
+  listadoPeliculas: Film[] = [];
+  listadoSeries: Serie[] = [];
+  @Output() listadoChange = new EventEmitter<Film[] | Serie[]>();
+
 
   constructor(private listService: ListService) { }
 
   ngOnInit() {
-    this.listService.getPopularFilmDesc().subscribe(response => {
-      this.listado = response.results;
-      this.listadoChange.emit(this.listado);
-    });
+    this.cargarListado();
   }
 
-  actualizarListado(nuevoListado: Film[]) {
-    this.listado = nuevoListado;
-    this.listadoChange.emit(this.listado);
+  cargarListado() {
+    if (this.tipo === 'peliculas') {
+      this.listService.getPopularFilmDesc().subscribe(response => {
+        this.listadoPeliculas = response.results;
+        this.listadoChange.emit(this.listadoPeliculas);
+      });
+    } else {
+      this.listService.getPopularSeriesDesc().subscribe(response => {
+        this.listadoSeries = response.results;
+        this.listadoChange.emit(this.listadoSeries);
+      });
+    }
+  }
+
+  actualizarListadoPeliculas(nuevoListado: Film[]) {
+    this.listadoPeliculas = nuevoListado;
+    this.listadoChange.emit(this.listadoPeliculas);
+  }
+
+  actualizarListadoSeries(nuevoListado: Serie[]) {
+    this.listadoSeries = nuevoListado;
+    this.listadoChange.emit(this.listadoSeries);
   }
   desplegable() {
     this.isOpen = !this.isOpen;

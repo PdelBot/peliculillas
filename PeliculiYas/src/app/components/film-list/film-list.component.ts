@@ -16,14 +16,9 @@ export class FilmListComponent implements OnInit {
   constructor(private filmService: ListService) { };
 
   ngOnInit(): void {
-    this.filmService.getPopularFilm().subscribe((response) => {
+    this.filmService.getPopularFilmDesc().subscribe((response) => {
       this.listadoPeliculas = response.results;
     });
-    //Para que salgan las películas más populares al cargar la página de forma descendente
-    this.filmService.getPopularFilmDesc().subscribe(response => {
-      this.listadoPeliculas = response.results;
-    });
-
   }
   
 
@@ -69,7 +64,6 @@ export class FilmListComponent implements OnInit {
     return this.filmService.getGenreName(genreIds[0]);
   }
 
-  //Para el ordenar
   actualizarListado(nuevoListado: Film[]) {
     this.listadoPeliculas = nuevoListado;
   }

@@ -152,8 +152,10 @@ export class ListService {
       });
   }
 
-  getPopularSeriesDesc(): Observable<FilmListResponse> {
-    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/tv?include_adult=false&language=en-US&page=1&sort_by=popularity.desc'
+  //series populares descendentemente
+
+  getPopularSeriesDesc(): Observable<SerieListResponse> {
+    return this.http.get<SerieListResponse>('https://api.themoviedb.org/3/discover/tv?include_adult=false&language=es-US&page=1&sort_by=popularity.desc'
       , {
         headers: {
           'Authorization': `Bearer ${environment.access_token}`
@@ -161,8 +163,9 @@ export class ListService {
       });
   }
 
-  getPopularSeriesAsc(): Observable<FilmListResponse> {
-    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/tv?include_adult=false&language=en-US&page=1&sort_by=popularity.asc'
+  //series populares ascendentemente
+  getPopularSeriesAsc(): Observable<SerieListResponse> {
+    return this.http.get<SerieListResponse>('https://api.themoviedb.org/3/discover/tv?include_adult=false&language=es-US&page=1&sort_by=popularity.asc'
       , {
         headers: {
           'Authorization': `Bearer ${environment.access_token}`
@@ -170,5 +173,24 @@ export class ListService {
       });
   }
 
-  https://api.themoviedb.org/3/discover/tv?include_adult=false&language=en-US&page=1&sort_by=vote_average.desc&vote_count.gte=200
+  //series valoracion descendentemente
+  getRatedSeriesDesc(): Observable<SerieListResponse> {
+    return this.http.get<SerieListResponse>('https://api.themoviedb.org/3/discover/tv?include_adult=false&language=es-US&page=1&sort_by=vote_average.desc&vote_count.gte=200'
+      , {
+        headers: {
+          'Authorization': `Bearer ${environment.access_token}`
+        }
+      });
+  }
+
+  //series valoracion ascendentemente
+  getRatedSeriesAsc(): Observable<SerieListResponse> {
+    return this.http.get<SerieListResponse>('https://api.themoviedb.org/3/discover/tv?include_adult=false&language=es-US&page=1&sort_by=vote_average.asc&vote_count.gte=200'
+      , {
+        headers: {
+          'Authorization': `Bearer ${environment.access_token}`
+        }
+      });
+  }
+
 }

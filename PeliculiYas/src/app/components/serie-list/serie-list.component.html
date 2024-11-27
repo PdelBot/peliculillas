@@ -1,14 +1,15 @@
 <div class="films d-flex row">
 
-    <app-menu-lateral class="col-2"></app-menu-lateral>
+    <app-menu-lateral class="col-2" [tipo]="'series'" (listadoChange)="actualizarListado($event)"> </app-menu-lateral>
     <div class="listado col-9">
         <app-menu-list></app-menu-list>
 
         <div class="listado-pelis">
             @for (serie of listadoSeries; track serie.id) {
-                <a [routerLink]="['/series', serie.id]">
-                    
-                <div class="card card-serie" [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(serie?.poster_path || '') + ')'}">
+            <a [routerLink]="['/series', serie.id]">
+
+                <div class="card card-serie"
+                    [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(serie?.poster_path || '') + ')'}">
                     <div class="valoracion-serie" [ngStyle]="getColor({ valoracion: serie.vote_average })">
                         <h2 class="text-white">{{serie.vote_average | roundedVote}}</h2>
                     </div>
@@ -21,19 +22,19 @@
                         </div>
                     </div>
                 </div>
-                </a>
+            </a>
             }
         </div>
         <div class="d-flex justify-content-center align-items-center gap-5">
             @if(page>2){
-                <div class="inicio">
-                    <button class="paginacion" (click)="getPaginaUno()">Volver al inicio</button>
-                </div>
+            <div class="inicio">
+                <button class="paginacion" (click)="getPaginaUno()">Volver al inicio</button>
+            </div>
             }
-            
+
             @if(page > 1) {
-                <button class="paginacion" (click)="getLastPage()"><i class="bi bi-caret-left-fill"></i></button>
-                <button class="paginacion fs-3" (click)="getLastPage()">{{page-1}}</button>
+            <button class="paginacion" (click)="getLastPage()"><i class="bi bi-caret-left-fill"></i></button>
+            <button class="paginacion fs-3" (click)="getLastPage()">{{page-1}}</button>
             }
             <button class="paginacion fs-1">{{page}}</button>
             <button class="paginacion fs-3" (click)="getNextPage()">{{page+1}}</button>

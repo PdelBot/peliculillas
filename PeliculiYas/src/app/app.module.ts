@@ -19,7 +19,10 @@ import { FilmDetailsComponent } from './components/film-details/film-details.com
 import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 import { ApprovedComponent } from './components/approved/approved.component';
-import { OrderBarComponent } from './components/order-bar/order-bar.component';
+import { OrderBarFilmComponent } from './components/order-bar-film/order-bar-film.component';
+import { OrderBarSerieComponent } from './components/order-bar-serie/order-bar-serie.component';
+
+
 
 @NgModule({
   declarations: [
@@ -37,14 +40,15 @@ import { OrderBarComponent } from './components/order-bar/order-bar.component';
     SerieDetailsComponent,
     PeopleDetailsComponent,
     ApprovedComponent,
-    OrderBarComponent,
-    
+    OrderBarFilmComponent,
+    OrderBarSerieComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    
+
   ],
   providers: [
     provideAnimationsAsync(),
