@@ -29,7 +29,7 @@ export class ListService {
     });
   }
 
-  getOneFilm (id:number): Observable<Film>{
+  getOneFilm(id: number): Observable<Film> {
     return this.http.get<Film>(`${environment.apiBaseUrl}/movie/${id}`, {
       headers: {
         'Authorization': `Bearer ${environment.access_token}`,
@@ -118,7 +118,7 @@ export class ListService {
           'Authorization': `Bearer ${environment.access_token}`
         }
       });
-     
+
   }
   //peliculas populares ascendentemente
   getPopularFilmAsc(): Observable<FilmListResponse> {
@@ -130,6 +130,8 @@ export class ListService {
       });
   }
 
+  //peliculas valoracion descendentemente
+
   getRatedFilmDesc(): Observable<FilmListResponse> {
     return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=vote_average.desc'
       , {
@@ -139,6 +141,8 @@ export class ListService {
       });
   }
 
+  //peliculas valoracion ascendentemente
+
   getRatedFilmAsc(): Observable<FilmListResponse> {
     return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=vote_average.asc'
       , {
@@ -147,4 +151,24 @@ export class ListService {
         }
       });
   }
+
+  getPopularSeriesDesc(): Observable<FilmListResponse> {
+    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/tv?include_adult=false&language=en-US&page=1&sort_by=popularity.desc'
+      , {
+        headers: {
+          'Authorization': `Bearer ${environment.access_token}`
+        }
+      });
+  }
+
+  getPopularSeriesAsc(): Observable<FilmListResponse> {
+    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/tv?include_adult=false&language=en-US&page=1&sort_by=popularity.asc'
+      , {
+        headers: {
+          'Authorization': `Bearer ${environment.access_token}`
+        }
+      });
+  }
+
+  https://api.themoviedb.org/3/discover/tv?include_adult=false&language=en-US&page=1&sort_by=vote_average.desc&vote_count.gte=200
 }
