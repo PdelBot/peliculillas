@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ListService } from '../../services/list.service';
 import { Film } from '../../models/film.interface';
 import { FavoritesService } from '../../services/favorites.service';
+import { WatchListService } from '../../services/watch-list.service';
 
 @Component({
   selector: 'app-film-list',
@@ -10,14 +11,13 @@ import { FavoritesService } from '../../services/favorites.service';
 })
 export class FilmListComponent implements OnInit {
 
-
-
   page = 1;
   listadoPeliculas: Film[] = [];
   favouriteFilms: Film[] = [];
+  watchListFilms: Film[] = [];
 
 
-  constructor(private filmService: ListService, private favoriteService: FavoritesService) { };
+  constructor(private filmService: ListService, private favoriteService: FavoritesService, private watchlistService: WatchListService) { };
 
   ngOnInit(): void {
     this.filmService.getPopularFilm().subscribe((response) => {
@@ -26,6 +26,10 @@ export class FilmListComponent implements OnInit {
 
     this.favoriteService.getFavouriteFilms().subscribe(response => {
       this.favouriteFilms = response.results;
+    });
+
+    this.watchlistService.getWatchListFilms().subscribe(response => {
+      this.watchListFilms = response.results;
     });
 
   }
@@ -73,10 +77,11 @@ export class FilmListComponent implements OnInit {
 
 
   addToFavourites(film: Film): void {
-    this.favoriteService.addFilmToFavourites(film).subscribe(response => {
-      console.log('Film added to favourites:', response);
+    this.favoriteService.addFilmToFavourites(film).subscribe(filmAdded => {
+      console.log('Film added to favourites:', filmAdded);
     });
     window.location.reload();
+
   }
 
   removeFromFavourites(film: Film) {
@@ -84,6 +89,7 @@ export class FilmListComponent implements OnInit {
       console.log('Film removed from favourites:', response);
     });
     window.location.reload();
+
   }
 
 
@@ -94,14 +100,28 @@ export class FilmListComponent implements OnInit {
 
   }
 
-  toggleFavourite(peli: any): void {
-    if (this.isAdded(peli)) {
-      this.removeFromFavourites(peli);
-    } else {
-      this.addToFavourites(peli);
-    }
+
+
+  addToWatchlist(film: Film): void {
+    this.watchlistService.addFilmToWatchList(film).subscribe(response => {
+      console.log('Film added to watchlist:', response);
+    });
+    window.location.reload();
   }
 
+  isAddedWatchList(film: Film): boolean {
+
+    return this.watchListFilms.some(watchListFilms => watchListFilms.id === film.id);
+
+
+  }
+
+  removeFromWatchList(film: Film) {
+    this.watchlistService.deleteFilmFromWatchList(film).subscribe(response => {
+      console.log('Film removed from watchlist:', response);
+    });
+    window.location.reload();
+  }
 
 
 }

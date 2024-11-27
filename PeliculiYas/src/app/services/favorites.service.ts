@@ -13,6 +13,7 @@ import { Serie } from '../models/serie.interface';
 export class FavoritesService {
 
   constructor(private http:HttpClient) { }
+  
   addFilmToFavourites(film: Film): Observable<any> {
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');
