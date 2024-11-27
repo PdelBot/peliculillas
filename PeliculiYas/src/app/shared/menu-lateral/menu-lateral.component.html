@@ -11,7 +11,7 @@
 
     </div>
     <div class="menu d-flex row align-items-flex justify-content-start text-white gap-4">
-        <app-order-bar></app-order-bar>
+        <app-order-bar [listado]="listado" (listadoChange)="actualizarListado($event)"></app-order-bar>
     </div>
 
     <!-- Esto se va a borrar -->

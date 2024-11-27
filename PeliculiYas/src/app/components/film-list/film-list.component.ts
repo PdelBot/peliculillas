@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ListService } from '../../services/list.service';
 import { Film } from '../../models/film.interface';
 
@@ -13,14 +13,19 @@ export class FilmListComponent implements OnInit {
   page = 1;
   listadoPeliculas: Film[] = [];
 
-  constructor(private filmService : ListService){};
-  
+  constructor(private filmService: ListService) { };
+
   ngOnInit(): void {
-    this.filmService.getPopularFilm().subscribe((response) =>
-    {
-      this.listadoPeliculas= response.results;
-    })
+    this.filmService.getPopularFilm().subscribe((response) => {
+      this.listadoPeliculas = response.results;
+    });
+    //Para que salgan las películas más populares al cargar la página de forma descendente
+    this.filmService.getPopularFilmDesc().subscribe(response => {
+      this.listadoPeliculas = response.results;
+    });
+
   }
+  
 
   getFullImagePath(posterPath: string): string {
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
@@ -32,7 +37,7 @@ export class FilmListComponent implements OnInit {
     this.filmService.getFilmPage(this.page).subscribe((response) => {
       this.listadoPeliculas = response.results;
     });
-    }
+  }
 
   getNextPage() {
     this.page += 1;

@@ -13,27 +13,31 @@ export class OrderBarComponent {
   @Output() listadoChange = new EventEmitter<Film[]>();
 
   constructor(private listService: ListService) { }
-  
+
   ordenar(criterio: string) {
     switch (criterio) {
       case 'popularidadAscendente':
         this.listService.getPopularFilmAsc().subscribe(response => {
           this.listado = response.results;
+          this.listadoChange.emit(this.listado);
         });
         break;
       case 'popularidadDescendente':
         this.listService.getPopularFilmDesc().subscribe(response => {
           this.listado = response.results;
+          this.listadoChange.emit(this.listado);
         });
         break;
       case 'valoracionAscendente':
         this.listService.getRatedFilmAsc().subscribe(response => {
           this.listado = response.results;
+          this.listadoChange.emit(this.listado);
         });
         break;
       case 'valoracionDescendente':
         this.listService.getRatedFilmDesc().subscribe(response => {
           this.listado = response.results;
+          this.listadoChange.emit(this.listado);
         });
         break;
       default:

@@ -112,37 +112,38 @@ export class ListService {
 
   //peliculas populares descendentemente
   getPopularFilmDesc(): Observable<FilmListResponse> {
-    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
+    return this.http.get<FilmListResponse>(`${environment.apiBaseUrl}/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=popularity.desc`
       , {
         headers: {
-          'Authorization': `Bearer ${ACCESS_TOKEN}`
+          'Authorization': `Bearer ${environment.access_token}`
         }
       });
+     
   }
   //peliculas populares ascendentemente
   getPopularFilmAsc(): Observable<FilmListResponse> {
-    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.asc'
+    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=popularity.asc'
       , {
         headers: {
-          'Authorization': `Bearer ${ACCESS_TOKEN}`
+          'Authorization': `Bearer ${environment.access_token}`
         }
       });
   }
 
   getRatedFilmDesc(): Observable<FilmListResponse> {
-    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_average.desc'
+    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=vote_average.desc'
       , {
         headers: {
-          'Authorization': `Bearer ${ACCESS_TOKEN}`
+          'Authorization': `Bearer ${environment.access_token}`
         }
       });
   }
 
   getRatedFilmAsc(): Observable<FilmListResponse> {
-    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_average.asc'
+    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=vote_average.asc'
       , {
         headers: {
-          'Authorization': `Bearer ${ACCESS_TOKEN}`
+          'Authorization': `Bearer ${environment.access_token}`
         }
       });
   }

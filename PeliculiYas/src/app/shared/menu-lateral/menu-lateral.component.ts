@@ -9,31 +9,26 @@ import { ListService } from '../../services/list.service';
 })
 export class MenuLateralComponent implements OnInit {
 
-  listado: Film[] = [];
-  @Output() listadoChange = new EventEmitter<Film[]>();
-
-
   isOpen: boolean = false;
 
   altura: number = 1780;
 
+  listado: Film[] = [];
+  @Output() listadoChange = new EventEmitter<Film[]>();
+
   constructor(private listService: ListService) { }
 
   ngOnInit() {
-    //Para que salgan las películas más populares al cargar la página de forma descendente
     this.listService.getPopularFilmDesc().subscribe(response => {
       this.listado = response.results;
       this.listadoChange.emit(this.listado);
     });
   }
 
-  //Para cuando se cambie al ordenar 
   actualizarListado(nuevoListado: Film[]) {
     this.listado = nuevoListado;
     this.listadoChange.emit(this.listado);
   }
-
-
   desplegable() {
     this.isOpen = !this.isOpen;
 
