@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Film } from '../../models/film.interface';
 import { ListService } from '../../services/list.service';
 import { Serie } from '../../models/serie.interface';
+import { DetailsService } from '../../services/details.service';
+import { FilmDetailsResponse, Genre } from '../../models/film-details.interface';
 
 @Component({
   selector: 'app-principal-menu',
@@ -12,19 +14,19 @@ export class PrincipalMenuComponent {
 
   
   listadoPeliculas: Film[] = [];
-  peliculaMasPopular: Film | undefined
-  
+  peliculaMasPopular: FilmDetailsResponse | undefined
   listadoSeries: Serie[] = [];
 
-  constructor(private filmService: ListService) { }
+  constructor(private filmService: ListService, private detailService: DetailsService) { }
 
   ngOnInit(): void {
     this.filmService.getPopularFilm().subscribe((response) => {
       this.listadoPeliculas = response.results;
 
-      this.filmService.getOneFilm(this.masPopular(this.listadoPeliculas)).subscribe((response) =>{
+      this.detailService.getFilmdeatils(this.masPopular(this.listadoPeliculas), 'es-ES').subscribe((response) =>{
         this.peliculaMasPopular = response;
-      });
+      })
+      
 
       this.filmService.getPopularSeries().subscribe((response) => {
         this.listadoSeries = response.results;
@@ -68,6 +70,10 @@ export class PrincipalMenuComponent {
     return this.filmService.getGenreName(genreIds[0]);
   }
  
+  generoPrimera (genres: Genre[]): string{
+    return genres[0].name;
+  }
+  
 
 
 

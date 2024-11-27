@@ -11,11 +11,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SerieDetailsComponent implements OnInit {
 
+
   seriesDetails: SerieDetaisResponse | undefined;
   seasonsId: Season[] = [];
   seasons: SeasonDetailsResponse[] = [];
   selectedSeason: SeasonDetailsResponse | undefined;
   rating: number = 0;
+
+  episodesToShow: number = 20;
+  incrementBy: number = 20;
 
 
 
@@ -65,4 +69,7 @@ export class SerieDetailsComponent implements OnInit {
     return `${baseUrl}${path}`;
   }
 
+  loadMoreEpisodes() {
+    this.episodesToShow += this.incrementBy;
+    }
 }

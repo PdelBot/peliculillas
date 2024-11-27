@@ -1,17 +1,17 @@
 <app-menu></app-menu>
 
 <div class="banner-home"
-    [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(peliculaMasPopular?.poster_path || '') + ')'}">
+    [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(peliculaMasPopular?.backdrop_path || '') + ')'}">
     <div class="text">
         <h1 class="ms-3">{{peliculaMasPopular?.title}}</h1>
         <div class="detalles d-flex gap-4 ms-3">
             <p id="fecha">{{peliculaMasPopular?.release_date}}</p>
             <p>|</p>
-            <p id="tipo">porfavor</p>
+            <p id="tipo">{{generoPrimera(peliculaMasPopular!.genres)}}</p>
             <p>|</p>
-            <p id="temporadas">es urgente</p>
+            <p id="temporadas">{{peliculaMasPopular?.runtime}}min</p>
         </div>
-        <button class="watch-now btn btn-primary align-items-center justify-content-beetwen ">Ver ahora</button>
+        <a [routerLink]="['/peliculas', peliculaMasPopular?.id]" class="watch-now btn btn-primary align-items-center justify-content-beetwen ">Ver ahora</a>
     </div>
 </div>
 

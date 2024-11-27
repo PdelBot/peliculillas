@@ -74,4 +74,9 @@
     box-shadow: 8px 5px 5px black;
     padding: 5px 20px;
     color: white;
+    transition: transform 0.3s ease;
+}
+
+.createList:hover{
+    transform: scale(1.1);
 }
