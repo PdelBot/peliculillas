@@ -14,31 +14,40 @@
         <div class="right-menu d-flex align-items-center">
             <i class="bi bi-search"></i>
             @if(isLoggedIn()) {
-                <div class="dropdown">
-                    <div class="d-flex justify-content-center align-items-center">
-                        <img [src]="verificarImg()" alt="avatar" class="avatar" />
-                        <p class="username">{{userName}}</p>
-                    </div>
-                    
-                    <div class="dropdown-content">
-                        <a routerLink="/favorites"><p>Favoritos</p></a>
-                        <a ><p>Mis listas</p></a>
-                        <a><p>Valorant</p></a>
-                        <button (click)="logout()" class="logout">
-                            <i class="bi bi-box-arrow-left"></i> 
-                            <p>Cerrar sesión</p>
-                        </button>
-                    </div>
+            <div class="dropdown">
+                <div class="d-flex justify-content-center align-items-center">
+                    <img [src]="verificarImg()" alt="avatar" class="avatar" />
+                    <p class="username">{{userName}}</p>
                 </div>
-                
+
+                <div class="dropdown-content">
+                    <a routerLink="/favorites">
+                        <p>Favoritos</p>
+                    </a>
+                    <a routerLink="/watchlist">
+                        <p>Ver más tarde</p>
+                    </a>
+                    <a>
+                        <p>Mis listas</p>
+                    </a>
+                    <a>
+                        <p>Valorant</p>
+                    </a>
+                    <button (click)="logout()" class="logout">
+                        <i class="bi bi-box-arrow-left"></i>
+                        <p>Cerrar sesión</p>
+                    </button>
+                </div>
+            </div>
+
             }@else {
-                <button class="login btn btn-sm" (click)="createRequestToken()">
-                    <i class="bi bi-box-arrow-in-right"></i>
-                    <p>Iniciar sesión</p>
-                </button>
+            <button class="login btn btn-sm" (click)="createRequestToken()">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <p>Iniciar sesión</p>
+            </button>
             }
 
-            
+
         </div>
     </nav>
 </div>

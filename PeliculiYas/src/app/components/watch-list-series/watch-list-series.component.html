@@ -1,0 +1,10 @@
+<div class="favourite-films">
+    <h1>Favourite Films</h1>
+    <div class="films-list">
+        <div *ngFor="let film of watchListSeries" class="film-card">
+            <img [src]="getFullImagePath(film.poster_path)" alt="{{ film.name }}">
+            <h3>{{ film.name }}</h3>
+            <p>{{ film.first_air_date }}</p>
+        </div>
+    </div>
+</div>

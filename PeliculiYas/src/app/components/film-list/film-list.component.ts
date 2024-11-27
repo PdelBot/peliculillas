@@ -94,6 +94,13 @@ export class FilmListComponent implements OnInit {
 
   }
 
+  toggleFavourite(peli: any): void {
+    if (this.isAdded(peli)) {
+      this.removeFromFavourites(peli);
+    } else {
+      this.addToFavourites(peli);
+    }
+  }
 
 
 

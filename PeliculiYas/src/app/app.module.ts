@@ -22,6 +22,9 @@ import { ApprovedComponent } from './components/approved/approved.component';
 import { FavoriteListComponent } from './components/favorite-list/favorite-list.component';
 import { FavoriteFilmsComponent } from './components/favorite-films/favorite-films.component';
 import { FavoriteSerieComponent } from './components/favorite-serie/favorite-serie.component';
+import { WatchListComponent } from './components/watch-list/watch-list.component';
+import { WatchListSeriesComponent } from './components/watch-list-series/watch-list-series.component';
+import { WatchListFilmComponent } from './components/watch-list-film/watch-list-film.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,9 @@ import { FavoriteSerieComponent } from './components/favorite-serie/favorite-ser
     FavoriteListComponent,
     FavoriteFilmsComponent,
     FavoriteSerieComponent,
+    WatchListComponent,
+    WatchListSeriesComponent,
+    WatchListFilmComponent,
     
   ],
   imports: [
