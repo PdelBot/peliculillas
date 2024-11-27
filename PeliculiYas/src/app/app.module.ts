@@ -19,7 +19,6 @@ import { FilmDetailsComponent } from './components/film-details/film-details.com
 import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 import { ApprovedComponent } from './components/approved/approved.component';
-import { RatingComponent } from './components/rating/rating.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +36,6 @@ import { RatingComponent } from './components/rating/rating.component';
     SerieDetailsComponent,
     PeopleDetailsComponent,
     ApprovedComponent,
-    RatingComponent,
     
   ],
   imports: [
