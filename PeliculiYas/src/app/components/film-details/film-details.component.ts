@@ -6,6 +6,7 @@ import { Cast, Crew } from '../../models/film-credits.interface';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TrailerDetailsResponse } from '../../models/trailer-details.interface';
 import { ActivatedRoute } from '@angular/router';
+import { RatingService } from '../../services/rating.service';
 
 @Component({
   selector: 'app-film-details',
@@ -21,13 +22,15 @@ export class FilmDetailsComponent implements OnInit {
   listCast: Cast[] = [];
   listCrew: Crew[] = [];
   rating: number = 0;
+  userRating: number = 0;  
 
 
-  constructor(private detailsService: DetailsService, private sanitizer: DomSanitizer, private route: ActivatedRoute,
+  constructor(private detailsService: DetailsService, private sanitizer: DomSanitizer, private route: ActivatedRoute, private ratingService: RatingService
   ) { }
 
   ngOnInit(): void {
     const filmId = this.route.snapshot.paramMap.get('id');
+    
 
     if (filmId) {
       this.detailsService.getFilmdeatils(+filmId, 'es-ES').subscribe((response) => {
@@ -50,8 +53,14 @@ export class FilmDetailsComponent implements OnInit {
 
 
       });
-
-
+        // Cargar la calificación del usuario desde TMDb
+    this.ratingService.getUserRating(+filmId).subscribe({
+      next: (response) => {
+        this.userRating = response.rated?.value || 0; // Cargar calificación previa si existe
+      },
+      error: (err) => console.error('Error al obtener la calificación del usuario:', err),
+    });
+  
     }
   }
 
@@ -77,8 +86,18 @@ export class FilmDetailsComponent implements OnInit {
   }
 
 
-
-
+  saveRating(newRating: number): void {
+    if (this.film) {
+      this.ratingService.saveRating(this.film.id, newRating).subscribe({
+        next: () => {
+          this.userRating = newRating; // Actualizamos la calificación actual en la vista
+          console.log(`Calificación de ${newRating} guardada exitosamente en TMDb`);
+        },
+        error: (err) => console.error('Error al guardar la calificación en TMDb:', err),
+      });
+    }
+  }
+  
 
 }
 

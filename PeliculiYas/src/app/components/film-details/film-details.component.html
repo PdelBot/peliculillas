@@ -26,6 +26,26 @@
               [(rate)]="rating" [max]="5" [readonly]="true"></ngb-rating> </p>
         </div>
         <div>
+          <div class="user-rating">
+            <h3>Tu calificación:</h3>
+            <p *ngIf="userRating > 0; else noRating"></p>
+            <ng-template #noRating>
+              <p>Aún no has calificado esta película.</p>
+            </ng-template>
+          </div>
+
+          <!-- Botones para calificar -->
+          <div>
+            <div class="rating-stars">
+              <span *ngFor="let star of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; let i = index" class="star"
+                [class.filled]="star <= userRating" (click)="saveRating(star)">
+                ★
+              </span>
+            </div>
+          </div>
+        </div>
+        
+        <div>
           @for (item of film?.genres; track $index) {
           <div class="badge" href="#">
             {{item.name}}
@@ -34,7 +54,8 @@
           }
         </div>
         <div>
-          <button class="watch-now btn btn-primary align-items-center justify-content-beetwen " (click)="watchTrailer()">Ver Trailer</button>
+          <button class="watch-now btn btn-primary align-items-center justify-content-beetwen "
+            (click)="watchTrailer()">Ver Trailer</button>
         </div>
       </div>
     </div>
@@ -47,14 +68,14 @@
 
       @for (credits of listCast; track listCast.indexOf(credits)) {
       <div class="card" *ngIf="credits.profile_path && credits.name">
-        <a [routerLink]="['/actores', credits.id]">    
-        <img [src]="getImgUrl(credits.profile_path || '')" alt="NOMBRE">
-        <div class="card-text">
-          <p>{{credits.name}}</p>
-        </div>
-      </a>
+        <a [routerLink]="['/actores', credits.id]">
+          <img [src]="getImgUrl(credits.profile_path || '')" alt="NOMBRE">
+          <div class="card-text">
+            <p>{{credits.name}}</p>
+          </div>
+        </a>
       </div>
-    }
+      }
     </div>
 
   </div>

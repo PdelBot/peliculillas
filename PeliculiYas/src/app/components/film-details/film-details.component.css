@@ -148,7 +148,7 @@
 
 /*generos*/
 .badge {
-  margin-top: 1em;
+  margin-top: 2em;
   margin-bottom: 1em;
   margin-right: 0.5em;
   position: relative;
@@ -173,4 +173,25 @@
   padding: 10px 20px 10px 20px;
   width: 200px;
   border-radius: 20px;
+}
+
+.rating-stars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.star {
+  font-size: 2rem;
+  color: lightgray;
+  transition: color 0.3s ease;
+}
+
+.star.filled {
+  color: gold;
+}
+
+.star:hover {
+  color: orange;
 }
