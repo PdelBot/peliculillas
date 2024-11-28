@@ -1,0 +1,14 @@
+.menu-right{
+    margin: 20% 0px 10% 30px;
+}
+
+
+.menu-right div{
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    gap: 20px;
+    font-size: 30px;
+    margin: 20px 0px 20px 0px;
+}
+

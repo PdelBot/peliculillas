@@ -11,11 +11,13 @@
     </div>
 </div>
 
-<div class="content d-flex row">
+<div class="content d-flex row me-0">
     <div class="mislistas col-9">
         <div class="title d-flex">
             <i class="bi bi-list-ul"></i>
             <h1>Mis listas</h1>
+            <button *ngIf="misListas.length>0" (click)="createList()" class="createList d-flex gap-2"><i class="bi bi-plus-circle"></i>Crear
+                lista</button>
         </div>
         <div class="content-list">
             @if(misListas.length === 0){
@@ -44,7 +46,7 @@
             }
         </div>
     </div>
-    <div class="right-menu">
-        <!--Menu lateral-->
+    <div class="right-menu col-3">
+        <app-menu-right></app-menu-right>
     </div>
 </div>

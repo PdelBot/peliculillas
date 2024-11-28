@@ -22,6 +22,7 @@ import { ApprovedComponent } from './components/approved/approved.component';
 import { MisListasComponent } from './components/mis-listas/mis-listas.component';
 import { MisListasDetailsComponent } from './components/mis-listas-details/mis-listas-details.component';
 import { FormsModule } from '@angular/forms';
+import { MenuRightComponent } from './shared/menu-right/menu-right.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { FormsModule } from '@angular/forms';
     ApprovedComponent,
     MisListasComponent,
     MisListasDetailsComponent,
+    MenuRightComponent,
     
   ],
   imports: [

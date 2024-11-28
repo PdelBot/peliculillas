@@ -19,6 +19,7 @@ export class MisListasService {
     const body = {
       name: name,
       description: description,
+      language: 'es-Es'
     }
 
     return this.http.post(`${BASE_URL}/list?api_key=${API_KEY}&session_id=${sessionId}`, body)
