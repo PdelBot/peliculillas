@@ -12,29 +12,32 @@ import { myListDetailsResponse } from '../../models/my-list-details.interface';
 })
 export class MisListasComponent implements OnInit {
 
-
+  create: boolean = false;
+  delet: boolean = false;
+  clear: boolean = false;
   misListas: myList[] = [];
-  nameList: string = "Nueva lista"
-  description: string = "NO HAY"
+  nameList: string = ""
+  description: string = ""
   userName = '';
   userPhoto = '';
-  banner: string = "/q8eejQcg1bAqImEV8jh8RtBD4uH.jpg";  
+  banner: string = "/q8eejQcg1bAqImEV8jh8RtBD4uH.jpg";
   listDetails: myListDetailsResponse | undefined;
+  selectedListId: number | undefined;
 
   constructor(private authService: AuthService, private mylistService: MisListasService) { }
   ngOnInit(): void {
-  this.userName = localStorage.getItem('user_name') ?? '';
+    this.userName = localStorage.getItem('user_name') ?? '';
     this.userPhoto = localStorage.getItem('user_photo')
       ? `https://image.tmdb.org/t/p/original${localStorage.getItem(
-          'user_photo'
-        )}`
+        'user_photo'
+      )}`
       : '';
 
-      this.mylistService.getListas().subscribe((response)=>{
-        this.misListas = response.results;
-      });
+    this.mylistService.getListas().subscribe((response) => {
+      this.misListas = response.results;
+    });
 
-      
+
   }
 
   private prevScrollPos: number = window.scrollY;
@@ -72,45 +75,45 @@ export class MisListasComponent implements OnInit {
     window.location.href = 'http://localhost:4200';
   }
 
-  verificarImg(){
+  verificarImg() {
     const partes: string[] = this.userPhoto.split("/").filter(part => part !== '');
-    
-    if(partes[partes.length-1]==="originalnull"){
+
+    if (partes[partes.length - 1] === "originalnull") {
       this.userPhoto = "https://static.wikia.nocookie.net/mamarre-estudios-espanol/images/9/9f/Benjamin.png/revision/latest?cb=20201222175350&path-prefix=es"
     }
-      return this.userPhoto;
- 
+    return this.userPhoto;
+
   }
 
   bannerImg() {
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
     return `${baseUrl}${this.banner}`;
-    }
+  }
 
-  createList (){
-    
-      this.mylistService.createList(this.nameList, this.description).subscribe(response =>{
-        console.log('hola', response)
-        window.location.reload();
-      }
-      ) ;
+  createList() {
+
+    this.mylistService.createList(this.nameList, this.description).subscribe(response => {
+      console.log('hola', response)
+      window.location.reload();
+    }
+    );
   }
 
   deleteList(id: number) {
-    this.mylistService.deleteList(id).subscribe(response=>{
+    this.mylistService.deleteList(id).subscribe(response => {
       console.log('borrate', response);
       window.location.reload();
     });
-    }
+  }
 
-  clearList(id:number){
-    this.mylistService.clearList(id).subscribe(response =>{
+  clearList(id: number) {
+    this.mylistService.clearList(id).subscribe(response => {
       console.log('limpiar', response);
       window.location.reload();
     })
   }
 
-  getImgBackground(id: number): string{
+  getImgBackground(id: number): string {
     const idList = id.toString();
 
     this.mylistService.getDetailsList(idList).subscribe(response => {
@@ -120,11 +123,42 @@ export class MisListasComponent implements OnInit {
     const background = this.listDetails?.items[0].backdrop_path;
 
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
-    
-    
 
     return `${baseUrl}${background}`;
-    
+
+  }
+
+  On(tipe: number) {
+    switch (tipe) {
+      case 1:
+        this.create = true;
+        break;
+
+      case 2:
+        this.delet = true;
+        break;
+
+      case 3:
+        this.clear = true;
+        break;
+    }
+
+  }
+
+   Of(tipe: number) {
+    switch (tipe) {
+      case 1:
+        this.create = false;
+        break;
+
+      case 2:
+        this.delet = false;
+        break;
+
+      case 3:
+        this.clear = false;
+        break;
+    }
   }
 
 }

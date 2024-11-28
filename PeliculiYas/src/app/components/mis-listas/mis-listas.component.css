@@ -129,3 +129,7 @@
 .right-menu{
     background-color: rgba(82, 82, 82, 0.185);
 }
+
+.buttons{
+    padding-left: 50px;
+}

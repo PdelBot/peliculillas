@@ -16,8 +16,37 @@
         <div class="title d-flex">
             <i class="bi bi-list-ul"></i>
             <h1>Mis listas</h1>
-            <button *ngIf="misListas.length>0" (click)="createList()" class="createList d-flex gap-2"><i class="bi bi-plus-circle"></i>Crear
+
+        </div>
+        <div class="buttons d-flex gap-3">
+            <div class="create d-flex">
+                <button *ngIf="misListas.length>0&&!create" (click)="On(1)" class="createList d-flex gap-2"><i
+                    class="bi bi-plus-circle"></i>Crear
                 lista</button>
+            <input *ngIf="misListas.length>0&&create" type="text" [(ngModel)]="nameList"
+                placeholder="Nombre de la lista">
+            <input *ngIf="misListas.length>0&&create" type="text" [(ngModel)]="description" placeholder="Descripción">
+            <button *ngIf="misListas.length>0&&create" (click)="createList()" class="createList d-flex gap-2"><i
+                    class="bi bi-plus-circle"></i>Crear
+                lista</button>
+            <button *ngIf="misListas.length>0&&create" (click)="Of(1)" class="createList d-flex gap-2">X</button>
+            </div>
+            <div class="delete d-flex text-white">
+                <button *ngIf="misListas.length>0&&!delet" (click)="On(2)" class="createList d-flex gap-2"><i
+                    class="bi bi-plus-circle"></i>Borrar lista</button>
+                <label *ngIf="misListas.length>0&&delet" for="listSelector"></label>
+                <select *ngIf="misListas.length>0&&delet" id="listSelector" [(ngModel)]="selectedListId">
+                    <option value="" selected>Selecciona una lista</option>
+                    <option *ngFor="let list of misListas" [value]="list.id">{{ list.name }}</option>
+                </select>
+                <button *ngIf="misListas.length>0&&delet" (click)="deleteList(selectedListId!)" class="createList d-flex gap-2"><i
+                    class="bi bi-plus-circle"></i>Borrar lista</button>
+                    <button *ngIf="misListas.length>0&&delet" (click)="Of(2)" class="createList d-flex gap-2">X</button>
+            </div>
+            <div class="clear">
+
+            </div>
+            
         </div>
         <div class="content-list">
             @if(misListas.length === 0){
