@@ -8,49 +8,31 @@
                 <h1 class="text-danger mb-0">Ya!</h1>
             </div>
         </a>
-
     </div>
     <div class="menu d-flex row align-items-flex justify-content-start text-white gap-4">
         @if (tipo === 'peliculas') {
         <div>
-            <app-order-bar-film [listado]="listadoPeliculas"
-                (listadoChange)="actualizarListadoPeliculas($event)"></app-order-bar-film>
+            <label for="orden1">Ordenar por:</label>
+            <select id="orden1" #ordenSelectPeliculas>
+                <option value="popularidadDescendente">Popularidad Descendente</option>
+                <option value="popularidadAscendente">Popularidad Ascendente</option>
+                <option value="valoracionAscendente">Valoración Ascendente</option>
+                <option value="valoracionDescendente">Valoración Descendente</option>
+            </select>
+            <button (click)="ordenarPeliculas(ordenSelectPeliculas.value)">Buscar</button>
         </div>
         }@else{
-        <div #seriesOrderBar>
-            <app-order-bar-series [listado]="listadoSeries"
-                (listadoChange)="actualizarListadoSeries($event)"></app-order-bar-series>
+        <div>
+            <label for="orden2">Ordenar por:</label>
+            <select id="orden2" #ordenSelectSeries>
+                <option value="popularidadDescendente">Popularidad Descendente</option>
+                <option value="popularidadAscendente">Popularidad Ascendente</option>
+                <option value="valoracionAscendente">Valoración Ascendente</option>
+                <option value="valoracionDescendente">Valoración Descendente</option>
+            </select>
+            <button (click)="ordenarSeries(ordenSelectSeries.value)">Buscar</button>
         </div>
         }
 
     </div>
-    <!-- Esto se va a borrar -->
-    <div class="menu d-flex row align-items-flex justify-content-start text-white gap-4">
-        <div class="home d-flex gap-2 align-items-center justify-content-center">
-            <i class="bi bi-house-door-fill"></i>
-            <p class="mb-0"><a routerLink="/principal">Página principal</a></p>
-        </div>
-        <div class="trending d-flex row gap-2 align-items-center justify-content-center">
-            <div class="button d-flex align-items-center justify-content-center gap-0">
-                <i class="bi bi-graph-up-arrow"></i>
-                <button (click)="desplegable()">Populares</button>
-            </div>
-
-            <div class="desplegable d-flex column">
-                <div *ngIf="isOpen" class="open d-flex row align-items-center justify-content-center">
-                    <p> <a routerLink="/peliculas"> Peliculas</a></p>
-                    <p> <a routerLink="/series">Series</a></p>
-                    <p> <a routerLink="/actores">Actores</a></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="comming d-flex gap-2 align-items-center justify-content-center">
-            <i class="bi bi-calendar"></i>
-            <p class="mb-0">Proximamente</p>
-        </div>
-    </div>
-
-
-
 </div>

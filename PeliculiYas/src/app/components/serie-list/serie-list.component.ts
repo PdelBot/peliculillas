@@ -12,8 +12,6 @@ export class SerieListComponent {
   listadoSeries: Serie[] = [];
   page: number = 1;
 
-  
-
   constructor(private serieService: ListService) { }
 
   ngOnInit(): void {

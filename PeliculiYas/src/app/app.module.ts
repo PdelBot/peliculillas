@@ -19,8 +19,6 @@ import { FilmDetailsComponent } from './components/film-details/film-details.com
 import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 import { ApprovedComponent } from './components/approved/approved.component';
-import { OrderBarFilmComponent } from './components/order-bar-film/order-bar-film.component';
-import { OrderBarSerieComponent } from './components/order-bar-serie/order-bar-serie.component';
 
 
 
@@ -40,8 +38,6 @@ import { OrderBarSerieComponent } from './components/order-bar-serie/order-bar-s
     SerieDetailsComponent,
     PeopleDetailsComponent,
     ApprovedComponent,
-    OrderBarFilmComponent,
-    OrderBarSerieComponent,
 
   ],
   imports: [

@@ -17,38 +17,86 @@ export class MenuLateralComponent implements OnInit {
   @Input() tipo: 'peliculas' | 'series' = 'peliculas';
   listadoPeliculas: Film[] = [];
   listadoSeries: Serie[] = [];
-  @Output() listadoChange = new EventEmitter<Film[] | Serie[]>();
+  @Output() listadoFilmChange = new EventEmitter<Film[]>();
+  @Output() listadoSeriesChange = new EventEmitter<Serie[]>();
+
 
 
   constructor(private listService: ListService) { }
 
   ngOnInit() {
-    this.cargarListado();
-  }
-
-  cargarListado() {
     if (this.tipo === 'peliculas') {
       this.listService.getPopularFilmDesc().subscribe(response => {
         this.listadoPeliculas = response.results;
-        this.listadoChange.emit(this.listadoPeliculas);
+        this.listadoFilmChange.emit(this.listadoPeliculas);
       });
     } else {
       this.listService.getPopularSeriesDesc().subscribe(response => {
         this.listadoSeries = response.results;
-        this.listadoChange.emit(this.listadoSeries);
+        this.listadoSeriesChange.emit(this.listadoSeries);
       });
     }
   }
 
-  actualizarListadoPeliculas(nuevoListado: Film[]) {
-    this.listadoPeliculas = nuevoListado;
-    this.listadoChange.emit(this.listadoPeliculas);
+  ordenarPeliculas(criterio: string) {
+    switch (criterio) {
+      case 'popularidadAscendente':
+        this.listService.getPopularFilmAsc().subscribe(response => {
+          this.listadoPeliculas = response.results;
+          this.listadoFilmChange.emit(this.listadoPeliculas);
+        });
+        break;
+      case 'popularidadDescendente':
+        this.listService.getPopularFilmDesc().subscribe(response => {
+          this.listadoPeliculas = response.results;
+          this.listadoFilmChange.emit(this.listadoPeliculas);
+        });
+        break;
+      case 'valoracionAscendente':
+        this.listService.getRatedFilmAsc().subscribe(response => {
+          this.listadoPeliculas = response.results;
+          this.listadoFilmChange.emit(this.listadoPeliculas);
+        });
+        break;
+      case 'valoracionDescendente':
+        this.listService.getRatedFilmDesc().subscribe(response => {
+          this.listadoPeliculas = response.results;
+          this.listadoFilmChange.emit(this.listadoPeliculas);
+        });
+        break;
+      default:
+        console.error('Criterio de ordenación no reconocido:', criterio);
+    }
   }
-
-  actualizarListadoSeries(nuevoListado: Serie[]) {
-    this.listadoSeries = nuevoListado;
-    this.listadoChange.emit(this.listadoSeries);
+  ordenarSeries(criterio: string) {
+    switch (criterio) {
+      case 'popularidadAscendente':
+        this.listService.getPopularSeriesAsc().subscribe(response => {
+          this.listadoSeries = response.results;
+          this.listadoSeriesChange.emit(this.listadoSeries);
+        });
+        break;
+      case 'popularidadDescendente':
+        this.listService.getPopularSeriesDesc().subscribe(response => {
+          this.listadoSeries = response.results;
+          this.listadoSeriesChange.emit(this.listadoSeries);
+        });
+        break;
+      case 'valoracionAscendente':
+        this.listService.getRatedSeriesAsc().subscribe(response => {
+          this.listadoSeries = response.results;
+          this.listadoSeriesChange.emit(this.listadoSeries);
+        });
+        break;
+      case 'valoracionDescendente':
+        this.listService.getRatedSeriesDesc().subscribe(response => {
+          this.listadoSeries = response.results;
+          this.listadoSeriesChange.emit(this.listadoSeries);
+        });
+        break;
+    }
   }
+  
   desplegable() {
     this.isOpen = !this.isOpen;
 

@@ -20,7 +20,7 @@ export class FilmListComponent implements OnInit {
       this.listadoPeliculas = response.results;
     });
   }
-  
+
 
   getFullImagePath(posterPath: string): string {
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
@@ -63,7 +63,6 @@ export class FilmListComponent implements OnInit {
     }
     return this.filmService.getGenreName(genreIds[0]);
   }
-
   actualizarListado(nuevoListado: Film[]) {
     this.listadoPeliculas = nuevoListado;
   }
