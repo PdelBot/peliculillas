@@ -12,8 +12,8 @@ import { Serie } from '../models/serie.interface';
 })
 export class FavoritesService {
 
-  constructor(private http:HttpClient) { }
-  
+  constructor(private http: HttpClient) { }
+
   addFilmToFavourites(film: Film): Observable<any> {
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');
@@ -68,6 +68,7 @@ export class FavoritesService {
 
   }
   getFavouriteSerie(): Observable<FavoriteSerieResponse> {
+
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');
 
@@ -89,5 +90,15 @@ export class FavoritesService {
       body
     );
 
+  }
+
+  getFilmPage(page: number): Observable<FavoriteFilmResponse> {
+    const sessionId = localStorage.getItem('session_id');
+    const accountId = localStorage.getItem('account_id');
+    return this.http.get<FavoriteFilmResponse>(`${environment.apiBaseUrl}/account/${accountId}/favorite/tv?api_key=${environment.apiKey}&session_id=${sessionId}&page=${page}`, {
+      headers: {
+        'Authorization': `Bearer ${environment.access_token}`,
+      }
+    });
   }
 }

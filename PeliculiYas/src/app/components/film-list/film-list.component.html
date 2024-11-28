@@ -4,45 +4,7 @@
     <div class="listado col-9">
         <app-menu-list></app-menu-list>
         <div class="listado-pelis">
-            <!-- @for (peli of listadoPeliculas; track peli.id) {
-            <div class="card card-serie"
-                [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(peli?.poster_path || '') + ')'}">
-                <a [routerLink]="['/peliculas', peli.id]">
-
-                    <div class="valoracion-serie" [ngStyle]="getColor({ valoracion: peli.vote_average })">
-                        <h2 class="text-white">{{peli.vote_average | roundedVote}}</h2>
-                    </div>
-                    <div class="text-card">
-                        <h3 class="ms-4">{{peli.title}}</h3>
-                        <div class="detalles d-flex gap-4 ms-4 mb-3">
-                            <p id="fecha">{{peli.release_date}}</p>
-                            <p>|</p>
-                            <p id="temporadas">{{getFirstGenreName(peli.genre_ids)}}</p>
-                        </div>
-
-                    </div>
-
-                </a>
-
-                @if (!isAdded(peli)) {
-                    <button (click)="addToFavourites(peli)">Add to favourites
-                    </button>
-                }
-                @else {
-                    <button (click)="removeFromFavourites(peli)">Remove from favourites
-                    </button>
-                }
-
-                @if (!isAddedWatchList(peli)) {
-                    <button (click)="addToWatchlist(peli)">
-                        Add watch list
-                    </button>
-                } @else {
-                    <button (click)="removeFromWatchList(peli)">Remove</button>
-                }
-
-            </div>
-            } -->
+            
             @for (peli of listadoPeliculas; track peli.id) {
             <div class="card card-serie"
                 [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(peli?.poster_path || '') + ')'}">
@@ -73,14 +35,15 @@
 
 
                         <i>
-                            <button  (click)="isAddedWatchList(peli) ? removeFromWatchList(peli) : addToWatchlist(peli)">
+                            <button class="favorite-button"
+                                (click)="isAddedWatchList(peli) ? removeFromWatchList(peli) : addToWatchlist(peli)">
                                 <label class="ui-bookmark">
                                     <input type="checkbox">
                                     <div class="bookmark">
                                         <svg viewBox="0 0 32 32">
                                             <g>
                                                 <path [attr.fill]="isAddedWatchList(peli) ? 'gold' : 'grey'"
-                                                [attr.stroke]="isAddedWatchList(peli) ? 'none' : 'black'"
+                                                    [attr.stroke]="isAddedWatchList(peli) ? 'none' : 'black'"
                                                     d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z">
                                                 </path>
                                             </g>

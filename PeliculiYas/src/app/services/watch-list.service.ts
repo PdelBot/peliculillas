@@ -11,6 +11,9 @@ import { WatchListSeriesResponse } from '../models/watchlist-serie.interface';
   providedIn: 'root'
 })
 export class WatchListService {
+  addSeriesToWatchList(serie: Serie) {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(private http: HttpClient) { }
 
@@ -52,7 +55,7 @@ export class WatchListService {
     );
 
   }
-  addSerieToFavourites(serie: Serie): Observable<any> {
+  addSerieToWatchList(serie: Serie): Observable<any> {
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');
     const body = {

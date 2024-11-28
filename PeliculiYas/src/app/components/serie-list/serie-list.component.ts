@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ListService } from '../../services/list.service';
 import { Serie } from '../../models/serie.interface';
 import { FavoritesService } from '../../services/favorites.service';
+import { WatchListService } from '../../services/watch-list.service';
 
 @Component({
   selector: 'app-serie-list',
@@ -13,10 +14,11 @@ export class SerieListComponent {
   listadoSeries: Serie[] = [];
   page: number = 1;
   favoriteSeries: Serie[] = [];
+  watchListSeries: Serie[] = [];
 
-  
 
-  constructor(private serieService: ListService, private favoriteService: FavoritesService) { }
+
+  constructor(private serieService: ListService, private favoriteService: FavoritesService, private watchlistService: WatchListService) { }
 
   ngOnInit(): void {
     this.serieService.getPopularSeries().subscribe((response) => {
@@ -24,6 +26,9 @@ export class SerieListComponent {
     });
     this.favoriteService.getFavouriteSerie().subscribe(response => {
       this.favoriteSeries = response.results;
+    });
+    this.watchlistService.getWatchListSeries().subscribe(response => {
+      this.watchListSeries = response.results;
     });
   }
   getFullImagePath(posterPath: string): string {
@@ -36,7 +41,7 @@ export class SerieListComponent {
     this.serieService.getSeriesPage(this.page).subscribe((response) => {
       this.listadoSeries = response.results;
     });
-    }
+  }
 
   getNextPage() {
     this.page += 1;
@@ -74,6 +79,28 @@ export class SerieListComponent {
 
     return this.favoriteSeries.some(favouriteFilm => favouriteFilm.id === serie.id);
 
+  }
+
+  addToWatchlist(serie: Serie): void {
+    this.watchlistService.addSerieToWatchList(serie).subscribe(response => {
+      console.log('Film added to watchlist:', response);
+    });
+    window.location.reload();
+  }
+
+  isAddedWatchList(serie: Serie): boolean {
+
+    return this.watchListSeries.some(watchListSeries => watchListSeries.id === serie.id);
+
 
   }
+
+  removeFromWatchList(serie: Serie) {
+    this.watchlistService.deleteSerieFromWatchList(serie).subscribe(response => {
+      console.log('Film removed from watchlist:', response);
+    });
+    window.location.reload();
+  }
+
+
 }
