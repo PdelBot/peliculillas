@@ -1,0 +1,27 @@
+<app-menu></app-menu>
+<div class="banner" [ngStyle]="{'background': 'no-repeat center/cover url(' + bannerImg() + ')'}">
+    <div class="text">
+        @if (isLoggedIn()) {
+        <div class="d-flex justify-content-start align-items-start gap-3">
+            <img [src]="verificarImg()" alt="avatar" class="avatar" />
+            <p class="username">{{userName}}</p>
+        </div>
+        }
+
+    </div>
+</div>
+<div class="content">
+    <h1 id="title">{{list?.name}}</h1>
+    <div *ngFor="let film of list?.items" class="card-pelicula d-flex">
+        <div class="img">
+            <img [src]="film.poster_path" alt="img">
+        </div>
+        <div class="text">
+            <h1>{{film.title}}</h1>
+            <p>{{film.release_date}}</p>
+        </div>
+        <div class="botones">
+            <button (click)="deleteFilm(film.id, +(idList))">borrar</button>
+        </div>
+    </div>
+</div>

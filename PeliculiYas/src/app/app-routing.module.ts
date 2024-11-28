@@ -9,6 +9,7 @@ import { SerieDetailsComponent } from './components/serie-details/serie-details.
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 import { ApprovedComponent } from './components/approved/approved.component';
 import { MisListasComponent } from './components/mis-listas/mis-listas.component';
+import { MisListasDetailsComponent } from './components/mis-listas-details/mis-listas-details.component';
 
 const routes: Routes = [
   {path: 'principal', component: PrincipalMenuComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'actores/:id', component: PeopleDetailsComponent},
   {path: 'approved', component: ApprovedComponent },
   {path: 'misListas', component: MisListasComponent},
+  {path: 'misListas/:id', component: MisListasDetailsComponent},
   {path: '', redirectTo: '/principal', pathMatch: 'full'},
 ];
 

@@ -44,6 +44,14 @@
     align-items: center;
 }
 
+.listas{
+    margin-bottom: 50px;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap:20px
+}
+
 .null-card {
     margin-bottom: 50px;
     margin-top: 40px;
@@ -55,6 +63,17 @@
     box-shadow: 8px 5px 5px black;
     color: white;
     background: linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.801)), no-repeat center/cover url("https://preview.redd.it/i-could-not-find-a-minimal-op-desktop-background-i-liked-so-v0-kzqx7h08k2fa1.png?width=1080&crop=smart&auto=webp&s=83e9db11cab55993b1fd9290dc95f6b715b96664");
+}
+
+.card-list{
+    justify-content: center;
+    align-items: center;
+    width: 550px;
+    height: 340px;
+    border-radius: 30px;
+    box-shadow: 8px 5px 5px black;
+    color: white;
+    text-transform: uppercase;
 }
 
 
@@ -79,4 +98,26 @@
 
 .createList:hover{
     transform: scale(1.1);
+}
+
+
+
+.text-list h1, p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-list h1{
+    font-size: 50px;
+    font-weight: bold;
+    
+}
+
+#count{
+    color: greenyellow;
+}
+
+#description{
+    text-transform: capitalize;
 }

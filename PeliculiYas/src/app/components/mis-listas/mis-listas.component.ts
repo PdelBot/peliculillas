@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { ListService } from '../../services/list.service';
 import { MisListasService } from '../../services/mis-listas.service';
 import { myList, myListResponse } from '../../models/my-list.interface';
+import { myListDetailsResponse } from '../../models/my-list-details.interface';
 
 @Component({
   selector: 'app-mis-listas',
@@ -18,6 +19,7 @@ export class MisListasComponent implements OnInit {
   userName = '';
   userPhoto = '';
   banner: string = "/q8eejQcg1bAqImEV8jh8RtBD4uH.jpg";  
+  listDetails: myListDetailsResponse | undefined;
 
   constructor(private authService: AuthService, private mylistService: MisListasService) { }
   ngOnInit(): void {
@@ -100,5 +102,29 @@ export class MisListasComponent implements OnInit {
       window.location.reload();
     });
     }
+
+  clearList(id:number){
+    this.mylistService.clearList(id).subscribe(response =>{
+      console.log('limpiar', response);
+      window.location.reload();
+    })
+  }
+
+  getImgBackground(id: number): string{
+    const idList = id.toString();
+
+    this.mylistService.getDetailsList(idList).subscribe(response => {
+      this.listDetails = response;
+    })
+
+    const background = this.listDetails?.items[0].backdrop_path;
+
+    const baseUrl = 'https://image.tmdb.org/t/p/w500';
+    
+    
+
+    return `${baseUrl}${background}`;
+    
+  }
 
 }

@@ -20,6 +20,8 @@ import { SerieDetailsComponent } from './components/serie-details/serie-details.
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 import { ApprovedComponent } from './components/approved/approved.component';
 import { MisListasComponent } from './components/mis-listas/mis-listas.component';
+import { MisListasDetailsComponent } from './components/mis-listas-details/mis-listas-details.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -38,13 +40,14 @@ import { MisListasComponent } from './components/mis-listas/mis-listas.component
     PeopleDetailsComponent,
     ApprovedComponent,
     MisListasComponent,
+    MisListasDetailsComponent,
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    
+    FormsModule
   ],
   providers: [
     provideAnimationsAsync(),

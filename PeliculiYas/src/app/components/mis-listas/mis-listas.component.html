@@ -20,17 +20,27 @@
         <div class="content-list">
             @if(misListas.length === 0){
             <div class="card null-card">
-                    <p>No ha creado todavia una lista</p>
-                    <button (click)="createList()" class="createList d-flex gap-2"><i class="bi bi-plus-circle"></i>Crear lista</button>
+                <p>No ha creado todavia una lista</p>
+                <button (click)="createList()" class="createList d-flex gap-2"><i class="bi bi-plus-circle"></i>Crear
+                    lista</button>
             </div>
             }@else{
+            <div class="listas">
                 @for (list of misListas; track list.id) {
-                    <div class="listas">
-                        <p>{{list.name}}</p>
-                        <p>{{list.description}}</p>
-                        <button (click)="deleteList(list.id)"> borrar</button>
+                <a [routerLink]="['/misListas', list.id]">
+                    <div class="card card-list" [ngStyle]="{
+                        'background': 'linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.801)), no-repeat center/cover url(https://preview.redd.it/i-could-not-find-a-minimal-op-desktop-background-i-liked-so-v0-kzqx7h08k2fa1.png?width=1080&crop=smart&auto=webp&s=83e9db11cab55993b1fd9290dc95f6b715b96664)'
+                      }">
+                        <div class="text-list">
+                            <h1>{{list.name}}</h1>
+                            <p id="description">{{list.description}}</p>
+                            <p id="count">añadidas: {{list.item_count}}</p>
+                        </div>
                     </div>
+                </a>
                 }
+            </div>
+
             }
         </div>
     </div>
