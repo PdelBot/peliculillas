@@ -24,4 +24,12 @@ export class RatingService {
     const url = `${this.apiUrl}/movie/${movieId}/rating?api_key=${this.apiKey}&session_id=${this.sessionId}`;
     return this.http.post(url, { value: rating });
   }
+
+  deleteRating(movieId: number): Observable<any> {
+    const url = `${this.apiUrl}/movie/${movieId}/rating?api_key=${this.apiKey}&session_id=${this.sessionId}`;
+    return this.http.delete(url);
+  }
+
+
 }
+  

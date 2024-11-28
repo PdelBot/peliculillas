@@ -98,6 +98,17 @@ export class FilmDetailsComponent implements OnInit {
     }
   }
   
+  deleteRating(): void {
+    if (this.film) {
+      this.ratingService.deleteRating(this.film.id).subscribe({
+        next: () => {
+          this.userRating = 0; // Actualizamos la calificación actual en la vista
+          console.log('Calificación eliminada exitosamente de TMDb');
+        },
+        error: (err) => console.error('Error al eliminar la calificación en TMDb:', err),
+      });
+    }
+  }
 
 }
 
