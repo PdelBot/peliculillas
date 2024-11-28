@@ -23,11 +23,15 @@
             </div>
             <div>
                 @for (genero of generos; track genero.id) {
-                <input type="checkbox" id="genero{{genero.id}}" value="{{genero.id}}" (change)="toggleGenre(genero.id)">
-                <label for="genero{{genero.id}}">{{genero.name}}</label>
+                <div>
+                    <input type="checkbox" id="genero{{genero.id}}" value="{{genero.id}}"
+                        (change)="toggleGenre(genero.id)">
+                    <label for="genero{{genero.id}}">{{genero.name}}</label>
+                </div>
+
                 }
             </div>
-            <button (click)="ordenarPeliculas(ordenSelectPeliculas.value)">Buscar</button>
+            <button (click)="buscar(ordenSelectPeliculas.value)">Buscar</button>
 
         </div>
         }@if (tipo === 'series') {
@@ -44,15 +48,18 @@
             </div>
             <div>
                 @for (genero of generos; track genero.id) {
-                <input type="checkbox" id="genero{{genero.id}}" value="{{genero.id}}" (change)="toggleGenre(genero.id)">
-                <label for="genero{{genero.id}}">{{genero.name}}</label>
+                <div>
+                    <input type="checkbox" id="genero{{genero.id}}" value="{{genero.id}}"
+                        (change)="toggleGenre(genero.id)">
+                    <label for="genero{{genero.id}}">{{genero.name}}</label>
+                </div>
+
                 }
             </div>
 
-            <button (click)="ordenarSeries(ordenSelectSeries.value)">Buscar</button>
+            <button (click)="buscar(ordenSelectSeries.value)">Buscar</button>
         </div>
-        }@else {
-<div></div>
+        }@if (tipo === 'actores') {
         }
 
     </div>

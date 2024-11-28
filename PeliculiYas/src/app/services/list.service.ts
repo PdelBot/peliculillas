@@ -214,4 +214,22 @@ export class ListService {
       });
   }
 
+  getFilterFilms(criterio: string, generos: number[]): Observable<FilmListResponse> {
+    const genresQuery = generos.length ? `&with_genres=${generos.join(',')}` : '';
+    return this.http.get<FilmListResponse>(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=${criterio},${genresQuery}`, {
+      headers: {
+        'Authorization': `Bearer ${environment.access_token}`
+      }
+    });
+  }
+  getFilterSeries(criterio: string, generos: number[]): Observable<SerieListResponse> {
+    const genresQuery = generos.length ? `&with_genres=${generos.join(',')}` : '';
+    return this.http.get<SerieListResponse>(`https://api.themoviedb.org/3/discover/tv?include_adult=false&language=es-US&page=1&sort_by=${criterio}|${genresQuery}`, {
+      headers: {
+        'Authorization': `Bearer ${environment.access_token}`
+      }
+    });
+  }
+
+
 }

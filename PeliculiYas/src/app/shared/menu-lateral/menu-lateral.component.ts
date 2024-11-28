@@ -16,7 +16,7 @@ export class MenuLateralComponent implements OnInit {
 
   altura: number = 1780;
 
-  @Input() tipo: 'peliculas' | 'series' = 'peliculas';
+  @Input() tipo: 'peliculas' | 'series' | 'actores' = 'peliculas';
   listadoPeliculas: Film[] = [];
   listadoSeries: Serie[] = [];
   generosSelecionados: number[] = [];
@@ -74,28 +74,19 @@ export class MenuLateralComponent implements OnInit {
         this.generosSelecionados.splice(index, 1);
       }
     }
-
-    this.filterItems();
   }
 
-  isSelectedGenre(genreId: number | ''): boolean {
-    if (genreId === '') {
-      return this.generosSelecionados.length === 0;
-    }
-    return this.generosSelecionados.includes(genreId);
-  }
-
-  filterItems(): void {
+  buscar(criterio: string) {
     if (this.tipo === 'peliculas') {
-      this.listadoPeliculasFiltrado = this.listadoPeliculas.filter((film) => {
-        return this.generosSelecionados.length === 0 || this.generosSelecionados.some((genreId) => film.genre_ids.includes(genreId));
+      this.listService.getFilterFilms(criterio, this.generosSelecionados).subscribe(response => {
+        this.listadoPeliculas = response.results;
+        this.listadoFilmChange.emit(this.listadoPeliculas);
       });
-      this.listadoFilmChange.emit(this.listadoPeliculasFiltrado);
     } else if (this.tipo === 'series') {
-      this.listadoSeriesFiltrado = this.listadoSeries.filter((serie) => {
-        return this.generosSelecionados.length === 0 || this.generosSelecionados.some((genreId) => serie.genre_ids.includes(genreId));
+      this.listService.getFilterSeries(criterio, this.generosSelecionados).subscribe(response => {
+        this.listadoSeries = response.results;
+        this.listadoSeriesChange.emit(this.listadoSeries);
       });
-      this.listadoSeriesChange.emit(this.listadoSeriesFiltrado);
     }
   }
 
