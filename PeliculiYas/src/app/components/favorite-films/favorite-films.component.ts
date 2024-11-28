@@ -29,24 +29,25 @@ export class FavoriteFilmsComponent implements OnInit {
     return `${baseUrl}${posterPath}`;
   }
 
-  getPaginaUno() {
-    this.page = 1;
+  getNextPage(): void {
+    if (this.page < this.totalPages) {
+      this.page += 1;
+      this.loadFavouriteFilms();
+    }
+  }
+
+  getPreviousPage(): void {
+    if (this.page > 1) {
+      this.page -= 1;
+      this.loadFavouriteFilms();
+    }
+  }
+  loadFavouriteFilms(): void {
     this.favoriteService.getFilmPage(this.page).subscribe((response) => {
       this.favouriteFilms = response.results;
+      this.totalPages = response.total_pages;
+      console.log('Favoritos cargados:', this.favouriteFilms);
     });
   }
 
-  getNextPage() {
-    this.page += 1;
-    this.favoriteService.getFilmPage(this.page).subscribe((response) => {
-      this.favouriteFilms = response.results;
-    });
-  }
-
-  getLastPage() {
-    this.page -= 1;
-    this.favoriteService.getFilmPage(this.page).subscribe((response) => {
-      this.favouriteFilms = response.results;
-    });
-  }
 }
