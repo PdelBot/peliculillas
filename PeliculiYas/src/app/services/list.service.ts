@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { SerieListResponse } from '../models/serie.interface';
 import { ActorListResponse } from '../models/people.interface';
 import { environment } from '../../environments/environment';
+import { Genre, GenreListResponse } from '../models/genre.interface';
 
 
 @Injectable({
@@ -57,7 +58,7 @@ export class ListService {
     });
   }
 
-  //Listado de paginación
+  //Listado de paginación peliculas
 
   getFilmPage(page: number): Observable<FilmListResponse> {
     return this.http.get<FilmListResponse>(`${environment.apiBaseUrl}/movie/popular?language=es-US&page=${page}`, {
@@ -67,6 +68,7 @@ export class ListService {
     });
   }
 
+  //Listado de paginación de series
   getSeriesPage(page: number): Observable<SerieListResponse> {
     return this.http.get<SerieListResponse>(`${environment.apiBaseUrl}/tv/popular?language=es-US&page=${page}`, {
       headers: {
@@ -75,6 +77,7 @@ export class ListService {
     });
   }
 
+  //Listado de paginación de actores
   getActorPage(page: number): Observable<ActorListResponse> {
     return this.http.get<ActorListResponse>(`${environment.apiBaseUrl}/person/popular?language=es-US&page=${page}`, {
       headers: {
@@ -107,6 +110,24 @@ export class ListService {
   //Obtener el nombre del genero
   getGenreName(id: number): string {
     return this.genres[id] || 'Unknown';
+  }
+
+  //Generos de series
+  getSeriesGenres(): Observable<GenreListResponse> {
+    return this.http.get<GenreListResponse>(`${environment.apiBaseUrl}/genre/tv/list`, {
+      headers: {
+        'Authorization': `Bearer ${environment.access_token}`,
+      }
+    });
+  }
+
+  //Generos de peliculas
+  getFilmGenres(): Observable<GenreListResponse> {
+    return this.http.get<GenreListResponse>(`${environment.apiBaseUrl}/genre/movie/list`, {
+      headers: {
+        'Authorization': `Bearer ${environment.access_token}`,
+      }
+    });
   }
 
 

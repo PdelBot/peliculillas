@@ -2,6 +2,8 @@ import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@a
 import { Film } from '../../models/film.interface';
 import { ListService } from '../../services/list.service';
 import { Serie } from '../../models/serie.interface';
+import { Genre } from '../../models/genre.interface';
+
 
 @Component({
   selector: 'app-menu-lateral',
@@ -17,6 +19,10 @@ export class MenuLateralComponent implements OnInit {
   @Input() tipo: 'peliculas' | 'series' = 'peliculas';
   listadoPeliculas: Film[] = [];
   listadoSeries: Serie[] = [];
+  generosSelecionados: number[] = [];
+  generos: Genre[] = [];
+  listadoPeliculasFiltrado: Film[] = [];
+  listadoSeriesFiltrado: Serie[] = [];
   @Output() listadoFilmChange = new EventEmitter<Film[]>();
   @Output() listadoSeriesChange = new EventEmitter<Serie[]>();
 
@@ -25,16 +31,71 @@ export class MenuLateralComponent implements OnInit {
   constructor(private listService: ListService) { }
 
   ngOnInit() {
+    this.cargarListado();
+    this.cargarGeneros();
+  }
+
+
+  cargarListado() {
     if (this.tipo === 'peliculas') {
       this.listService.getPopularFilmDesc().subscribe(response => {
         this.listadoPeliculas = response.results;
         this.listadoFilmChange.emit(this.listadoPeliculas);
       });
-    } else {
+    } else if (this.tipo === 'series') {
       this.listService.getPopularSeriesDesc().subscribe(response => {
         this.listadoSeries = response.results;
         this.listadoSeriesChange.emit(this.listadoSeries);
       });
+    }
+  }
+
+  cargarGeneros() {
+    if (this.tipo === 'peliculas') {
+      this.listService.getFilmGenres().subscribe(response => {
+        this.generos = response.genres;
+      });
+    } else if (this.tipo === 'series') {
+      this.listService.getSeriesGenres().subscribe(response => {
+        this.generos = response.genres;
+      });
+    }
+  }
+
+
+  toggleGenre(genreId: number | ''): void {
+    if (genreId === '') {
+      this.generosSelecionados = [];
+    } else {
+      const index = this.generosSelecionados.indexOf(genreId);
+      if (index === -1) {
+        this.generosSelecionados.push(genreId);
+      } else {
+        this.generosSelecionados.splice(index, 1);
+      }
+    }
+
+    this.filterItems();
+  }
+
+  isSelectedGenre(genreId: number | ''): boolean {
+    if (genreId === '') {
+      return this.generosSelecionados.length === 0;
+    }
+    return this.generosSelecionados.includes(genreId);
+  }
+
+  filterItems(): void {
+    if (this.tipo === 'peliculas') {
+      this.listadoPeliculasFiltrado = this.listadoPeliculas.filter((film) => {
+        return this.generosSelecionados.length === 0 || this.generosSelecionados.some((genreId) => film.genre_ids.includes(genreId));
+      });
+      this.listadoFilmChange.emit(this.listadoPeliculasFiltrado);
+    } else if (this.tipo === 'series') {
+      this.listadoSeriesFiltrado = this.listadoSeries.filter((serie) => {
+        return this.generosSelecionados.length === 0 || this.generosSelecionados.some((genreId) => serie.genre_ids.includes(genreId));
+      });
+      this.listadoSeriesChange.emit(this.listadoSeriesFiltrado);
     }
   }
 
@@ -96,7 +157,7 @@ export class MenuLateralComponent implements OnInit {
         break;
     }
   }
-  
+
   desplegable() {
     this.isOpen = !this.isOpen;
 

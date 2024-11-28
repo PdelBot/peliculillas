@@ -12,26 +12,47 @@
     <div class="menu d-flex row align-items-flex justify-content-start text-white gap-4">
         @if (tipo === 'peliculas') {
         <div>
-            <label for="orden1">Ordenar por:</label>
-            <select id="orden1" #ordenSelectPeliculas>
-                <option value="popularidadDescendente">Popularidad Descendente</option>
-                <option value="popularidadAscendente">Popularidad Ascendente</option>
-                <option value="valoracionAscendente">Valoración Ascendente</option>
-                <option value="valoracionDescendente">Valoración Descendente</option>
-            </select>
+            <div>
+                <label for="orden1">Ordenar por:</label>
+                <select id="orden1" #ordenSelectPeliculas>
+                    <option value="popularidadDescendente">Popularidad Descendente</option>
+                    <option value="popularidadAscendente">Popularidad Ascendente</option>
+                    <option value="valoracionAscendente">Valoración Ascendente</option>
+                    <option value="valoracionDescendente">Valoración Descendente</option>
+                </select>
+            </div>
+            <div>
+                @for (genero of generos; track genero.id) {
+                <input type="checkbox" id="genero{{genero.id}}" value="{{genero.id}}" (change)="toggleGenre(genero.id)">
+                <label for="genero{{genero.id}}">{{genero.name}}</label>
+                }
+            </div>
             <button (click)="ordenarPeliculas(ordenSelectPeliculas.value)">Buscar</button>
+
         </div>
-        }@else{
+        }@if (tipo === 'series') {
         <div>
-            <label for="orden2">Ordenar por:</label>
-            <select id="orden2" #ordenSelectSeries>
-                <option value="popularidadDescendente">Popularidad Descendente</option>
-                <option value="popularidadAscendente">Popularidad Ascendente</option>
-                <option value="valoracionAscendente">Valoración Ascendente</option>
-                <option value="valoracionDescendente">Valoración Descendente</option>
-            </select>
+            <div>
+                <label for="orden2">Ordenar por:</label>
+
+                <select id="orden2" #ordenSelectSeries>
+                    <option value="popularidadDescendente">Popularidad Descendente</option>
+                    <option value="popularidadAscendente">Popularidad Ascendente</option>
+                    <option value="valoracionAscendente">Valoración Ascendente</option>
+                    <option value="valoracionDescendente">Valoración Descendente</option>
+                </select>
+            </div>
+            <div>
+                @for (genero of generos; track genero.id) {
+                <input type="checkbox" id="genero{{genero.id}}" value="{{genero.id}}" (change)="toggleGenre(genero.id)">
+                <label for="genero{{genero.id}}">{{genero.name}}</label>
+                }
+            </div>
+
             <button (click)="ordenarSeries(ordenSelectSeries.value)">Buscar</button>
         </div>
+        }@else {
+<div></div>
         }
 
     </div>

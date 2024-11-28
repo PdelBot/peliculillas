@@ -1,5 +1,6 @@
 <div class="films d-flex row">
 
+    <!-- Menu lateral para el filtrado -->
     <app-menu-lateral class="col-2" [tipo]="'peliculas'" (listadoFilmChange)="actualizarListado($event)"></app-menu-lateral>
     <div class="listado col-9">
         <app-menu-list></app-menu-list>

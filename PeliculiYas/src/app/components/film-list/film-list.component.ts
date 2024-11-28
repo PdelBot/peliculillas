@@ -52,10 +52,6 @@ export class FilmListComponent implements OnInit {
     return this.filmService.getColorValoracion({ valoracion });
   }
 
-  getGenreNames(genreIds: number[]): string[] {
-    return genreIds.map(id => this.filmService.getGenreName(id));
-  }
-
   //Obtener el primer genero
   getFirstGenreName(genreIds: number[]): string {
     if (genreIds.length === 0) {
@@ -63,6 +59,7 @@ export class FilmListComponent implements OnInit {
     }
     return this.filmService.getGenreName(genreIds[0]);
   }
+  //para que aparezca la nueva lista
   actualizarListado(nuevoListado: Film[]) {
     this.listadoPeliculas = nuevoListado;
   }

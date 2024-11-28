@@ -29,7 +29,7 @@ export class SerieListComponent {
     this.serieService.getSeriesPage(this.page).subscribe((response) => {
       this.listadoSeries = response.results;
     });
-    }
+  }
 
   getNextPage() {
     this.page += 1;
@@ -48,6 +48,7 @@ export class SerieListComponent {
     return this.serieService.getColorValoracion({ valoracion });
   }
 
+  //para que aparezca la nueva lista
   actualizarListado(nuevoListado: Serie[]) {
     this.listadoSeries = nuevoListado;
   }
