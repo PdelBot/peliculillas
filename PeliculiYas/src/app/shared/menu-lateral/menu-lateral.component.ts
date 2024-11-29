@@ -62,7 +62,6 @@ export class MenuLateralComponent implements OnInit {
     }
   }
 
-
   toggleGenre(genreId: number | ''): void {
     if (genreId === '') {
       this.generosSelecionados = [];
@@ -74,19 +73,27 @@ export class MenuLateralComponent implements OnInit {
         this.generosSelecionados.splice(index, 1);
       }
     }
+
+    this.filterItems();
   }
 
-  buscar(criterio: string) {
+  isSelectedGenre(genreId: number | ''): boolean {
+    if (genreId === '') {
+      return this.generosSelecionados.length === 0;
+    }
+    return this.generosSelecionados.includes(genreId);
+  }
+  filterItems(): void {
     if (this.tipo === 'peliculas') {
-      this.listService.getFilterFilms(criterio, this.generosSelecionados).subscribe(response => {
-        this.listadoPeliculas = response.results;
-        this.listadoFilmChange.emit(this.listadoPeliculas);
+      this.listadoPeliculasFiltrado = this.listadoPeliculas.filter((film) => {
+        return this.generosSelecionados.length === 0 || this.generosSelecionados.some((genreId) => film.genre_ids.includes(genreId));
       });
+      this.listadoFilmChange.emit(this.listadoPeliculasFiltrado);
     } else if (this.tipo === 'series') {
-      this.listService.getFilterSeries(criterio, this.generosSelecionados).subscribe(response => {
-        this.listadoSeries = response.results;
-        this.listadoSeriesChange.emit(this.listadoSeries);
+      this.listadoSeriesFiltrado = this.listadoSeries.filter((serie) => {
+        return this.generosSelecionados.length === 0 || this.generosSelecionados.some((genreId) => serie.genre_ids.includes(genreId));
       });
+      this.listadoSeriesChange.emit(this.listadoSeriesFiltrado);
     }
   }
 
@@ -95,57 +102,60 @@ export class MenuLateralComponent implements OnInit {
       case 'popularidadAscendente':
         this.listService.getPopularFilmAsc().subscribe(response => {
           this.listadoPeliculas = response.results;
-          this.listadoFilmChange.emit(this.listadoPeliculas);
+          this.filterItems();
         });
         break;
       case 'popularidadDescendente':
         this.listService.getPopularFilmDesc().subscribe(response => {
           this.listadoPeliculas = response.results;
-          this.listadoFilmChange.emit(this.listadoPeliculas);
+          this.filterItems();
         });
         break;
       case 'valoracionAscendente':
         this.listService.getRatedFilmAsc().subscribe(response => {
           this.listadoPeliculas = response.results;
-          this.listadoFilmChange.emit(this.listadoPeliculas);
+          this.filterItems();
         });
         break;
       case 'valoracionDescendente':
         this.listService.getRatedFilmDesc().subscribe(response => {
           this.listadoPeliculas = response.results;
-          this.listadoFilmChange.emit(this.listadoPeliculas);
+          this.filterItems();
         });
         break;
       default:
         console.error('Criterio de ordenación no reconocido:', criterio);
     }
   }
+
   ordenarSeries(criterio: string) {
     switch (criterio) {
       case 'popularidadAscendente':
         this.listService.getPopularSeriesAsc().subscribe(response => {
           this.listadoSeries = response.results;
-          this.listadoSeriesChange.emit(this.listadoSeries);
+          this.filterItems();
         });
         break;
       case 'popularidadDescendente':
         this.listService.getPopularSeriesDesc().subscribe(response => {
           this.listadoSeries = response.results;
-          this.listadoSeriesChange.emit(this.listadoSeries);
+          this.filterItems();
         });
         break;
       case 'valoracionAscendente':
         this.listService.getRatedSeriesAsc().subscribe(response => {
           this.listadoSeries = response.results;
-          this.listadoSeriesChange.emit(this.listadoSeries);
+          this.filterItems();
         });
         break;
       case 'valoracionDescendente':
         this.listService.getRatedSeriesDesc().subscribe(response => {
           this.listadoSeries = response.results;
-          this.listadoSeriesChange.emit(this.listadoSeries);
+          this.filterItems();
         });
         break;
+      default:
+        console.error('Criterio de ordenación no reconocido:', criterio);
     }
   }
 

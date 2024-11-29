@@ -52,4 +52,11 @@ export class SerieListComponent {
   actualizarListado(nuevoListado: Serie[]) {
     this.listadoSeries = nuevoListado;
   }
+
+  getFirstGenreName(genreIds: number[]): string {
+    if (genreIds.length === 0) {
+      return 'Unknown';
+    }
+    return this.serieService.getGenreName(genreIds[0]);
+  }
 }

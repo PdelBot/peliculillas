@@ -132,40 +132,41 @@ export class ListService {
 
 
   //peliculas populares descendentemente
-  getPopularFilmDesc(): Observable<FilmListResponse> {
-    return this.http.get<FilmListResponse>(`${environment.apiBaseUrl}/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=popularity.desc`
-      , {
-        headers: {
-          'Authorization': `Bearer ${environment.access_token}`
-        }
-      });
-
+  getPopularFilmDesc(generos: string[] = []): Observable<FilmListResponse> {
+    const genresQuery = generos.length ? `&with_genres=${generos.join(',')}` : '';
+    return this.http.get<FilmListResponse>(`${environment.apiBaseUrl}/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=popularity.desc${genresQuery}`, {
+      headers: {
+        'Authorization': `Bearer ${environment.access_token}`
+      }
+    });
   }
   //peliculas populares ascendentemente
-  getPopularFilmAsc(): Observable<FilmListResponse> {
-    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=popularity.asc'
-      , {
-        headers: {
-          'Authorization': `Bearer ${environment.access_token}`
-        }
-      });
+  getPopularFilmAsc(generos: string[] = []): Observable<FilmListResponse> {
+    const genresQuery = generos.length ? `&with_genres=${generos.join(',')}` : '';
+    return this.http.get<FilmListResponse>(`${environment.apiBaseUrl}/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=popularity.asc${genresQuery}`, {
+      headers: {
+        'Authorization': `Bearer ${environment.access_token}`
+      }
+    });
   }
 
   //peliculas valoracion descendentemente
 
-  getRatedFilmDesc(): Observable<FilmListResponse> {
-    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=vote_average.desc'
-      , {
-        headers: {
-          'Authorization': `Bearer ${environment.access_token}`
-        }
-      });
+  getRatedFilmDesc(generos: string[] = []): Observable<FilmListResponse> {
+    const genresQuery = generos.length ? `&with_genres=${generos.join(',')}` : '';
+    return this.http.get<FilmListResponse>(`${environment.apiBaseUrl}/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=vote_average.desc&vote_count.gte=200${genresQuery}`, {
+      headers: {
+        'Authorization': `Bearer ${environment.access_token}`
+      }
+    });
   }
 
   //peliculas valoracion ascendentemente
 
-  getRatedFilmAsc(): Observable<FilmListResponse> {
-    return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=vote_average.asc'
+  getRatedFilmAsc(generos: string[] = []): Observable<FilmListResponse> {
+    const genresQuery = generos.length ? `&with_genres=${generos.join(',')}` : '';
+
+    return this.http.get<FilmListResponse>(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=vote_average.asc${genresQuery}`
       , {
         headers: {
           'Authorization': `Bearer ${environment.access_token}`
@@ -175,8 +176,10 @@ export class ListService {
 
   //series populares descendentemente
 
-  getPopularSeriesDesc(): Observable<SerieListResponse> {
-    return this.http.get<SerieListResponse>('https://api.themoviedb.org/3/discover/tv?include_adult=false&language=es-US&page=1&sort_by=popularity.desc'
+  getPopularSeriesDesc(generos: string[] = []): Observable<SerieListResponse> {
+    const genresQuery = generos.length ? `&with_genres=${generos.join(',')}` : '';
+
+    return this.http.get<SerieListResponse>(`https://api.themoviedb.org/3/discover/tv?include_adult=false&language=es-US&page=1&sort_by=popularity.desc${genresQuery}`
       , {
         headers: {
           'Authorization': `Bearer ${environment.access_token}`
@@ -185,8 +188,10 @@ export class ListService {
   }
 
   //series populares ascendentemente
-  getPopularSeriesAsc(): Observable<SerieListResponse> {
-    return this.http.get<SerieListResponse>('https://api.themoviedb.org/3/discover/tv?include_adult=false&language=es-US&page=1&sort_by=popularity.asc'
+  getPopularSeriesAsc(generos: string[] = []): Observable<SerieListResponse> {
+    const genresQuery = generos.length ? `&with_genres=${generos.join(',')}` : '';
+
+    return this.http.get<SerieListResponse>(`https://api.themoviedb.org/3/discover/tv?include_adult=false&language=es-US&page=1&sort_by=popularity.asc${genresQuery}`
       , {
         headers: {
           'Authorization': `Bearer ${environment.access_token}`
@@ -195,8 +200,10 @@ export class ListService {
   }
 
   //series valoracion descendentemente
-  getRatedSeriesDesc(): Observable<SerieListResponse> {
-    return this.http.get<SerieListResponse>('https://api.themoviedb.org/3/discover/tv?include_adult=false&language=es-US&page=1&sort_by=vote_average.desc&vote_count.gte=200'
+  getRatedSeriesDesc(generos: string[] = []): Observable<SerieListResponse> {
+    const genresQuery = generos.length ? `&with_genres=${generos.join(',')}` : '';
+
+    return this.http.get<SerieListResponse>(`https://api.themoviedb.org/3/discover/tv?include_adult=false&language=es-US&page=1&sort_by=vote_average.desc&vote_count.gte=200${genresQuery}`
       , {
         headers: {
           'Authorization': `Bearer ${environment.access_token}`
@@ -205,8 +212,10 @@ export class ListService {
   }
 
   //series valoracion ascendentemente
-  getRatedSeriesAsc(): Observable<SerieListResponse> {
-    return this.http.get<SerieListResponse>('https://api.themoviedb.org/3/discover/tv?include_adult=false&language=es-US&page=1&sort_by=vote_average.asc&vote_count.gte=200'
+  getRatedSeriesAsc(generos: string[] = []): Observable<SerieListResponse> {
+    const genresQuery = generos.length ? `&with_genres=${generos.join(',')}` : '';
+
+    return this.http.get<SerieListResponse>(`https://api.themoviedb.org/3/discover/tv?include_adult=false&language=es-US&page=1&sort_by=vote_average.asc&vote_count.gte=200${genresQuery}`
       , {
         headers: {
           'Authorization': `Bearer ${environment.access_token}`
@@ -216,20 +225,20 @@ export class ListService {
 
   getFilterFilms(criterio: string, generos: number[]): Observable<FilmListResponse> {
     const genresQuery = generos.length ? `&with_genres=${generos.join(',')}` : '';
-    return this.http.get<FilmListResponse>(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=${criterio},${genresQuery}`, {
-      headers: {
-        'Authorization': `Bearer ${environment.access_token}`
-      }
-    });
-  }
-  getFilterSeries(criterio: string, generos: number[]): Observable<SerieListResponse> {
-    const genresQuery = generos.length ? `&with_genres=${generos.join(',')}` : '';
-    return this.http.get<SerieListResponse>(`https://api.themoviedb.org/3/discover/tv?include_adult=false&language=es-US&page=1&sort_by=${criterio}|${genresQuery}`, {
+    return this.http.get<FilmListResponse>(`${environment.apiBaseUrl}/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=${criterio}${genresQuery}`, {
       headers: {
         'Authorization': `Bearer ${environment.access_token}`
       }
     });
   }
 
+  getFilterSeries(criterio: string, generos: number[]): Observable<SerieListResponse> {
+    const genresQuery = generos.length ? `&with_genres=${generos.join(',')}` : '';
+    return this.http.get<SerieListResponse>(`${environment.apiBaseUrl}/discover/tv?include_adult=false&language=es-US&page=1&sort_by=${criterio}${genresQuery}`, {
+      headers: {
+        'Authorization': `Bearer ${environment.access_token}`
+      }
+    });
+  }
 
 }
