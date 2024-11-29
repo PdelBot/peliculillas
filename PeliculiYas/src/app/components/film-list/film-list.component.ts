@@ -15,23 +15,39 @@ export class FilmListComponent implements OnInit {
   listadoPeliculas: Film[] = [];
   favouriteFilms: Film[] = [];
   watchListFilms: Film[] = [];
+  currentPage: number = 1;
+  totalPages: number = 1;
 
 
   constructor(private filmService: ListService, private favoriteService: FavoritesService, private watchlistService: WatchListService) { };
 
   ngOnInit(): void {
-    this.filmService.getPopularFilm().subscribe((response) => {
+    this.loadFilms();
+    this.loadFavoriteFilms();
+    this.loadWatchlistFilms();
+
+  }
+
+  loadFilms(): void {
+    this.filmService.getFilmPage(this.currentPage).subscribe((response) => {
       this.listadoPeliculas = response.results;
-    })
-
-    this.favoriteService.getFavouriteFilms().subscribe(response => {
-      this.favouriteFilms = response.results;
+      this.totalPages = response.total_pages;
+      console.log('Series cargadas:', this.listadoPeliculas);
     });
+  }
 
-    this.watchlistService.getWatchListFilms().subscribe(response => {
-      this.watchListFilms = response.results;
+  loadFavoriteFilms(): void {
+    this.favoriteService.getAllFavoriteFilms().subscribe(response => {
+      this.favouriteFilms = response;
+      console.log('Series favoritas cargadas:', this.favouriteFilms);
     });
+  }
 
+  loadWatchlistFilms(): void {
+    this.watchlistService.getAllWatchListFilms().subscribe(response => {
+      this.watchListFilms = response;
+      console.log('Series en la lista de seguimiento cargadas:', this.watchListFilms);
+    });
   }
 
   getFullImagePath(posterPath: string): string {
@@ -77,14 +93,10 @@ export class FilmListComponent implements OnInit {
 
 
   addToFavourites(film: Film): void {
-    if (this.favouriteFilms.length < 20) {
-      this.favoriteService.addFilmToFavourites(film).subscribe(filmAdded => {
-        console.log('Film added to favourites:', filmAdded);
-      });
-      window.location.reload();
-    } else {
-      alert('You have reached the maximum number of movies in your favorites list. Please remove a movie before adding a new one.');
-    }
+    this.favoriteService.addFilmToFavourites(film).subscribe(response => {
+      console.log('Film added to favourites:', response);
+      this.loadFavoriteFilms();
+    });
 
   }
 
@@ -94,8 +106,8 @@ export class FilmListComponent implements OnInit {
   removeFromFavourites(film: Film) {
     this.favoriteService.deleteFilmFromFavorite(film).subscribe(response => {
       console.log('Film removed from favourites:', response);
+      this.loadFavoriteFilms();
     });
-    window.location.reload();
 
   }
 
@@ -110,14 +122,10 @@ export class FilmListComponent implements OnInit {
 
 
   addToWatchlist(film: Film): void {
-    if (this.watchListFilms.length < 20) {
-      this.watchlistService.addFilmToWatchList(film).subscribe(response => {
-        console.log('Film added to watchlist:', response);
-      });
-      window.location.reload();
-    } else {
-      alert('You have reached the maximum number of movies in your watchlist. Please remove a movie before adding a new one.');
-    }
+    this.watchlistService.addFilmToWatchList(film).subscribe(response => {
+      console.log('Film added to watchlist:', response);
+      this.loadWatchlistFilms();
+    });
   }
 
   isAddedWatchList(film: Film): boolean {
@@ -130,9 +138,15 @@ export class FilmListComponent implements OnInit {
   removeFromWatchList(film: Film) {
     this.watchlistService.deleteFilmFromWatchList(film).subscribe(response => {
       console.log('Film removed from watchlist:', response);
+      this.loadWatchlistFilms();
     });
-    window.location.reload();
-  }
 
+  }
+  changePage(page: number): void {
+    this.currentPage = page;
+    if (this.watchListFilms.length > 0) {
+      this.loadFilms();
+    }
+  }
 
 }

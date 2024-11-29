@@ -23,6 +23,8 @@ export class SerieDetailsComponent implements OnInit {
   watchListSeries: Serie[] = [];
   serieWatchList: Serie | undefined;
   serieFavorite: Serie | undefined;
+  currentPage: number = 1;
+  seriesDetail: Serie | undefined;
 
 
 
@@ -86,15 +88,32 @@ export class SerieDetailsComponent implements OnInit {
           });
         }
       });
+
+      this.loadSerieDetails(+serieId);
+      this.loadAllWatchListSeries();
+      this.loadFavouriteSeries();
     }
-    this.favoriteService.getFavouriteSerie().subscribe(response => {
-      this.favoriteSeries = response.results;
-    });
-    this.watchListService.getWatchListSeries().subscribe(response => {
-      this.watchListSeries = response.results;
-    });
 
+  }
+  loadSerieDetails(id: number): void {
+    this.detailsService.getSeriesDetails(id, 'es-ES').subscribe(response => {
+      this.seriesDetails = response;
+      console.log('Series details loaded:', this.seriesDetails);
+    });
+  }
 
+  loadFavouriteSeries(): void {
+    this.favoriteService.getAllFavoriteSeries().subscribe(response => {
+      this.favoriteSeries = response;
+      console.log('Series favoritas cargadas:', this.favoriteSeries);
+    });
+  }
+
+  loadAllWatchListSeries(): void {
+    this.watchListService.getAllWatchListSeries().subscribe(response => {
+      this.watchListSeries = response;
+      console.log('Series en la lista de seguimiento cargadas:', this.watchListSeries);
+    });
   }
 
   loadSeasons(serieId: number, seasons: Season[]): void {
@@ -115,62 +134,44 @@ export class SerieDetailsComponent implements OnInit {
     return `${baseUrl}${path}`;
   }
 
-  addToFavourites(): void {
-    if (this.serieFavorite) {
-      this.favoriteService.addSerieToFavourites(this.serieFavorite).subscribe(response => {
-        console.log('Film added to favourites:', response);
-      });
-      window.location.reload();
-    }
+  addToFavourites(serie: Serie): void {
+    this.favoriteService.addSerieToFavourites(serie).subscribe(response => {
+      console.log('Serie añadida a la lista de seguimiento:', response);
+      this.loadFavouriteSeries(); // Actualizar la lista de seguimiento
+    });
   }
 
-  removeFromFavourites() {
-    if (this.serieFavorite) {
-      this.favoriteService.deleteSerieFromFavorite(this.serieFavorite).subscribe(response => {
-        console.log('Film added to favourites:', response);
-      });
-      window.location.reload();
-    }
+  removeFromFavourites(serie: Serie): void {
+
+    this.favoriteService.deleteSerieFromFavorite(serie).subscribe(response => {
+      console.log('Film removed from favourites:', response);
+      this.loadFavouriteSeries();
+    });
   }
 
 
-  isAdded(): boolean {
+  isAdded(serie: Serie): boolean {
 
-    if (this.serieFavorite) {
-      return this.favoriteSeries.some(watchListSeriesDe => watchListSeriesDe.id === this.serieFavorite?.id);
-
-    } else {
-      return false;
-    }
+   return this.favoriteSeries.some(favouriteFilm => favouriteFilm.id === serie.id);
   }
 
-  addToWatchlist(): void {
-    if (this.serieWatchList) {
-      this.watchListService.addSerieToWatchList(this.serieWatchList).subscribe(response => {
-        console.log('Film added to watchlist:', response);
-      });
-      window.location.reload();
-    }
+
+
+  addToWatchlist(serie: Serie): void {
+    this.watchListService.addSerieToWatchList(serie).subscribe(response => {
+      console.log('Serie añadida a la lista de seguimiento:', response);
+      this.loadAllWatchListSeries(); // Actualizar la lista de seguimiento
+    });
+  }
+  removeFromWatchList(serie: Serie): void {
+    this.watchListService.deleteSerieFromWatchList(serie).subscribe(response => {
+      console.log('Serie eliminada de la lista de seguimiento:', response);
+      this.loadAllWatchListSeries(); // Actualizar la lista de seguimiento
+    });
   }
 
-  isAddedWatchList(): boolean {
-
-    if (this.serieWatchList) {
-      return this.watchListSeries.some(watchListSeriesDe => watchListSeriesDe.id === this.serieWatchList?.id);
-
-    } else {
-      return false;
-    }
+  isAddedWatchList(serie: Serie): boolean {
+    return this.watchListSeries.some(watchListSeries => watchListSeries.id === serie.id);
   }
-
-  removeFromWatchList(): void {
-    if (this.serieWatchList) {
-      this.watchListService.deleteSerieFromWatchList(this.serieWatchList).subscribe(response => {
-        console.log('Film removed from watchlist:', response);
-      });
-      window.location.reload();
-    }
-  }
-
 
 }

@@ -12,13 +12,15 @@ import { Film } from '../../models/film.interface';
 export class FavoriteFilmsComponent implements OnInit {
 
   favouriteFilms: FilmFavorite[] = [];
+  currentPage = 1;
+  totalPages: number = 1;
 
   constructor(private favoriteService: FavoritesService, private filmService: ListService) { }
 
   ngOnInit(): void {
-    this.favoriteService.getFavouriteFilms().subscribe((response) => {
+    this.favoriteService.getFavouriteFilms(this.currentPage).subscribe((response) => {
       this.favouriteFilms = response.results;
-      console.log('Favoritos cargados:', this.favouriteFilms);
+      this.totalPages = response.total_pages;
     });
   }
 
@@ -30,10 +32,21 @@ export class FavoriteFilmsComponent implements OnInit {
   removeFromFavourites(film: Film) {
     this.favoriteService.deleteFilmFromFavorite(film).subscribe(response => {
       console.log('Film removed from favourites:', response);
+      this.loadFilms();
     });
-    window.location.reload();
   }
 
+  changePage(page: number): void {
+    this.currentPage = page;
+    if (this.favouriteFilms.length > 0) {
+      this.loadFilms();
+    }
+  }
+  loadFilms(): void {
+    this.favoriteService.getFavouriteFilms(this.currentPage).subscribe((response) => {
+      this.favouriteFilms = response.results;
+    });
 
+  }
 
 }

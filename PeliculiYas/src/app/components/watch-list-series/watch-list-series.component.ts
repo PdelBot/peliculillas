@@ -10,12 +10,17 @@ import { Serie } from '../../models/serie.interface';
 })
 export class WatchListSeriesComponent implements OnInit {
   watchListSeries: WatchListSerie[] = [];
+  currentPage: number = 1;
+  totalPages: number = 1;
   constructor(private watchListService: WatchListService) { }
 
+
   ngOnInit(): void {
-    this.watchListService.getWatchListSeries().subscribe((response) => {
+    this.watchListService.getWatchListSeries(this.currentPage).subscribe((response) => {
       this.watchListSeries = response.results;
+      this.totalPages = response.total_pages;
     });
+
 
   }
   getFullImagePath(posterPath: string): string {
@@ -26,6 +31,19 @@ export class WatchListSeriesComponent implements OnInit {
     this.watchListService.deleteSerieFromWatchList(serie).subscribe(response => {
       console.log('Film removed from watchlist:', response);
     });
-    window.location.reload();
+    this.loadSeries();
+  }
+  changePage(page: number): void {
+    this.currentPage = page;
+    if (this.watchListSeries.length > 0) {
+      this.loadSeries();
+    }
+  }
+
+  loadSeries(): void {
+    this.watchListService.getWatchListSeries(this.currentPage).subscribe((response) => {
+      this.watchListSeries = response.results;
+    });
+
   }
 }

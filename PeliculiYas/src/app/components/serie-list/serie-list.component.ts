@@ -15,20 +15,38 @@ export class SerieListComponent {
   page: number = 1;
   favoriteSeries: Serie[] = [];
   watchListSeries: Serie[] = [];
+  currentPage: number = 1;
+  totalPages: number = 1;
+
 
 
 
   constructor(private serieService: ListService, private favoriteService: FavoritesService, private watchlistService: WatchListService) { }
 
   ngOnInit(): void {
-    this.serieService.getPopularSeries().subscribe((response) => {
+    this.loadSeries();
+    this.loadFavouriteSeries();
+    this.loadAllWatchListSeries();
+  }
+  loadSeries(): void {
+    this.serieService.getSeriesPage(this.currentPage).subscribe((response) => {
       this.listadoSeries = response.results;
+      this.totalPages = response.total_pages;
+      console.log('Series cargadas:', this.listadoSeries);
     });
-    this.favoriteService.getFavouriteSerie().subscribe(response => {
-      this.favoriteSeries = response.results;
+  }
+
+  loadFavouriteSeries(): void {
+    this.favoriteService.getAllFavoriteSeries().subscribe(response => {
+      this.favoriteSeries = response;
+      console.log('Series favoritas cargadas:', this.favoriteSeries);
     });
-    this.watchlistService.getWatchListSeries().subscribe(response => {
-      this.watchListSeries = response.results;
+  }
+
+  loadAllWatchListSeries(): void {
+    this.watchlistService.getAllWatchListSeries().subscribe(response => {
+      this.watchListSeries = response;
+      console.log('Series en la lista de seguimiento cargadas:', this.watchListSeries);
     });
   }
   getFullImagePath(posterPath: string): string {
@@ -61,22 +79,17 @@ export class SerieListComponent {
   }
 
   addToFavourites(serie: Serie): void {
-    if (this.favoriteSeries.length < 20) {
-
-      this.favoriteService.addSerieToFavourites(serie).subscribe(response => {
-        console.log('Film added to favourites:', response);
-      });
-      window.location.reload();
-    } else {
-      alert('You have reached the maximum number of series in your favorites list. Please remove a movie before adding a new one.');
-    }
+    this.favoriteService.addSerieToFavourites(serie).subscribe(response => {
+      console.log('Serie añadida a la lista de seguimiento:', response);
+      this.loadFavouriteSeries(); // Actualizar la lista de seguimiento
+    });
   }
 
   removeFromFavourites(serie: Serie) {
     this.favoriteService.deleteSerieFromFavorite(serie).subscribe(response => {
       console.log('Film removed from favourites:', response);
+      this.loadFavouriteSeries();
     });
-    window.location.reload();
   }
 
 
@@ -87,30 +100,28 @@ export class SerieListComponent {
   }
 
   addToWatchlist(serie: Serie): void {
-    if (this.watchListSeries.length < 20) {
-
-      this.watchlistService.addSerieToWatchList(serie).subscribe(response => {
-        console.log('Film added to watchlist:', response);
-      });
-      window.location.reload();
-    } else {
-      alert('You have reached the maximum number of series in your watchlist. Please remove a movie before adding a new one.');
-    }
+    this.watchlistService.addSerieToWatchList(serie).subscribe(response => {
+      console.log('Serie añadida a la lista de seguimiento:', response);
+      this.loadAllWatchListSeries(); // Actualizar la lista de seguimiento
+    });
   }
 
   isAddedWatchList(serie: Serie): boolean {
-
     return this.watchListSeries.some(watchListSeries => watchListSeries.id === serie.id);
-
-
   }
 
-  removeFromWatchList(serie: Serie) {
+  removeFromWatchList(serie: Serie): void {
     this.watchlistService.deleteSerieFromWatchList(serie).subscribe(response => {
-      console.log('Film removed from watchlist:', response);
+      console.log('Serie eliminada de la lista de seguimiento:', response);
+      this.loadAllWatchListSeries(); // Actualizar la lista de seguimiento
     });
-    window.location.reload();
   }
 
+  changePage(page: number): void {
+    this.currentPage = page;
+    if (this.watchListSeries.length > 0) {
+      this.loadSeries();
+    }
+  }
 
 }

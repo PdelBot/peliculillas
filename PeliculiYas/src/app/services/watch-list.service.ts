@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Film } from '../models/film.interface';
-import { Observable } from 'rxjs';
+import { forkJoin, map, Observable, switchMap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { WatchListFilmResponse } from '../models/watchlist-film.interface';
 import { Serie } from '../models/serie.interface';
@@ -32,12 +32,33 @@ export class WatchListService {
     );
 
   }
-  getWatchListFilms(): Observable<WatchListFilmResponse> {
+  getWatchListFilms(page: number): Observable<WatchListFilmResponse> {
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');
 
     return this.http.get<WatchListFilmResponse>(
+      `${environment.apiBaseUrl}/account/${accountId}/watchlist/movies?api_key=${environment.apiKey}&session_id=${sessionId}&page=${page}`
+    );
+  }
+  getAllWatchListFilms(): Observable<Film[]> {
+    const sessionId = localStorage.getItem('session_id');
+    const accountId = localStorage.getItem('account_id');
+    return this.http.get<WatchListFilmResponse>(
       `${environment.apiBaseUrl}/account/${accountId}/watchlist/movies?api_key=${environment.apiKey}&session_id=${sessionId}`
+    ).pipe(
+      map((response: { total_pages: any; }) => {
+        const totalPages = response.total_pages;
+        const requests: Observable<WatchListFilmResponse>[] = [];
+        for (let page = 1; page <= totalPages; page++) {
+          requests.push(this.getWatchListFilms(page));
+        }
+        return forkJoin(requests).pipe(
+          map((responses: any[]) => {
+            return responses.reduce((acc, res) => acc.concat(res.results), []);
+          })
+        );
+      }),
+      switchMap(obs => obs)
     );
   }
   deleteFilmFromWatchList(film: Film): Observable<any> {
@@ -70,14 +91,37 @@ export class WatchListService {
     );
 
   }
-  getWatchListSeries(): Observable<WatchListSeriesResponse> {
+  getWatchListSeries(page: number): Observable<WatchListSeriesResponse> {
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');
 
     return this.http.get<WatchListSeriesResponse>(
-      `${environment.apiBaseUrl}/account/${accountId}/watchlist/tv?api_key=${environment.apiKey}&session_id=${sessionId}`
+      `${environment.apiBaseUrl}/account/${accountId}/watchlist/tv?api_key=${environment.apiKey}&session_id=${sessionId}&page=${page}`
     );
   }
+
+  getAllWatchListSeries(): Observable<Serie[]> {
+    const sessionId = localStorage.getItem('session_id');
+    const accountId = localStorage.getItem('account_id');
+    return this.http.get<WatchListSeriesResponse>(
+      `${environment.apiBaseUrl}/account/${accountId}/watchlist/tv?api_key=${environment.apiKey}&session_id=${sessionId}`
+    ).pipe(
+      map((response: { total_pages: any; }) => {
+        const totalPages = response.total_pages;
+        const requests: Observable<WatchListSeriesResponse>[] = [];
+        for (let page = 1; page <= totalPages; page++) {
+          requests.push(this.getWatchListSeries(page));
+        }
+        return forkJoin(requests).pipe(
+          map((responses: any[]) => {
+            return responses.reduce((acc, res) => acc.concat(res.results), []);
+          })
+        );
+      }),
+      switchMap(obs => obs)
+    );
+  }
+
   deleteSerieFromWatchList(serie: Serie): Observable<any> {
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');

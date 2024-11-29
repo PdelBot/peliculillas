@@ -10,11 +10,14 @@ import { Film } from '../../models/film.interface';
 })
 export class WatchListFilmComponent implements OnInit {
   watchListFilm: WatchlistFilm[] = [];
+  currentPage: number = 1;
+  totalPages: number = 1;
   constructor(private watchListService: WatchListService) { }
 
   ngOnInit(): void {
-    this.watchListService.getWatchListFilms().subscribe((response) => {
+    this.watchListService.getWatchListFilms(this.currentPage).subscribe((response) => {
       this.watchListFilm = response.results;
+      this.totalPages = response.total_pages;
     });
   }
 
@@ -26,7 +29,18 @@ export class WatchListFilmComponent implements OnInit {
     this.watchListService.deleteFilmFromWatchList(film).subscribe(response => {
       console.log('Film removed from watchlist:', response);
     });
-    window.location.reload();
+    this.loadFilms
   }
+  changePage(page: number): void {
+    this.currentPage = page;
+    if (this.watchListFilm.length > 0) {
+      this.loadFilms();
+    }
+  }
+  loadFilms(): void {
+    this.watchListService.getWatchListFilms(this.currentPage).subscribe((response) => {
+      this.watchListFilm = response.results;
+    });
 
+  }
 }
