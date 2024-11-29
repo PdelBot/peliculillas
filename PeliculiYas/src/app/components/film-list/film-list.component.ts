@@ -77,12 +77,19 @@ export class FilmListComponent implements OnInit {
 
 
   addToFavourites(film: Film): void {
-    this.favoriteService.addFilmToFavourites(film).subscribe(filmAdded => {
-      console.log('Film added to favourites:', filmAdded);
-    });
-    window.location.reload();
+    if (this.favouriteFilms.length < 20) {
+      this.favoriteService.addFilmToFavourites(film).subscribe(filmAdded => {
+        console.log('Film added to favourites:', filmAdded);
+      });
+      window.location.reload();
+    } else {
+      alert('You have reached the maximum number of movies in your favorites list. Please remove a movie before adding a new one.');
+    }
 
   }
+
+
+
 
   removeFromFavourites(film: Film) {
     this.favoriteService.deleteFilmFromFavorite(film).subscribe(response => {
@@ -103,10 +110,14 @@ export class FilmListComponent implements OnInit {
 
 
   addToWatchlist(film: Film): void {
-    this.watchlistService.addFilmToWatchList(film).subscribe(response => {
-      console.log('Film added to watchlist:', response);
-    });
-    window.location.reload();
+    if (this.watchListFilms.length < 20) {
+      this.watchlistService.addFilmToWatchList(film).subscribe(response => {
+        console.log('Film added to watchlist:', response);
+      });
+      window.location.reload();
+    } else {
+      alert('You have reached the maximum number of movies in your watchlist. Please remove a movie before adding a new one.');
+    }
   }
 
   isAddedWatchList(film: Film): boolean {

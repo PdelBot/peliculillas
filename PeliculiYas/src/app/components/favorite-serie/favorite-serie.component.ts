@@ -22,5 +22,10 @@ export class FavoriteSerieComponent implements OnInit {
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
     return `${baseUrl}${posterPath}`;
   }
-
+  removeFromFavourites(serie: FavoriteSerie) {
+    this.favoriteService.deleteSerieFromFavorite(serie).subscribe(response => {
+      console.log('Film removed from favourites:', response);
+    });
+    window.location.reload();
+  }
 }

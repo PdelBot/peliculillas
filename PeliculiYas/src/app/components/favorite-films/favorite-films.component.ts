@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FilmFavorite } from '../../models/favorite-film-list.interface';
 import { FavoritesService } from '../../services/favorites.service';
 import { ListService } from '../../services/list.service';
+import { Film } from '../../models/film.interface';
 
 @Component({
   selector: 'app-favorite-films',
@@ -9,17 +10,14 @@ import { ListService } from '../../services/list.service';
   styleUrl: './favorite-films.component.css'
 })
 export class FavoriteFilmsComponent implements OnInit {
-  
+
   favouriteFilms: FilmFavorite[] = [];
-  page = 1;
-  totalPages: number = 1;
 
   constructor(private favoriteService: FavoritesService, private filmService: ListService) { }
 
   ngOnInit(): void {
-    this.favoriteService.getFilmPage(this.page).subscribe((response) => {
+    this.favoriteService.getFavouriteFilms().subscribe((response) => {
       this.favouriteFilms = response.results;
-      this.totalPages = response.total_pages;
       console.log('Favoritos cargados:', this.favouriteFilms);
     });
   }
@@ -29,25 +27,13 @@ export class FavoriteFilmsComponent implements OnInit {
     return `${baseUrl}${posterPath}`;
   }
 
-  getNextPage(): void {
-    if (this.page < this.totalPages) {
-      this.page += 1;
-      this.loadFavouriteFilms();
-    }
+  removeFromFavourites(film: Film) {
+    this.favoriteService.deleteFilmFromFavorite(film).subscribe(response => {
+      console.log('Film removed from favourites:', response);
+    });
+    window.location.reload();
   }
 
-  getPreviousPage(): void {
-    if (this.page > 1) {
-      this.page -= 1;
-      this.loadFavouriteFilms();
-    }
-  }
-  loadFavouriteFilms(): void {
-    this.favoriteService.getFilmPage(this.page).subscribe((response) => {
-      this.favouriteFilms = response.results;
-      this.totalPages = response.total_pages;
-      console.log('Favoritos cargados:', this.favouriteFilms);
-    });
-  }
+
 
 }

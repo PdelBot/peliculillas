@@ -128,13 +128,17 @@ export class FilmDetailsComponent implements OnInit {
   }
 
   addToFavourites(): void {
-    if (this.filmFavorite) {
-      this.favoriteService.addFilmToFavourites(this.filmFavorite).subscribe(response => {
-        console.log('Film added to favourites:', response);
-      });
-      window.location.reload();
+    if (this.favoriteFilms.length < 20) {
+      if (this.filmFavorite) {
+        this.favoriteService.addFilmToFavourites(this.filmFavorite).subscribe(response => {
+          console.log('Film added to favourites:', response);
+        });
+      }
+    } else {
+      alert('You have reached the maximum number of movies in your favorites list. Please remove a movie before adding a new one.');
     }
   }
+
 
   removeFromFavourites() {
     if (this.filmFavorite) {
@@ -157,11 +161,16 @@ export class FilmDetailsComponent implements OnInit {
   }
 
   addToWatchlist(): void {
-    if (this.filmWatchList) {
-      this.watchListService.addFilmToWatchList(this.filmWatchList).subscribe(response => {
-        console.log('Film added to watchlist:', response);
-      });
-      window.location.reload();
+    if (this.watchListFilms.length < 20) {
+
+      if (this.filmWatchList) {
+        this.watchListService.addFilmToWatchList(this.filmWatchList).subscribe(response => {
+          console.log('Film added to watchlist:', response);
+        });
+        window.location.reload();
+      }
+    } else {
+      alert('You have reached the maximum number of movies in your watchlist. Please remove a movie before adding a new one.');
     }
   }
 

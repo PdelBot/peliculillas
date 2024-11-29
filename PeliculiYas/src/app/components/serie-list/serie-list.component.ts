@@ -61,10 +61,15 @@ export class SerieListComponent {
   }
 
   addToFavourites(serie: Serie): void {
-    this.favoriteService.addSerieToFavourites(serie).subscribe(response => {
-      console.log('Film added to favourites:', response);
-    });
-    window.location.reload();
+    if (this.favoriteSeries.length < 20) {
+
+      this.favoriteService.addSerieToFavourites(serie).subscribe(response => {
+        console.log('Film added to favourites:', response);
+      });
+      window.location.reload();
+    } else {
+      alert('You have reached the maximum number of series in your favorites list. Please remove a movie before adding a new one.');
+    }
   }
 
   removeFromFavourites(serie: Serie) {
@@ -82,10 +87,15 @@ export class SerieListComponent {
   }
 
   addToWatchlist(serie: Serie): void {
-    this.watchlistService.addSerieToWatchList(serie).subscribe(response => {
-      console.log('Film added to watchlist:', response);
-    });
-    window.location.reload();
+    if (this.watchListSeries.length < 20) {
+
+      this.watchlistService.addSerieToWatchList(serie).subscribe(response => {
+        console.log('Film added to watchlist:', response);
+      });
+      window.location.reload();
+    } else {
+      alert('You have reached the maximum number of series in your watchlist. Please remove a movie before adding a new one.');
+    }
   }
 
   isAddedWatchList(serie: Serie): boolean {

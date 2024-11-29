@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WatchlistFilm } from '../../models/watchlist-film.interface';
 import { WatchListService } from '../../services/watch-list.service';
+import { Film } from '../../models/film.interface';
 
 @Component({
   selector: 'app-watch-list-film',
@@ -21,4 +22,11 @@ export class WatchListFilmComponent implements OnInit {
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
     return `${baseUrl}${posterPath}`;
   }
+  removeFromWatchList(film: Film) {
+    this.watchListService.deleteFilmFromWatchList(film).subscribe(response => {
+      console.log('Film removed from watchlist:', response);
+    });
+    window.location.reload();
+  }
+
 }
