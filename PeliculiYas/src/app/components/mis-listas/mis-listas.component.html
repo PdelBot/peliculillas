@@ -12,7 +12,7 @@
 </div>
 
 <div class="content d-flex row me-0">
-    <div class="mislistas col-9">
+    <div class="mislistas col-9 ">
         <div class="title d-flex">
             <i class="bi bi-list-ul"></i>
             <h1>Mis listas</h1>
@@ -21,32 +21,41 @@
         <div class="buttons d-flex gap-3">
             <div class="create d-flex">
                 <button *ngIf="misListas.length>0&&!create" (click)="On(1)" class="createList d-flex gap-2"><i
-                    class="bi bi-plus-circle"></i>Crear
-                lista</button>
-            <input *ngIf="misListas.length>0&&create" type="text" [(ngModel)]="nameList"
-                placeholder="Nombre de la lista">
-            <input *ngIf="misListas.length>0&&create" type="text" [(ngModel)]="description" placeholder="Descripción">
-            <button *ngIf="misListas.length>0&&create" (click)="createList()" class="createList d-flex gap-2"><i
-                    class="bi bi-plus-circle"></i>Crear
-                lista</button>
-            <button *ngIf="misListas.length>0&&create" (click)="Of(1)" class="createList d-flex gap-2">X</button>
+                        class="bi bi-plus-circle"></i>Crear
+                    lista</button>
+                <input *ngIf="misListas.length>0&&create" type="text" [(ngModel)]="nameList"
+                    placeholder="Nombre de la lista" required>
+                <input *ngIf="misListas.length>0&&create" type="text" [(ngModel)]="description"
+                    placeholder="Descripción" required>
+                <button *ngIf="misListas.length>0&&create" (click)="createList()" class="createList d-flex gap-2"><i
+                        class="bi bi-plus-circle"></i>Crear
+                    lista</button>
+                <button *ngIf="misListas.length>0&&create" (click)="Of(1)" class="createList d-flex gap-2">X</button>
             </div>
             <div class="delete d-flex text-white">
                 <button *ngIf="misListas.length>0&&!delet" (click)="On(2)" class="createList d-flex gap-2"><i
-                    class="bi bi-plus-circle"></i>Borrar lista</button>
+                        class="bi bi-plus-circle"></i>Borrar lista</button>
                 <label *ngIf="misListas.length>0&&delet" for="listSelector"></label>
                 <select *ngIf="misListas.length>0&&delet" id="listSelector" [(ngModel)]="selectedListId">
                     <option value="" selected>Selecciona una lista</option>
                     <option *ngFor="let list of misListas" [value]="list.id">{{ list.name }}</option>
                 </select>
-                <button *ngIf="misListas.length>0&&delet" (click)="deleteList(selectedListId!)" class="createList d-flex gap-2"><i
-                    class="bi bi-plus-circle"></i>Borrar lista</button>
-                    <button *ngIf="misListas.length>0&&delet" (click)="Of(2)" class="createList d-flex gap-2">X</button>
+                <button *ngIf="misListas.length>0&&delet" (click)="deleteList(selectedListId!)"
+                    class="createList d-flex gap-2"><i class="bi bi-plus-circle"></i>Borrar lista</button>
+                <button *ngIf="misListas.length>0&&delet" (click)="Of(2)" class="createList d-flex gap-2">X</button>
             </div>
-            <div class="clear">
-
+            <div class="clear d-flex">
+                <button *ngIf="misListas.length>0&&!clear" (click)="On(3)" class="createList d-flex gap-2"><i
+                        class="bi bi-plus-circle"></i>Limpiar lista</button>
+                <label *ngIf="misListas.length>0&&clear" for="listSelector"></label>
+                <select *ngIf="misListas.length>0&&clear" id="listSelector" [(ngModel)]="selectedListId">
+                    <option value="" selected>Selecciona una lista</option>
+                    <option *ngFor="let list of misListas" [value]="list.id">{{ list.name }}</option>
+                </select>
+                <button *ngIf="misListas.length>0&&clear" (click)="clearList(selectedListId!)"
+                    class="createList d-flex gap-2"><i class="bi bi-plus-circle"></i>Limpiar lista</button>
+                <button *ngIf="misListas.length>0&&clear" (click)="Of(3)" class="createList d-flex gap-2">X</button>
             </div>
-            
         </div>
         <div class="content-list">
             @if(misListas.length === 0){
@@ -60,8 +69,8 @@
                 @for (list of misListas; track list.id) {
                 <a [routerLink]="['/misListas', list.id]">
                     <div class="card card-list" [ngStyle]="{
-                        'background': 'linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.801)), no-repeat center/cover url(https://preview.redd.it/i-could-not-find-a-minimal-op-desktop-background-i-liked-so-v0-kzqx7h08k2fa1.png?width=1080&crop=smart&auto=webp&s=83e9db11cab55993b1fd9290dc95f6b715b96664)'
-                      }">
+                            'background': 'linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.801)), no-repeat center/cover url(https://preview.redd.it/i-could-not-find-a-minimal-op-desktop-background-i-liked-so-v0-kzqx7h08k2fa1.png?width=1080&crop=smart&auto=webp&s=83e9db11cab55993b1fd9290dc95f6b715b96664)'
+                          }">
                         <div class="text-list">
                             <h1>{{list.name}}</h1>
                             <p id="description">{{list.description}}</p>
@@ -71,11 +80,13 @@
                 </a>
                 }
             </div>
-
+    
             }
         </div>
     </div>
+    
     <div class="right-menu col-3">
         <app-menu-right></app-menu-right>
     </div>
 </div>
+

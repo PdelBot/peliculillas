@@ -50,7 +50,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr); 
     gap:20px;
-    height: 600px;
+    height: 710px;
     overflow-y: auto; 
     scrollbar-width: none; 
    

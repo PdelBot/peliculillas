@@ -33,6 +33,26 @@
           </div>
           }
         </div>
+        <div class="dropdown">
+          <button (click)="onAdd()">Añadir pelicula a lista</button>
+          <div *ngIf="add" class="dropdown-content">
+            <div *ngIf="listas.length > 0; else noLists">
+              <h3>Listas del usuario</h3>
+              <div *ngFor="let lista of listas" class="text-white">
+                <label>
+                  <input 
+                    type="checkbox" 
+                    [checked]="checkedLists[lista.id]" 
+                    (change)="onCheckboxChange($event, lista.id)">
+                    {{lista.name}}
+                </label>
+              </div>
+            </div>
+            <ng-template #noLists>
+              <p>No tienes listas creadas aún.</p>
+            </ng-template>
+          </div>
+        </div>
         <div>
           <button class="watch-now btn btn-primary align-items-center justify-content-beetwen " (click)="watchTrailer()">Ver Trailer</button>
         </div>

@@ -13,7 +13,7 @@
                     <h2 class="text-white">{{peli.vote_average | roundedVote}}</h2>
                 </div>
                 <a [routerLink]="['/peliculas', peli.id]">
-                    <div class="text-card">
+                    <div class="text-card text-black">
                         <h3 class="ms-4">{{peli.title}}</h3>
                         <div class="detalles d-flex gap-4 ms-4 mb-3">
                             <p id="fecha">{{peli.release_date}}</p>
@@ -25,14 +25,6 @@
 
                     </div>
                 </a>
-                <div class="añadirla">
-                    <label for="listSelector">Selecciona una lista:</label>
-                    <select id="listSelector" [(ngModel)]="selectedListId">
-                        <option value="" selected>Selecciona una lista</option>
-                        <option *ngFor="let list of misListas" [value]="list.id">{{ list.name }}</option>
-                    </select>
-                    <button (click)="addFilmToList(peli.id)">añadir Peli</button>
-                </div>
             </div>
 
             }

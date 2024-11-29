@@ -40,11 +40,9 @@ export class MisListasService {
 
   clearList(id:number){
     const sessionId = localStorage.getItem('session_id');
-    const body = {
-      confirm: true
-    }
 
-    return this.http.post(`${BASE_URL}/list/${id}/clear?api_key=${API_KEY}&session_id=${sessionId}`, body)
+
+    return this.http.post(`${BASE_URL}/list/${id}/clear?api_key=${API_KEY}&session_id=${sessionId}&confirm=true`, null)
 
   }
 
