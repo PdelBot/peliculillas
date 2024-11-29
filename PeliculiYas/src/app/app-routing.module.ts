@@ -8,6 +8,7 @@ import { FilmDetailsComponent } from './components/film-details/film-details.com
 import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 import { ApprovedComponent } from './components/approved/approved.component';
+import { RatingComponent } from './components/rating/rating.component';
 
 const routes: Routes = [
   {path: 'principal', component: PrincipalMenuComponent},
@@ -17,8 +18,10 @@ const routes: Routes = [
   {path: 'peliculas/:id', component: FilmDetailsComponent}, 
   {path: 'series/:id', component: SerieDetailsComponent},
   {path: 'actores/:id', component: PeopleDetailsComponent},
-  { path: 'approved', component: ApprovedComponent },
+  {path: 'approved', component: ApprovedComponent },
+  {path: 'rating', component: RatingComponent },
   {path: '', redirectTo: '/principal', pathMatch: 'full'},
+
 ];
 
 @NgModule({

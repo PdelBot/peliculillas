@@ -1,0 +1,19 @@
+<div class="container">
+    <h2>Series Puntuadas</h2>
+    <div *ngIf="ratedSeries.length > 0; else noRatings">
+      <div class="series-list">
+        <div class="series-card" *ngFor="let series of ratedSeries">
+          <img [src]="getImgUrl(series.poster_path)" alt="{{ series.name }}" />
+          <div class="series-info">
+            <h5>{{ series.name }}</h5>
+            <p><strong>Calificación:</strong> {{ series.rating }} / 10</p>
+            <p><strong>Fecha:</strong> {{ series.first_air_date }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noRatings>
+      <p>No has puntuado ninguna serie aún.</p>
+    </ng-template>
+  </div>
+  
