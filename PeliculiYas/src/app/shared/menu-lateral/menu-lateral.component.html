@@ -10,23 +10,30 @@
         </a>
     </div>
     <div class="menu d-flex row align-items-flex justify-content-start text-white gap-4">
-        <div *ngIf="tipo === 'peliculas'">
+
+        <div>
+            @if (tipo=="peliculas") {
             <label for="orden1">Ordenar por:</label>
             <select id="orden1" #ordenSelectPeliculas>
-                <option value="popularity.asc">Popularidad Ascendente</option>
                 <option value="popularity.desc">Popularidad Descendente</option>
+                <option value="popularity.asc">Popularidad Ascendente</option>
                 <option value="vote_average.asc">Valoración Ascendente</option>
                 <option value="vote_average.desc">Valoración Descendente</option>
             </select>
-            <button (click)="ordenarPeliculas(ordenSelectPeliculas.value)">Buscar</button>
             <div>
                 <label for="genero">Género:</label>
-                <div *ngFor="let genero of generos">
-                    <input type="checkbox" [value]="genero.id" id="genero-{{genero.id}}" (change)="toggleGenre(genero.id)">
-                    <label [for]="'genero-' + genero.id">{{ genero.name }}</label>
+                @for (genero of generos; track genero.id) {
+                <div>
+                    <input type="checkbox" id="genero{{genero.id}}" value="{{genero.id}}"
+                        (change)="toggleGenre(genero.id)">
+                    <label for="genero{{genero.id}}">{{genero.name}}</label>
                 </div>
+                }
             </div>
+            <button (click)="buscar(ordenSelectPeliculas.value)">Buscar</button>
+            }
         </div>
+
         <div *ngIf="tipo === 'series'">
             <label for="orden2">Ordenar por:</label>
             <select id="orden2" #ordenSelectSeries>
@@ -35,14 +42,16 @@
                 <option value="vote_average.asc">Valoración Ascendente</option>
                 <option value="vote_average.desc">Valoración Descendente</option>
             </select>
-            <button (click)="ordenarSeries(ordenSelectSeries.value)">Buscar</button>
             <div>
                 <label for="genero">Género:</label>
-                <div *ngFor="let genero of generos">
-                    <input type="checkbox" [value]="genero.id" id="genero-{{genero.id}}" (change)="toggleGenre(genero.id)">
-                    <label [for]="'genero-' + genero.id">{{ genero.name }}</label>
+                @for (genero of generos; track genero.id) {
+                <div>
+                    <input type="checkbox" id="genero{{genero.id}}" value="{{genero.id}}"
+                        (change)="toggleGenre(genero.id)">
+                    <label for="genero{{genero.id}}">{{genero.name}}</label>
                 </div>
+                }
             </div>
+            <button (click)="buscar(ordenSelectSeries.value)">Buscar</button>
         </div>
     </div>
-</div>

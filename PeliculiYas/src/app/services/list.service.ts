@@ -223,18 +223,19 @@ export class ListService {
       });
   }
 
-  getFilterFilms(criterio: string, generos: number[]): Observable<FilmListResponse> {
+  //esto es la vida a quien se le ocurra tocarlo le desintalo el proyecto
+  getOrderedFilms(criterio: string, generos: number[], page: number): Observable<FilmListResponse> {
     const genresQuery = generos.length ? `&with_genres=${generos.join(',')}` : '';
-    return this.http.get<FilmListResponse>(`${environment.apiBaseUrl}/discover/movie?include_adult=false&include_video=false&language=es-US&page=1&sort_by=${criterio}${genresQuery}`, {
+    return this.http.get<FilmListResponse>(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=es-US&page=${page}&sort_by=${criterio}${genresQuery}`, {
       headers: {
         'Authorization': `Bearer ${environment.access_token}`
       }
     });
   }
 
-  getFilterSeries(criterio: string, generos: number[]): Observable<SerieListResponse> {
+  getOrderedSeries(criterio: string, generos: number[], page: number): Observable<SerieListResponse> {
     const genresQuery = generos.length ? `&with_genres=${generos.join(',')}` : '';
-    return this.http.get<SerieListResponse>(`${environment.apiBaseUrl}/discover/tv?include_adult=false&language=es-US&page=1&sort_by=${criterio}${genresQuery}`, {
+    return this.http.get<SerieListResponse>(`https://api.themoviedb.org/3/discover/tv?include_adult=false&language=es-US&page=${page}&sort_by=${criterio}${genresQuery}`, {
       headers: {
         'Authorization': `Bearer ${environment.access_token}`
       }

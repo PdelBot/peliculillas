@@ -62,100 +62,26 @@ export class MenuLateralComponent implements OnInit {
     }
   }
 
-  toggleGenre(genreId: number | ''): void {
-    if (genreId === '') {
-      this.generosSelecionados = [];
+  toggleGenre(genreId: number): void {
+    const index = this.generosSelecionados.indexOf(genreId);
+    if (index === -1) {
+      this.generosSelecionados.push(genreId);
     } else {
-      const index = this.generosSelecionados.indexOf(genreId);
-      if (index === -1) {
-        this.generosSelecionados.push(genreId);
-      } else {
-        this.generosSelecionados.splice(index, 1);
-      }
+      this.generosSelecionados.splice(index, 1);
     }
-
-    this.filterItems();
   }
 
-  isSelectedGenre(genreId: number | ''): boolean {
-    if (genreId === '') {
-      return this.generosSelecionados.length === 0;
-    }
-    return this.generosSelecionados.includes(genreId);
-  }
-  filterItems(): void {
+  buscar(criterio: string, page: number = 1) {
     if (this.tipo === 'peliculas') {
-      this.listadoPeliculasFiltrado = this.listadoPeliculas.filter((film) => {
-        return this.generosSelecionados.length === 0 || this.generosSelecionados.some((genreId) => film.genre_ids.includes(genreId));
+      this.listService.getOrderedFilms(criterio, this.generosSelecionados, page).subscribe(response => {
+        this.listadoPeliculas = response.results;
+        this.listadoFilmChange.emit(this.listadoPeliculas);
       });
-      this.listadoFilmChange.emit(this.listadoPeliculasFiltrado);
     } else if (this.tipo === 'series') {
-      this.listadoSeriesFiltrado = this.listadoSeries.filter((serie) => {
-        return this.generosSelecionados.length === 0 || this.generosSelecionados.some((genreId) => serie.genre_ids.includes(genreId));
+      this.listService.getOrderedSeries(criterio, this.generosSelecionados, page).subscribe(response => {
+        this.listadoSeries = response.results;
+        this.listadoSeriesChange.emit(this.listadoSeries);
       });
-      this.listadoSeriesChange.emit(this.listadoSeriesFiltrado);
-    }
-  }
-
-  ordenarPeliculas(criterio: string) {
-    switch (criterio) {
-      case 'popularidadAscendente':
-        this.listService.getPopularFilmAsc().subscribe(response => {
-          this.listadoPeliculas = response.results;
-          this.filterItems();
-        });
-        break;
-      case 'popularidadDescendente':
-        this.listService.getPopularFilmDesc().subscribe(response => {
-          this.listadoPeliculas = response.results;
-          this.filterItems();
-        });
-        break;
-      case 'valoracionAscendente':
-        this.listService.getRatedFilmAsc().subscribe(response => {
-          this.listadoPeliculas = response.results;
-          this.filterItems();
-        });
-        break;
-      case 'valoracionDescendente':
-        this.listService.getRatedFilmDesc().subscribe(response => {
-          this.listadoPeliculas = response.results;
-          this.filterItems();
-        });
-        break;
-      default:
-        console.error('Criterio de ordenación no reconocido:', criterio);
-    }
-  }
-
-  ordenarSeries(criterio: string) {
-    switch (criterio) {
-      case 'popularidadAscendente':
-        this.listService.getPopularSeriesAsc().subscribe(response => {
-          this.listadoSeries = response.results;
-          this.filterItems();
-        });
-        break;
-      case 'popularidadDescendente':
-        this.listService.getPopularSeriesDesc().subscribe(response => {
-          this.listadoSeries = response.results;
-          this.filterItems();
-        });
-        break;
-      case 'valoracionAscendente':
-        this.listService.getRatedSeriesAsc().subscribe(response => {
-          this.listadoSeries = response.results;
-          this.filterItems();
-        });
-        break;
-      case 'valoracionDescendente':
-        this.listService.getRatedSeriesDesc().subscribe(response => {
-          this.listadoSeries = response.results;
-          this.filterItems();
-        });
-        break;
-      default:
-        console.error('Criterio de ordenación no reconocido:', criterio);
     }
   }
 
