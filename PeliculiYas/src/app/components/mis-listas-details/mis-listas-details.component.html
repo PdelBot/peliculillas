@@ -13,29 +13,54 @@
 <div class="page d-flex row ">
     <div class="content col-9">
         <div class="title d-flex align-items-center">
-            <div *ngIf="!editar" class="title">
+            <div *ngIf="!editar" class="title d-flex align-items-center">
                 <i class="bi bi-box-seam"></i>
-                <h1 class="title">{{list?.name}}</h1>
+                <h1 class="title">{{list?.name | uppercase}}</h1>
             </div>
             <div *ngIf="editar" class="edit">
-                <input type="text" [(ngModel)]="newName">
+                <input type="text" [(ngModel)]="newName" placeholder="añade un nuevo nombre">
             </div>
-            <button *ngIf="!editar" (click) = "editarListaOn()">Editar lista</button>
-            <button *ngIf="editar" (click) = "setList()">Editar lista</button>
-            <button *ngIf="editar" (click) = "editarListaOn()">X</button>
+
+
 
         </div>
+        <hr>
+        <div class="description ms-4">
+            <h5 class="text-danger">DESCRIPCIÓN:</h5>
+            <p *ngIf="!editar">{{list?.description}}</p>
+            <div *ngIf="editar" class="edit">
+                <textarea class="description" type="text" [(ngModel)]="newDescription" placeholder="añade una nueva descripcion"></textarea>
+            </div>
+        </div>
+        <hr>
+        <div class="botones ms-4 d-flex gap-1">
+            <button class="button" *ngIf="!editar" (click)="editarListaOn()">Editar lista</button>
+            <button class="button" *ngIf="editar" (click)="setList()">Editar lista</button>
+            <button class="button"
+             style="border-radius: 100%; padding: 5px 12px; background: linear-gradient(red, 80%, rgb(152, 0, 0));" 
+             *ngIf="editar" (click)="editarListaOn()">X</button>
+        </div>
+
         <div class="peliculas">
             <div *ngFor="let film of list?.items" class="card-pelicula d-flex mb-4">
                 <img [src]="getFullImagePath(film.poster_path)" alt="img">
                 <div class="text">
-                    <h1>{{film.title}}</h1>
-                    <div class="subtitle d-flex gap-3">
-                        <p>{{film.release_date}}</p>
+                    <div class="title d-flex">
+                        <h1 *ngIf="film.media_type==='movie'">{{film.title}}</h1>
+                        <h1 *ngIf="film.media_type === 'tv'">{{ film.id | serieName }}</h1>
+
+                    </div>
+
+
+                    <div class="subtitle d-flex gap-3 ms-4">
+                        <p *ngIf="film.media_type==='movie'">{{film.release_date}}</p>
+                        <div class="type" style="height: 35px;">
+                            {{film.media_type}}
+                        </div>
                     </div>
                     <p>{{film.overview}}</p>
-                    <div class="botones">
-                        <button (click)="deleteFilm(film.id, +(idList))" class="bin-button">
+                    <div class="botones d-flex gap-3 align-items-center">
+                        <button (click)="delete(film.id, +(idList), film.media_type)" class="bin-button">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 39 7" class="bin-top">
                                 <line stroke-width="4" stroke="white" y2="5" x2="39" y1="5"></line>
                                 <line stroke-width="3" stroke="white" y2="1.5" x2="26.0357" y1="1.5" x1="12"></line>
@@ -57,8 +82,12 @@
                                 </path>
                             </svg>
                         </button>
-
+                        <a class="button" *ngIf="film.media_type ==='movie'"
+                            [routerLink]="['/peliculas', film.id]">Detalles</a>
+                        <a class="button" *ngIf="film.media_type ==='tv' "
+                            [routerLink]="['/series', film.id]">Detalles</a>
                     </div>
+
                 </div>
 
             </div>

@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { myListResponse } from '../../models/my-list.interface';
 import { myListDetailsResponse } from '../../models/my-list-details.interface';
 import { FilmDetailsResponse } from '../../models/film-details.interface';
+import { SerieDetailsComponent } from '../serie-details/serie-details.component';
+import { DetailsService } from '../../services/details.service';
 
 @Component({
   selector: 'app-mis-listas-details',
@@ -15,42 +17,50 @@ export class MisListasDetailsComponent implements OnInit {
 
   userName = '';
   userPhoto = '';
-  banner: string = "/q8eejQcg1bAqImEV8jh8RtBD4uH.jpg";  
+  banner: string = "/q8eejQcg1bAqImEV8jh8RtBD4uH.jpg";
   private prevScrollPos: number = window.scrollY;
   list: myListDetailsResponse | undefined;
   filmList: FilmDetailsResponse[] = [];
+  serieList: SerieDetailsComponent[] = [];
   idList: string = "";
   editar: boolean = false;
   newName: string = "";
   newDescription: string = "";
- 
+  nameSerie: string = "";
+  dateSerie: string = "";
+  serieNames: { [key: number]: string } = {};
   
 
-  constructor(private authService: AuthService, private mylistService: MisListasService, private route: ActivatedRoute){}
 
 
-  
+  constructor(private authService: AuthService, private mylistService: MisListasService,
+    private route: ActivatedRoute, private serieService: DetailsService) { }
+
+
+
   ngOnInit(): void {
     this.userName = localStorage.getItem('user_name') ?? '';
-      this.userPhoto = localStorage.getItem('user_photo')
-        ? `https://image.tmdb.org/t/p/original${localStorage.getItem(
-            'user_photo'
-          )}`
-        : '';
-  
-      this.idList = this.route.snapshot.paramMap.get('id')!;
-      
-      if(this.idList){
-        this.mylistService.getDetailsList(this.idList).subscribe(response => {
-          this.list = response;
-         
-        });
+    this.userPhoto = localStorage.getItem('user_photo')
+      ? `https://image.tmdb.org/t/p/original${localStorage.getItem(
+        'user_photo'
+      )}`
+      : '';
 
-       
-      }
+    this.idList = this.route.snapshot.paramMap.get('id')!;
 
-        
+    if (this.idList) {
+      this.mylistService.getDetailsList(this.idList).subscribe(response => {
+        this.list = response;
+      });
+
+
     }
+
+    this.loadSeriesNames();
+    
+
+
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
@@ -68,6 +78,31 @@ export class MisListasDetailsComponent implements OnInit {
     this.prevScrollPos = currentScrollPos;
 
     
+
+  }
+
+  loadSeriesNames(): void {
+    // Cargamos los nombres de las series que están en la lista
+    this.list?.items.forEach(film => {
+      if (film.media_type === 'tv' && !this.serieNames[film.id]) {
+        this.serieService.getSeriesDetails(film.id, 'es').subscribe(response => {
+          this.serieNames[film.id] = response.name; // Almacenamos el nombre de la serie
+        });
+      }
+    });
+  }
+
+  // Método auxiliar para obtener el nombre de la serie
+  getSerieName(filmId: number): string {
+    return this.serieNames[filmId] || ''; // Devuelve el nombre si lo tiene, o una cadena vacía
+  }
+
+
+  serieDate(id:number){
+    this.serieService.getSeriesDetails(id, 'es').subscribe(response => {
+      this.dateSerie = response.first_air_date;
+    });
+    return this.dateSerie;
   }
 
 
@@ -89,44 +124,48 @@ export class MisListasDetailsComponent implements OnInit {
     window.location.href = 'http://localhost:4200';
   }
 
-  verificarImg(){
+  verificarImg() {
     const partes: string[] = this.userPhoto.split("/").filter(part => part !== '');
-    
-    if(partes[partes.length-1]==="originalnull"){
+
+    if (partes[partes.length - 1] === "originalnull") {
       this.userPhoto = "https://static.wikia.nocookie.net/mamarre-estudios-espanol/images/9/9f/Benjamin.png/revision/latest?cb=20201222175350&path-prefix=es"
     }
-      return this.userPhoto;
- 
+    return this.userPhoto;
+
   }
 
   bannerImg() {
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
     return `${baseUrl}${this.banner}`;
-    }
+  }
 
-    deleteFilm(idFilm: number, id: number){
-      return this.mylistService.deleteFilm(idFilm, id).subscribe(response =>{
-        console.log('borrado correctamente', response)
-        window.location.reload();
-      }
-      )
-    }
-
-    getFullImagePath(posterPath: string): string {
-      const baseUrl = 'https://image.tmdb.org/t/p/w500';
-      return `${baseUrl}${posterPath}`;
-    }
-
-    editarListaOn (){
-      if(this.editar){
-        this.editar = false;
-      }else{
-        this.editar = true;
-      }
-    }
-
-    setList(){
-      this.mylistService.setList(this.newName, this.newDescription, this.idList)
+  delete(idFilm: number, id: number, type: string) {
+    return this.mylistService.delete(idFilm, id, type).subscribe(response => {
+      console.log('borrado correctamente', response)
       window.location.reload();
     }
+    )
+  }
+
+  getFullImagePath(posterPath: string): string {
+    const baseUrl = 'https://image.tmdb.org/t/p/w500';
+    return `${baseUrl}${posterPath}`;
+  }
+
+  editarListaOn() {
+    if (this.editar) {
+      this.editar = false;
+    } else {
+      this.editar = true;
+    }
+  }
+
+  setList() {
+    this.mylistService.setList(this.newName, this.newDescription, this.list!.id).subscribe(response => {
+      console.log(this.newName + " " + this.newDescription)
+      window.location.reload()
+    })
+
+
+  }
 }

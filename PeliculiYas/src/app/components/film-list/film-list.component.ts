@@ -70,11 +70,6 @@ export class FilmListComponent implements OnInit {
     return this.filmService.getGenreName(genreIds[0]);
   }
 
-  addFilmToList (idFilm : number){
-    const id = +(this.selectedListId)
-    return this.myListService.addFilm(idFilm, id!).subscribe(response =>{
-      console.log('Pelicula añadida', response);
-    })
-  }
+  
 
 }

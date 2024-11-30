@@ -6,6 +6,7 @@ import { myListDetailsResponse } from '../models/my-list-details.interface';
 
 const API_KEY = '1b3dee19e495ca1b7c4171b60321674a';
 const BASE_URL = 'https://api.themoviedb.org/3'
+const BASE_URL_v4 = "https://api.themoviedb.org/4"
 
 @Injectable({
   providedIn: 'root'
@@ -52,29 +53,41 @@ export class MisListasService {
     return this.http.get<myListDetailsResponse>(`${BASE_URL}/list/${id}?api_key=${API_KEY}&session_id=${sessionId}`)
   }
 
-  addFilm(idFilm: number, id: number){
+  add(idFilm: number, id: number, type: string){
     const sessionId = localStorage.getItem('session_id');
     const body = {
-      media_id: idFilm
+      items: [
+        {
+          media_type: type,
+          media_id: idFilm
+        }
+      ]
     };
 
-    return this.http.post(`${BASE_URL}/list/${id}/add_item?api_key=${API_KEY}&session_id=${sessionId}`, body);
+    return this.http.post(`${BASE_URL_v4}/list/${id}/items?api_key=${API_KEY}&session_id=${sessionId}`, body);
   }
 
-  deleteFilm (idFilm: number, id: number){
+  delete(idFilm: number, id: number, type: string){
     const sessionId = localStorage.getItem('session_id');
     const body = {
-      media_id: idFilm
+      items: [
+        {
+          media_type: type,
+          media_id: idFilm
+        }
+      ]
     };
 
-    return this.http.post(`${BASE_URL}/list/${id}/remove_item?api_key=${API_KEY}&session_id=${sessionId}`, body);
+    return this.http.delete(`${BASE_URL_v4}/list/${id}/items?api_key=${API_KEY}&session_id=${sessionId}`, {body});
   }
 
-  setList(name: string, description: string, id:string){
+  setList(newName: string, newDescription: string, id:number){
     const sessionId = localStorage.getItem('session_id');
-    this.http.get<myListDetailsResponse>(`${BASE_URL}/list/${id}?api_key=${API_KEY}&session_id=${sessionId}`).subscribe(response =>{
-      response.name = name;
-      response.description = description;
-    })
+    
+    const body ={
+      "name": newName,
+      "description": newDescription,
+    }
+    return this.http.put(`${BASE_URL_v4}/list/${id}?api_key=${API_KEY}&session_id=${sessionId}`, body);
   }
 }
