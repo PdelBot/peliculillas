@@ -22,7 +22,7 @@ export class MisListasComponent implements OnInit {
   userPhoto = '';
   banner: string = "/q8eejQcg1bAqImEV8jh8RtBD4uH.jpg";
   listDetails: myListDetailsResponse | undefined;
-  selectedListId: number | undefined;
+  selectedListId: number = -1;
   existe: boolean = false;
 
   constructor(private authService: AuthService, private mylistService: MisListasService) { }

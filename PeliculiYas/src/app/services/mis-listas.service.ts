@@ -69,4 +69,12 @@ export class MisListasService {
 
     return this.http.post(`${BASE_URL}/list/${id}/remove_item?api_key=${API_KEY}&session_id=${sessionId}`, body);
   }
+
+  setList(name: string, description: string, id:string){
+    const sessionId = localStorage.getItem('session_id');
+    this.http.get<myListDetailsResponse>(`${BASE_URL}/list/${id}?api_key=${API_KEY}&session_id=${sessionId}`).subscribe(response =>{
+      response.name = name;
+      response.description = description;
+    })
+  }
 }

@@ -20,6 +20,9 @@ export class MisListasDetailsComponent implements OnInit {
   list: myListDetailsResponse | undefined;
   filmList: FilmDetailsResponse[] = [];
   idList: string = "";
+  editar: boolean = false;
+  newName: string = "";
+  newDescription: string = "";
  
   
 
@@ -40,6 +43,7 @@ export class MisListasDetailsComponent implements OnInit {
       if(this.idList){
         this.mylistService.getDetailsList(this.idList).subscribe(response => {
           this.list = response;
+         
         });
 
        
@@ -113,4 +117,16 @@ export class MisListasDetailsComponent implements OnInit {
       return `${baseUrl}${posterPath}`;
     }
 
+    editarListaOn (){
+      if(this.editar){
+        this.editar = false;
+      }else{
+        this.editar = true;
+      }
+    }
+
+    setList(){
+      this.mylistService.setList(this.newName, this.newDescription, this.idList)
+      window.location.reload();
+    }
 }

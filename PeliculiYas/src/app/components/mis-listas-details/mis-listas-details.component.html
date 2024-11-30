@@ -13,8 +13,17 @@
 <div class="page d-flex row ">
     <div class="content col-9">
         <div class="title d-flex align-items-center">
-            <i class="bi bi-box-seam"></i>
-            <h1 class="title">{{list?.name}}</h1>
+            <div *ngIf="!editar" class="title">
+                <i class="bi bi-box-seam"></i>
+                <h1 class="title">{{list?.name}}</h1>
+            </div>
+            <div *ngIf="editar" class="edit">
+                <input type="text" [(ngModel)]="newName">
+            </div>
+            <button *ngIf="!editar" (click) = "editarListaOn()">Editar lista</button>
+            <button *ngIf="editar" (click) = "setList()">Editar lista</button>
+            <button *ngIf="editar" (click) = "editarListaOn()">X</button>
+
         </div>
         <div class="peliculas">
             <div *ngFor="let film of list?.items" class="card-pelicula d-flex mb-4">
