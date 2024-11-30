@@ -20,6 +20,8 @@ import { SerieDetailsComponent } from './components/serie-details/serie-details.
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 import { ApprovedComponent } from './components/approved/approved.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,13 +38,13 @@ import { ApprovedComponent } from './components/approved/approved.component';
     SerieDetailsComponent,
     PeopleDetailsComponent,
     ApprovedComponent,
-    
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    
+
   ],
   providers: [
     provideAnimationsAsync(),

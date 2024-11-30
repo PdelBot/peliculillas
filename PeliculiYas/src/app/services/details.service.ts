@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { auto } from '@popperjs/core';
 import { Observable } from 'rxjs';
 import { PeopleDetailsResponse } from '../models/people-details.interface';
 import { CombinedCreditsResponse } from '../models/combined-credits.interface';
