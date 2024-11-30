@@ -26,9 +26,6 @@ export class MisListasDetailsComponent implements OnInit {
   editar: boolean = false;
   newName: string = "";
   newDescription: string = "";
-  nameSerie: string = "";
-  dateSerie: string = "";
-  serieNames: { [key: number]: string } = {};
   
 
 
@@ -56,9 +53,6 @@ export class MisListasDetailsComponent implements OnInit {
 
     }
 
-    this.loadSeriesNames();
-    
-
 
   }
 
@@ -79,30 +73,6 @@ export class MisListasDetailsComponent implements OnInit {
 
     
 
-  }
-
-  loadSeriesNames(): void {
-    // Cargamos los nombres de las series que están en la lista
-    this.list?.items.forEach(film => {
-      if (film.media_type === 'tv' && !this.serieNames[film.id]) {
-        this.serieService.getSeriesDetails(film.id, 'es').subscribe(response => {
-          this.serieNames[film.id] = response.name; // Almacenamos el nombre de la serie
-        });
-      }
-    });
-  }
-
-  // Método auxiliar para obtener el nombre de la serie
-  getSerieName(filmId: number): string {
-    return this.serieNames[filmId] || ''; // Devuelve el nombre si lo tiene, o una cadena vacía
-  }
-
-
-  serieDate(id:number){
-    this.serieService.getSeriesDetails(id, 'es').subscribe(response => {
-      this.dateSerie = response.first_air_date;
-    });
-    return this.dateSerie;
   }
 
 

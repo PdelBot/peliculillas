@@ -24,7 +24,6 @@ import { MisListasDetailsComponent } from './components/mis-listas-details/mis-l
 import { FormsModule } from '@angular/forms';
 import { MenuRightComponent } from './shared/menu-right/menu-right.component';
 import { SerieNamePipe } from './pipes/serie-name.pipe';
-import { SerieDatePipe } from './pipes/serie-date.pipe';
 
 @NgModule({
   declarations: [
@@ -46,8 +45,6 @@ import { SerieDatePipe } from './pipes/serie-date.pipe';
     MisListasDetailsComponent,
     MenuRightComponent,
     SerieNamePipe,
-    SerieDatePipe,
-    
   ],
   imports: [
     BrowserModule,
