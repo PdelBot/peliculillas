@@ -23,6 +23,7 @@ export class MisListasComponent implements OnInit {
   banner: string = "/q8eejQcg1bAqImEV8jh8RtBD4uH.jpg";
   listDetails: myListDetailsResponse | undefined;
   selectedListId: number | undefined;
+  existe: boolean = false;
 
   constructor(private authService: AuthService, private mylistService: MisListasService) { }
   ngOnInit(): void {
@@ -91,12 +92,20 @@ export class MisListasComponent implements OnInit {
   }
 
   createList() {
-
-    this.mylistService.createList(this.nameList, this.description).subscribe(response => {
-      console.log('hola', response)
-      window.location.reload();
+    this.misListas.forEach(lista => {
+      if(this.nameList.toLowerCase() === lista.name.toLowerCase()){
+        alert("El nombre de la lista ya existe")
+        this.existe = true;
+      }
+    });
+    if (this.existe === false){
+      this.mylistService.createList(this.nameList, this.description).subscribe(response => {
+        console.log('hola', response)
+        window.location.reload();
+      }
+      );
     }
-    );
+    
   }
 
   deleteList(id: number) {

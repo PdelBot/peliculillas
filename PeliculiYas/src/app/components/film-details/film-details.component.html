@@ -33,18 +33,21 @@
           </div>
           }
         </div>
-        <div class="dropdown">
+        <div class="dropdown mt-4">
           <button (click)="onAdd()">Añadir pelicula a lista</button>
-          <div *ngIf="add" class="dropdown-content">
+          <div *ngIf="add" class="dropdown-content my-3">
             <div *ngIf="listas.length > 0; else noLists">
               <h3>Listas del usuario</h3>
-              <div *ngFor="let lista of listas" class="text-white">
-                <label>
-                  <input 
+              <div *ngFor="let lista of listas" class="customCheckBoxHolder">
+                <input 
+                    id="{{lista.id}}" class="customCheckBoxInput"
                     type="checkbox" 
                     [checked]="checkedLists[lista.id]" 
                     (change)="onCheckboxChange($event, lista.id)">
-                    {{lista.name}}
+                <label class="customCheckBoxWrapper" for="{{lista.id}}" >
+                    <div class="customCheckBox">
+                      <div class="inner">{{lista.name}}</div>
+                  </div>
                 </label>
               </div>
             </div>
