@@ -4,7 +4,7 @@
     <div class="listado col-9">
         <app-menu-list></app-menu-list>
         <div class="listado-pelis">
-            
+
             @for (peli of listadoPeliculas; track peli.id) {
             <div class="card card-serie"
                 [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(peli?.poster_path || '') + ')'}">
@@ -31,6 +31,8 @@
                                     </div>
                                 </label>
                             </button>
+
+
                         </i>
 
 
@@ -91,6 +93,13 @@
             <button class="paginacion fs-1">{{page}}</button>
             <button class="paginacion fs-3" (click)="getNextPage()">{{page+1}}</button>
             <button class="paginacion" (click)="getNextPage()"><i class="bi bi-caret-right-fill"></i></button>
+        </div>
+    </div>
+</div>
+
+<div aria-live="polite" aria-atomic="true" style="position: fixed; top: 1rem; right: 1rem; z-index: 1050;">
+    <div class="toast" id="favToast" data-delay="3000">
+        <div class="toast-body" id="toastMessage">
         </div>
     </div>
 </div>

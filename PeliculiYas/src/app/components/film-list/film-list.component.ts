@@ -3,6 +3,7 @@ import { ListService } from '../../services/list.service';
 import { Film } from '../../models/film.interface';
 import { FavoritesService } from '../../services/favorites.service';
 import { WatchListService } from '../../services/watch-list.service';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-film-list',
@@ -96,6 +97,7 @@ export class FilmListComponent implements OnInit {
     this.favoriteService.addFilmToFavourites(film).subscribe(response => {
       console.log('Film added to favourites:', response);
       this.loadFavoriteFilms();
+      this.showToast('Film added to favourites');
     });
 
   }
@@ -107,6 +109,7 @@ export class FilmListComponent implements OnInit {
     this.favoriteService.deleteFilmFromFavorite(film).subscribe(response => {
       console.log('Film removed from favourites:', response);
       this.loadFavoriteFilms();
+      this.showToast('Film removed from favourites');
     });
 
   }
@@ -125,6 +128,7 @@ export class FilmListComponent implements OnInit {
     this.watchlistService.addFilmToWatchList(film).subscribe(response => {
       console.log('Film added to watchlist:', response);
       this.loadWatchlistFilms();
+      this.showToast('Film added to watchlist');
     });
   }
 
@@ -139,6 +143,7 @@ export class FilmListComponent implements OnInit {
     this.watchlistService.deleteFilmFromWatchList(film).subscribe(response => {
       console.log('Film removed from watchlist:', response);
       this.loadWatchlistFilms();
+      this.showToast('Film removed from watchlist');
     });
 
   }
@@ -148,5 +153,17 @@ export class FilmListComponent implements OnInit {
       this.loadFilms();
     }
   }
+  showToast(message: string) {
+    const toastMessage = document.getElementById('toastMessage');
+    if (toastMessage) {
+      toastMessage.textContent = message;
+    }
 
+    const toastElement = document.getElementById('favToast');
+    if (toastElement) {
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+    }
+  }
+  
 }

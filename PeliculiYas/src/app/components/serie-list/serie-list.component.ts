@@ -3,6 +3,8 @@ import { ListService } from '../../services/list.service';
 import { Serie } from '../../models/serie.interface';
 import { FavoritesService } from '../../services/favorites.service';
 import { WatchListService } from '../../services/watch-list.service';
+import * as bootstrap from 'bootstrap';
+
 
 @Component({
   selector: 'app-serie-list',
@@ -83,6 +85,7 @@ export class SerieListComponent {
       console.log('Serie añadida a la lista de seguimiento:', response);
       this.loadFavouriteSeries(); // Actualizar la lista de seguimiento
     });
+    this.showToast('Serie añadida a favoritos');
   }
 
   removeFromFavourites(serie: Serie) {
@@ -90,6 +93,7 @@ export class SerieListComponent {
       console.log('Film removed from favourites:', response);
       this.loadFavouriteSeries();
     });
+    this.showToast('Serie eliminada de favoritos');
   }
 
 
@@ -104,6 +108,7 @@ export class SerieListComponent {
       console.log('Serie añadida a la lista de seguimiento:', response);
       this.loadAllWatchListSeries(); // Actualizar la lista de seguimiento
     });
+    this.showToast('Serie añadida a la lista de seguimiento');
   }
 
   isAddedWatchList(serie: Serie): boolean {
@@ -115,6 +120,7 @@ export class SerieListComponent {
       console.log('Serie eliminada de la lista de seguimiento:', response);
       this.loadAllWatchListSeries(); // Actualizar la lista de seguimiento
     });
+    this.showToast('Serie eliminada de la lista de seguimiento');
   }
 
   changePage(page: number): void {
@@ -123,5 +129,17 @@ export class SerieListComponent {
       this.loadSeries();
     }
   }
+  showToast(message: string) {
+    const toastMessage = document.getElementById('toastMessage');
+    if (toastMessage) {
+      toastMessage.textContent = message;
+    }
 
+    const toastElement = document.getElementById('favToast');
+    if (toastElement) {
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+    }
+  }
+  
 }

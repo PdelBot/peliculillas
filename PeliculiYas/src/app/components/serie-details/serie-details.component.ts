@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { WatchListService } from '../../services/watch-list.service';
 import { FavoritesService } from '../../services/favorites.service';
 import { Serie } from '../../models/serie.interface';
-
+import * as bootstrap from 'bootstrap';
 @Component({
   selector: 'app-serie-details',
   templateUrl: './serie-details.component.html',
@@ -139,6 +139,7 @@ export class SerieDetailsComponent implements OnInit {
       console.log('Serie añadida a la lista de seguimiento:', response);
       this.loadFavouriteSeries(); // Actualizar la lista de seguimiento
     });
+    this.showToast('Serie añadida a favoritos');
   }
 
   removeFromFavourites(serie: Serie): void {
@@ -147,6 +148,7 @@ export class SerieDetailsComponent implements OnInit {
       console.log('Film removed from favourites:', response);
       this.loadFavouriteSeries();
     });
+    this.showToast('Serie eliminada de favoritos');
   }
 
 
@@ -162,16 +164,31 @@ export class SerieDetailsComponent implements OnInit {
       console.log('Serie añadida a la lista de seguimiento:', response);
       this.loadAllWatchListSeries(); // Actualizar la lista de seguimiento
     });
+    this.showToast('Serie añadida a la lista de seguimiento');
   }
   removeFromWatchList(serie: Serie): void {
     this.watchListService.deleteSerieFromWatchList(serie).subscribe(response => {
       console.log('Serie eliminada de la lista de seguimiento:', response);
       this.loadAllWatchListSeries(); // Actualizar la lista de seguimiento
     });
+    this.showToast('Serie eliminada de la lista de seguimiento');
   }
 
   isAddedWatchList(serie: Serie): boolean {
     return this.watchListSeries.some(watchListSeries => watchListSeries.id === serie.id);
+  }
+
+  showToast(message: string) {
+    const toastMessage = document.getElementById('toastMessage');
+    if (toastMessage) {
+      toastMessage.textContent = message;
+    }
+
+    const toastElement = document.getElementById('favToast');
+    if (toastElement) {
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+    }
   }
 
 }

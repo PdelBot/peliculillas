@@ -9,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Film } from '../../models/film.interface';
 import { FavoritesService } from '../../services/favorites.service';
 import { WatchListService } from '../../services/watch-list.service';
+import * as bootstrap from 'bootstrap';
+
 
 @Component({
   selector: 'app-film-details',
@@ -152,6 +154,7 @@ export class FilmDetailsComponent implements OnInit {
     this.favoriteService.addFilmToFavourites(film).subscribe(response => {
       console.log('Serie añadida a la lista de seguimiento:', response);
       this.loadFavouriteFilms(); // Actualizar la lista de seguimiento
+      this.showToast('Serie añadida a favoritos');
     });
   }
 
@@ -160,6 +163,7 @@ export class FilmDetailsComponent implements OnInit {
     this.favoriteService.deleteFilmFromFavorite(film).subscribe(response => {
       console.log('Film removed from favourites:', response);
       this.loadFavouriteFilms();
+      this.showToast('Serie eliminada de favoritos');
     });
   }
 
@@ -173,6 +177,7 @@ export class FilmDetailsComponent implements OnInit {
     this.watchListService.addFilmToWatchList(film).subscribe(response => {
       console.log('Serie añadida a la lista de seguimiento:', response);
       this.loadAllWatchListFilms(); // Actualizar la lista de seguimiento
+      this.showToast('Serie añadida a lsita de seguimiento');
     });
   }
 
@@ -186,9 +191,21 @@ export class FilmDetailsComponent implements OnInit {
       console.log('Serie eliminada de la lista de seguimiento:', response);
       this.loadAllWatchListFilms(); // Actualizar la lista de seguimiento
     });
+    this.showToast('Serie eliminada de la lista de seguimiento');
   }
 
+  showToast(message: string) {
+    const toastMessage = document.getElementById('toastMessage');
+    if (toastMessage) {
+      toastMessage.textContent = message;
+    }
 
+    const toastElement = document.getElementById('favToast');
+    if (toastElement) {
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+    }
+  }
 
 }
 
