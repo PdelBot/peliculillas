@@ -70,8 +70,14 @@ export class PrincipalMenuComponent {
     return this.filmService.getGenreName(genreIds[0]);
   }
  
-  generoPrimera (genres: Genre[]): string{
-    return genres[0].name;
+  generoPrimera(genres: Genre[] | null | undefined): string {
+    // Verifica que el arreglo no sea null, undefined y tenga al menos un elemento.
+    if (genres && genres.length > 0) {
+      return genres[0].name;
+    }
+  
+    // Devuelve un valor predeterminado si no es posible obtener el género.
+    return 'Género no disponible';
   }
   
 
