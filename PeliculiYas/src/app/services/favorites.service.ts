@@ -6,13 +6,14 @@ import { environment } from '../../environments/environment';
 import { FavoriteFilmResponse } from '../models/favorite-film-list.interface';
 import { FavoriteSerieResponse } from '../models/favorite-serie.interface';
 import { Serie } from '../models/serie.interface';
+import { LanguageSelectorService } from './language-selector.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FavoritesService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private languageService: LanguageSelectorService) { }
 
   addFilmToFavourites(film: Film): Observable<any> {
     const sessionId = localStorage.getItem('session_id');
@@ -23,7 +24,9 @@ export class FavoritesService {
       favorite: true
     };
 
+
     return this.http.post<any>(
+      
       `${environment.apiBaseUrl}/account/${accountId}/favorite?api_key=${environment.apiKey}&session_id=${sessionId}`,
       body
     );
@@ -32,16 +35,20 @@ export class FavoritesService {
   getFavouriteFilms(page: number): Observable<FavoriteFilmResponse> {
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');
+    const language = this.languageService.getSelectedLanguage();
+
 
     return this.http.get<FavoriteFilmResponse>(
-      `${environment.apiBaseUrl}/account/${accountId}/favorite/movies?api_key=${environment.apiKey}&session_id=${sessionId}&page=${page}`
+      `${environment.apiBaseUrl}/account/${accountId}/favorite/movies?api_key=${environment.apiKey}&session_id=${sessionId}&page=${page}&language=${language}`
     );
   }
   getAllFavoriteFilms(): Observable<Film[]> {
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');
+    const language = this.languageService.getSelectedLanguage();
+
     return this.http.get<FavoriteFilmResponse>(
-      `${environment.apiBaseUrl}/account/${accountId}/favorite/movies?api_key=${environment.apiKey}&session_id=${sessionId}`
+      `${environment.apiBaseUrl}/account/${accountId}/favorite/movies?api_key=${environment.apiKey}&session_id=${sessionId}&language=${language}`
     ).pipe(
       map((response: { total_pages: any; }) => {
         const totalPages = response.total_pages;
@@ -92,9 +99,11 @@ export class FavoritesService {
   getFavoriteSeries(page: number): Observable<FavoriteSerieResponse> {
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');
+    const language = this.languageService.getSelectedLanguage();
+
 
     return this.http.get<FavoriteSerieResponse>(
-      `${environment.apiBaseUrl}/account/${accountId}/favorite/tv?api_key=${environment.apiKey}&session_id=${sessionId}&page=${page}`
+      `${environment.apiBaseUrl}/account/${accountId}/favorite/tv?api_key=${environment.apiKey}&session_id=${sessionId}&page=${page}&language=${language}`
     );
   }
   deleteSerieFromFavorite(serie: Serie): Observable<any> {
@@ -116,8 +125,10 @@ export class FavoritesService {
   getAllFavoriteSeries(): Observable<Serie[]> {
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');
+    const language = this.languageService.getSelectedLanguage();
+
     return this.http.get<FavoriteSerieResponse>(
-      `${environment.apiBaseUrl}/account/${accountId}/favorite/tv?api_key=${environment.apiKey}&session_id=${sessionId}`
+      `${environment.apiBaseUrl}/account/${accountId}/favorite/tv?api_key=${environment.apiKey}&session_id=${sessionId}&language=${language}`
     ).pipe(
       map((response: { total_pages: any; }) => {
         const totalPages = response.total_pages;

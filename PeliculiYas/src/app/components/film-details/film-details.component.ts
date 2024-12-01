@@ -46,12 +46,12 @@ export class FilmDetailsComponent implements OnInit {
     const filmId = this.route.snapshot.paramMap.get('id');
 
     if (filmId) {
-      this.detailsService.getFilmdeatils(+filmId, 'es-ES').subscribe((response) => {
+      this.detailsService.getFilmdeatils(+filmId).subscribe((response) => {
         this.film = response;
 
       });
 
-      this.detailsService.getFilmdeatils(+filmId, 'es-ES').subscribe(data => {
+      this.detailsService.getFilmdeatils(+filmId).subscribe(data => {
         if (data) {
           this.film = data;
           this.rating = (this.film.vote_average || 0) / 2;
@@ -88,7 +88,7 @@ export class FilmDetailsComponent implements OnInit {
             vote_count: data.vote_count,
           };
         } else {
-          this.detailsService.getFilmdeatils(+filmId, 'en-US').subscribe(englishData => {
+          this.detailsService.getFilmdeatils(+filmId).subscribe(englishData => {
             this.film = englishData;
           });
         }
@@ -117,7 +117,7 @@ export class FilmDetailsComponent implements OnInit {
   }
 
   loadFilmDetails(id: number): void {
-    this.detailsService.getFilmdeatils(id, 'es-ES').subscribe(response => {
+    this.detailsService.getFilmdeatils(id).subscribe(response => {
       this.film = response;
     });
   }

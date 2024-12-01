@@ -5,6 +5,11 @@
         <p><a routerLink="/actores">Actores</a></p>
     </div>
     <div class="right-menu d-flex align-items-stretch gap-4 text-white fs-4 mt-4 ms-4">
+        <select class="form-select" (change)="onLanguageChange($event)" [(ngModel)]="selectedLanguage">
+            <option *ngFor="let language of languages" [value]="language.iso_639_1">
+              {{ language.name }}
+            </option>
+        </select>
         <i class="bi bi-search"></i>
         @if(isLoggedIn()) {
         <div class="dropdown">

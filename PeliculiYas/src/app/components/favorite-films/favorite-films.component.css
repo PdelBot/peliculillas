@@ -199,3 +199,8 @@
   width: 60%;
   overflow-y: auto;
 }
+.paginacion{
+  border: 0;
+  background-color: #101223;
+  color: white;
+}
