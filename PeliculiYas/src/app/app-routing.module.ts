@@ -8,6 +8,7 @@ import { FilmDetailsComponent } from './components/film-details/film-details.com
 import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 import { ApprovedComponent } from './components/approved/approved.component';
+import { SearchBarResultsComponent } from './components/search-bar-results/search-bar-results.component';
 
 const routes: Routes = [
   {path: 'principal', component: PrincipalMenuComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'series/:id', component: SerieDetailsComponent},
   {path: 'actores/:id', component: PeopleDetailsComponent},
   { path: 'approved', component: ApprovedComponent },
+  {path: 'search', component: SearchBarResultsComponent},
   {path: '', redirectTo: '/principal', pathMatch: 'full'},
 ];
 

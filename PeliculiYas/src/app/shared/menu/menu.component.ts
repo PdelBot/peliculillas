@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -10,8 +11,9 @@ export class MenuComponent implements OnInit {
 
   userName = '';
   userPhoto = '';
+  query = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router : Router) { }
   ngOnInit(): void {
   this.userName = localStorage.getItem('user_name') ?? '';
     this.userPhoto = localStorage.getItem('user_photo')
@@ -65,4 +67,11 @@ export class MenuComponent implements OnInit {
       return this.userPhoto;
  
   }
+
+  search() {
+    if (this.query.trim()) {
+      this.router.navigate(['/search'], { queryParams: { query: this.query } });
+    }
+  }
+
 }

@@ -18,13 +18,9 @@ import { MenuListComponent } from './shared/menu-list/menu-list.component';
 import { FilmDetailsComponent } from './components/film-details/film-details.component';
 import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
-<<<<<<< HEAD
-import { SearchBarComponent } from './components/search-bar/search-bar.component';
-=======
 import { ApprovedComponent } from './components/approved/approved.component';
->>>>>>> main
-
-
+import { SearchBarResultsComponent } from './components/search-bar-results/search-bar-results.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -41,22 +37,14 @@ import { ApprovedComponent } from './components/approved/approved.component';
     FilmDetailsComponent,
     SerieDetailsComponent,
     PeopleDetailsComponent,
-<<<<<<< HEAD
-    SearchBarComponent,
-=======
     ApprovedComponent,
-<<<<<<< HEAD
->>>>>>> main
-    
-=======
-
->>>>>>> 29-main-falso-filtrados
+    SearchBarResultsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-
+    FormsModule
   ],
   providers: [
     provideAnimationsAsync(),

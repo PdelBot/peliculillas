@@ -1,0 +1,61 @@
+<app-menu></app-menu>
+<div class="search-results">
+    <div *ngIf="peliculas.length">
+        <h3>Películas</h3>
+        <div class="cards d-flex flex-wrap">
+            <div *ngFor="let pelicula of peliculas" class="card-container">
+                <a [routerLink]="['/peliculas', pelicula.id]">
+                    <div class="card card-film"
+                        [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(pelicula?.poster_path || '') + ')'}">
+                        <div class="valoracion-film" [ngStyle]="getColor({ valoracion: pelicula.vote_average })">
+                            <h2 class="text-white">{{pelicula.vote_average | roundedVote}}</h2>
+                        </div>
+                        <div class="text-card">
+                            <h3 class="ms-4">{{pelicula.title}}</h3>
+                            <div class="detalles d-flex gap-4 ms-4 mb-3">
+                                <p id="fecha">{{pelicula.release_date}}</p>
+                                <p>|</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="series.length">
+        <h3>Series</h3>
+        <div class="cards d-flex flex-wrap">
+            <div *ngFor="let serie of series" class="card-container">
+                <a [routerLink]="['/series', serie.id]">
+                    <div class="card card-serie"
+                        [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(serie?.poster_path || '') + ')'}">
+                        <div class="valoracion-serie" [ngStyle]="getColor({ valoracion: serie.vote_average })">
+                            <h2 class="text-white">{{serie.vote_average | roundedVote}}</h2>
+                        </div>
+                        <div class="text-card">
+                            <h3 class="ms-4">{{serie.name}}</h3>
+                            <div class="detalles d-flex gap-4 ms-4 mb-3">
+                                <p id="fecha">{{serie.first_air_date}}</p>
+                                <p>|</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="actores.length">
+        <h3>Personas</h3>
+        <div class="cards d-flex flex-wrap">
+            <div *ngFor="let persona of actores" class="card-container">
+                <a [routerLink]="['/personas', persona.id]">
+                    <div class="card card-persona">
+                        <div class="text-card">
+                            <h3 class="ms-4">{{persona.name}}</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

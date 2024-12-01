@@ -6,6 +6,7 @@ import { SerieListResponse } from '../models/serie.interface';
 import { ActorListResponse } from '../models/people.interface';
 import { environment } from '../../environments/environment';
 import { Genre, GenreListResponse } from '../models/genre.interface';
+import { PeopleListComponent } from '../components/people-list/people-list.component';
 
 
 @Injectable({
@@ -242,4 +243,27 @@ export class ListService {
     });
   }
 
+  searchMovies(query: string): Observable<FilmListResponse> {
+    return this.http.get<FilmListResponse>(`https://api.themoviedb.org/3/search/movie?query=${query}&language=es-US&page=1&include_adult=false`, {
+      headers: {
+        'Authorization': `Bearer ${environment.access_token}`
+      }
+    });
+  }
+
+  searchSeries(query: string): Observable<SerieListResponse> {
+    return this.http.get<SerieListResponse>(`https://api.themoviedb.org/3/search/tv?query=${query}&language=es-US&page=1&include_adult=false`, {
+      headers: {
+        'Authorization': `Bearer ${environment.access_token}`
+      }
+    });
+  }
+
+  searchPeople(query: string): Observable<ActorListResponse> {
+    return this.http.get<ActorListResponse>(`https://api.themoviedb.org/3/search/person?query=${query}&language=es-US&page=1&include_adult=false`, {
+      headers: {
+        'Authorization': `Bearer ${environment.access_token}`
+      }
+    });
+  }
 }
