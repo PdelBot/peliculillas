@@ -12,8 +12,6 @@ export class SerieListComponent {
   listadoSeries: Serie[] = [];
   page: number = 1;
 
-  
-
   constructor(private serieService: ListService) { }
 
   ngOnInit(): void {
@@ -31,7 +29,7 @@ export class SerieListComponent {
     this.serieService.getSeriesPage(this.page).subscribe((response) => {
       this.listadoSeries = response.results;
     });
-    }
+  }
 
   getNextPage() {
     this.page += 1;
@@ -48,5 +46,17 @@ export class SerieListComponent {
 
   getColor({ valoracion }: { valoracion: number }): { [key: string]: string } {
     return this.serieService.getColorValoracion({ valoracion });
+  }
+
+  //para que aparezca la nueva lista
+  actualizarListado(nuevoListado: Serie[]) {
+    this.listadoSeries = nuevoListado;
+  }
+
+  getFirstGenreName(genreIds: number[]): string {
+    if (genreIds.length === 0) {
+      return 'Unknown';
+    }
+    return this.serieService.getGenreName(genreIds[0]);
   }
 }

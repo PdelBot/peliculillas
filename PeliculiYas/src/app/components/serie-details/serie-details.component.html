@@ -1,45 +1,38 @@
 <app-menu></app-menu>
-
 <div class="container">
-  
-  <div class="title1">
-    <h2> {{ seriesDetails?.original_name }} </h2>
-  </div>
   <div class="header">
     <div class="image">
       <img [src]="getImgUrl(seriesDetails?.poster_path || '')" alt="">
     </div>
-    <div>
-      <p class="title1" *ngIf="seriesDetails?.tagline">{{ seriesDetails?.tagline }}</p>
-      <div>
-        <p>{{seriesDetails?.overview}}</p>
+    <div class="description">
+      <div class="title1">
+        <h2> {{ seriesDetails?.original_name }} </h2>
       </div>
-
       <div>
-        <p><strong> Lanzamiento: {{seriesDetails?.first_air_date}} </strong></p>
+        <p class="title1" *ngIf="seriesDetails?.tagline">{{ seriesDetails?.tagline }}</p>
+        <div>
+          <p>{{seriesDetails?.overview}}</p>
+        </div>
+        <div>
+          <p><strong> Lanzamiento: {{seriesDetails?.first_air_date}} </strong></p>
+        </div>
+        <div>
+          <p><strong> Calificación: ({{ seriesDetails?.vote_average }} / 10) </strong> <ngb-rating class="amarillo"
+              [(rate)]="rating" [max]="5" [readonly]="true"></ngb-rating> </p>
+        </div>
+        <div>
+          @for (item of seriesDetails?.genres; track $index) {
+          <div class="badge">
+            {{item.name}}
+            <span></span>
+          </div>
+          }
+        </div>  
       </div>
-
-      <div>
-        <p><strong>  Calificación: ({{ seriesDetails?.vote_average }} / 10) </strong> <ngb-rating class="amarillo" [(rate)]="rating" [max]="5" [readonly]="true"></ngb-rating> </p>       
-      </div>
-
-    
-    
     </div>
-    
   </div>
-
-<div>
-  @for (item of seriesDetails?.genres; track $index) {
-  <div class="badge" href="#">
-    {{item.name}}
-    <span></span>
-  </div>
-  }
-</div>
   <hr class="guion">
   <div>
-
     <ul class="nav justify-content-center">
       <li class="nav-item" *ngFor="let season of seasons">
         <a class="nav-link" href="#" (click)="selectSeason($event, season)">
@@ -47,7 +40,6 @@
         </a>
       </li>
     </ul>
-
     <div *ngIf="selectedSeason">
       <div>
         @for (episode of selectedSeason.episodes; track selectedSeason.episodes.indexOf(episode)) {

@@ -1,11 +1,9 @@
 <div class="actors d-flex row">
-
-    <app-menu-lateral class="col-2"></app-menu-lateral>
+    <app-menu-lateral class="col-2" [tipo]="'actores'"></app-menu-lateral>
     <div class="listado col-9">
         <app-menu-list></app-menu-list>
         <div class="listado-pelis">
             @for (actor of listadoActores; track actor.id){
-
             <a [routerLink]="['/actores', actor.id]">
                 <div class="card card-actor"
                     [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(actor?.profile_path || '') + ')'}">
@@ -17,7 +15,6 @@
                     </div>
                 </div>
             </a>
-
             }
         </div>
         <div class="d-flex justify-content-center align-items-center gap-5">
@@ -26,7 +23,6 @@
                 <button class="paginacion" (click)="getPaginaUno()">Volver al inicio</button>
             </div>
             }
-
             @if(page > 1) {
             <button class="paginacion" (click)="getLastPage()"><i class="bi bi-caret-left-fill"></i></button>
             <button class="paginacion fs-3" (click)="getLastPage()">{{page-1}}</button>

@@ -24,6 +24,8 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { ApprovedComponent } from './components/approved/approved.component';
 >>>>>>> main
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,14 +45,18 @@ import { ApprovedComponent } from './components/approved/approved.component';
     SearchBarComponent,
 =======
     ApprovedComponent,
+<<<<<<< HEAD
 >>>>>>> main
     
+=======
+
+>>>>>>> 29-main-falso-filtrados
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    
+
   ],
   providers: [
     provideAnimationsAsync(),

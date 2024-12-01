@@ -7,11 +7,14 @@
         <div class="detalles d-flex gap-4 ms-3">
             <p id="fecha">{{peliculaMasPopular?.release_date}}</p>
             <p>|</p>
-            <p id="tipo">porfavor</p>
+            <p id="tipo">{{peliculaMasPopular?.popularity}}</p>
             <p>|</p>
-            <p id="temporadas">es urgente</p>
+            <p id="temporadas">{{peliculaMasPopular?.vote_average}}</p>
         </div>
-        <button class="watch-now btn btn-primary align-items-center justify-content-beetwen ">Ver ahora</button>
+        <a [routerLink]="['/peliculas', peliculaMasPopular?.id]">
+        <button class="watch-now btn btn-primary align-items-center justify-content-beetwen ">
+            Ver detalles</button>
+        </a>
     </div>
 </div>
 

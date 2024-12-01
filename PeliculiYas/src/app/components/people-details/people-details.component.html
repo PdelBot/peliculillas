@@ -1,43 +1,28 @@
 <app-menu></app-menu>
-
 <div class="container">
-
-  <div class="title1">
-    <h2>{{ person?.name }}</h2>
-  </div>
-
   <div class="header">
     <div class="image">
       <img [src]="getImgUrl(person?.profile_path || '')" alt="Nombre de la Persona" />
     </div>
     <div class="description">
+      <div class="title1">
+        <h2>{{ person?.name }}</h2>
+      </div> 
       <p>{{person?.biography}}</p>
+      <p *ngIf="person?.place_of_birth" class="badge"> {{person?.place_of_birth}}</p>
     </div>
   </div>
-
-
-  <!-- Trabajos-->
-  <!-- <div class="reparto-container">
-    <div class="card-grid">
-      @for (credits of listCast; track listCast.indexOf(credits)) {
-      <div class="card">
-        <img *ngIf="credits.original_title" [src]="getImgUrl(credits.poster_path || '')">
-        <p>{{credits.original_title}}</p>
-      </div>
-      }
-    </div>
-  </div> -->
-
   <div class="reparto-container">
-    <div class="title2"> Reparto </div>
-
+    <div class="title2"> Trabajos </div>
     <div class="card-grid">
       @for (credits of listCast; track listCast.indexOf(credits)) {
       <div class="card" *ngIf="credits.poster_path && credits.original_title">
+        <a [routerLink]="['/peliculas', credits.id]">    
         <img [src]="getImgUrl(credits.poster_path)" alt="{{ credits.original_title }}" />
         <div class="card-text">
           <p>{{ credits.original_title }}</p>
         </div>
+        </a>
       </div>
       }
     </div>

@@ -1,39 +1,57 @@
 <div class="menu-lateral" [ngStyle]="{'height': altura+ 'px'}">
     <div class="titulo d-flex align-items-center justify-content-center text-white">
-        <img class="logo" src="https://i.ibb.co/3hhHdyH/Peliculillas-removebg-preview-1.png" alt="Peliculillas-removebg-preview-1">
+        <img class="logo" src="https://i.ibb.co/3hhHdyH/Peliculillas-removebg-preview-1.png"
+            alt="Peliculillas-removebg-preview-1">
         <a routerLink="/principal">
             <div class="text d-flex gap-0 align-items-end justify-content-center mb-4">
                 <h2 class="text-white mb-1 fs-3">Peliculi</h2>
                 <h1 class="text-danger mb-0">Ya!</h1>
             </div>
         </a>
-
     </div>
     <div class="menu d-flex row align-items-flex justify-content-start text-white gap-4">
-        <div class="home d-flex gap-2 align-items-center justify-content-center">
-            <i class="bi bi-house-door-fill"></i>
-            <p class="mb-0"><a routerLink="/principal">Página principal</a></p>
-        </div>
-        <div class="trending d-flex row gap-2 align-items-center justify-content-center">
-            <div class="button d-flex align-items-center justify-content-center gap-0">
-                <i class="bi bi-graph-up-arrow"></i>
-                <button (click)="desplegable()">Populares</button>
-            </div>
 
-            <div class="desplegable d-flex column">
-                <div *ngIf="isOpen" class="open d-flex row align-items-center justify-content-center">
-                    <p> <a routerLink="/peliculas"> Peliculas</a></p>
-                    <p> <a routerLink="/series">Series</a></p>
-                    <p> <a routerLink="/actores">Actores</a></p>
+        <div>
+            @if (tipo=="peliculas") {
+            <label for="orden1">Ordenar por:</label>
+            <select id="orden1" #ordenSelectPeliculas>
+                <option value="popularity.desc">Popularidad Descendente</option>
+                <option value="popularity.asc">Popularidad Ascendente</option>
+                <option value="vote_average.asc">Valoración Ascendente</option>
+                <option value="vote_average.desc">Valoración Descendente</option>
+            </select>
+            <div>
+                <label for="genero">Género:</label>
+                @for (genero of generos; track genero.id) {
+                <div>
+                    <input type="checkbox" id="genero{{genero.id}}" value="{{genero.id}}"
+                        (change)="toggleGenre(genero.id)">
+                    <label for="genero{{genero.id}}">{{genero.name}}</label>
                 </div>
+                }
             </div>
+            <button (click)="buscar(ordenSelectPeliculas.value)">Buscar</button>
+            }
         </div>
 
-        <div class="comming d-flex gap-2 align-items-center justify-content-center">
-            <i class="bi bi-calendar"></i>
-            <p class="mb-0">Proximamente</p>
+        <div *ngIf="tipo === 'series'">
+            <label for="orden2">Ordenar por:</label>
+            <select id="orden2" #ordenSelectSeries>
+                <option value="popularity.asc">Popularidad Ascendente</option>
+                <option value="popularity.desc">Popularidad Descendente</option>
+                <option value="vote_average.asc">Valoración Ascendente</option>
+                <option value="vote_average.desc">Valoración Descendente</option>
+            </select>
+            <div>
+                <label for="genero">Género:</label>
+                @for (genero of generos; track genero.id) {
+                <div>
+                    <input type="checkbox" id="genero{{genero.id}}" value="{{genero.id}}"
+                        (change)="toggleGenre(genero.id)">
+                    <label for="genero{{genero.id}}">{{genero.name}}</label>
+                </div>
+                }
+            </div>
+            <button (click)="buscar(ordenSelectSeries.value)">Buscar</button>
         </div>
-
-
     </div>
-</div>

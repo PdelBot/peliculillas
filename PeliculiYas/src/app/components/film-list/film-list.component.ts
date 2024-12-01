@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ListService } from '../../services/list.service';
 import { Film } from '../../models/film.interface';
 
@@ -13,14 +13,14 @@ export class FilmListComponent implements OnInit {
   page = 1;
   listadoPeliculas: Film[] = [];
 
-  constructor(private filmService : ListService){};
-  
+  constructor(private filmService: ListService) { };
+
   ngOnInit(): void {
-    this.filmService.getPopularFilm().subscribe((response) =>
-    {
-      this.listadoPeliculas= response.results;
-    })
+    this.filmService.getPopularFilmDesc().subscribe((response) => {
+      this.listadoPeliculas = response.results;
+    });
   }
+
 
   getFullImagePath(posterPath: string): string {
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
@@ -32,7 +32,7 @@ export class FilmListComponent implements OnInit {
     this.filmService.getFilmPage(this.page).subscribe((response) => {
       this.listadoPeliculas = response.results;
     });
-    }
+  }
 
   getNextPage() {
     this.page += 1;
@@ -52,16 +52,16 @@ export class FilmListComponent implements OnInit {
     return this.filmService.getColorValoracion({ valoracion });
   }
 
-  getGenreNames(genreIds: number[]): string[] {
-    return genreIds.map(id => this.filmService.getGenreName(id));
-  }
-
   //Obtener el primer genero
   getFirstGenreName(genreIds: number[]): string {
     if (genreIds.length === 0) {
       return 'Unknown';
     }
     return this.filmService.getGenreName(genreIds[0]);
+  }
+  //para que aparezca la nueva lista
+  actualizarListado(nuevoListado: Film[]) {
+    this.listadoPeliculas = nuevoListado;
   }
 
 }
