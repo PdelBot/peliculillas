@@ -1,8 +1,7 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { MisListasService } from '../../services/mis-listas.service';
 import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { myListResponse } from '../../models/my-list.interface';
 import { myListDetailsResponse } from '../../models/my-list-details.interface';
 import { FilmDetailsResponse } from '../../models/film-details.interface';
 import { SerieDetailsComponent } from '../serie-details/serie-details.component';
@@ -26,6 +25,8 @@ export class MisListasDetailsComponent implements OnInit {
   editar: boolean = false;
   newName: string = "";
   newDescription: string = "";
+  backgroundList: string = "";
+  onBg: boolean= false;
   
 
 
@@ -48,11 +49,14 @@ export class MisListasDetailsComponent implements OnInit {
     if (this.idList) {
       this.mylistService.getDetailsList(this.idList).subscribe(response => {
         this.list = response;
+        this.newName = response.name;
+        this.newDescription = response.description;
       });
 
 
     }
 
+    
 
   }
 
@@ -74,6 +78,7 @@ export class MisListasDetailsComponent implements OnInit {
     
 
   }
+
 
 
   createRequestToken() {
@@ -109,8 +114,8 @@ export class MisListasDetailsComponent implements OnInit {
     return `${baseUrl}${this.banner}`;
   }
 
-  delete(idFilm: number, id: number, type: string) {
-    return this.mylistService.delete(idFilm, id, type).subscribe(response => {
+  delete(idFilm:number, id: number) {
+    return this.mylistService.deleteFilm(idFilm, id).subscribe(response => {
       console.log('borrado correctamente', response)
       window.location.reload();
     }
@@ -127,13 +132,24 @@ export class MisListasDetailsComponent implements OnInit {
       this.editar = false;
     } else {
       this.editar = true;
+      this.onBg = false;
+    }
+  }
+
+  editarFondoOn (){
+    if (this.onBg) {
+      this.onBg = false;
+    } else {
+      this.onBg = true;
     }
   }
 
   setList() {
-    this.mylistService.setList(this.newName, this.newDescription, this.list!.id).subscribe(response => {
+    this.mylistService.setList(this.newName, this.newDescription, this.backgroundList, this.list!.id).subscribe(response => {
+      console.log(response)
       console.log(this.newName + " " + this.newDescription)
-      window.location.reload()
+      //window.location.reload()
+      console.log(this.list?.poster_path)
     })
 
 

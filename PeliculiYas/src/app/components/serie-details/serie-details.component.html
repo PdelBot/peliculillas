@@ -22,34 +22,12 @@
         </div>
         <div>
           @for (item of seriesDetails?.genres; track $index) {
-          <div class="badge">
+          <div class="badge fs-6">
             {{item.name}}
             <span></span>
           </div>
           }
-          <div class="dropdown mt-4">
-            <button (click)="onAdd()">Añadir pelicula a lista</button>
-            <div *ngIf="add" class="dropdown-content my-3">
-              <div *ngIf="listas.length > 0; else noLists">
-                <h3>Listas del usuario</h3>
-                <div *ngFor="let lista of listas" class="customCheckBoxHolder">
-                  <input 
-                      id="{{lista.id}}" class="customCheckBoxInput"
-                      type="checkbox" 
-                      [checked]="checkedLists[lista.id]" 
-                      (change)="onCheckboxChange($event, lista.id)">
-                  <label class="customCheckBoxWrapper" for="{{lista.id}}" >
-                      <div class="customCheckBox">
-                        <div class="inner">{{lista.name}}</div>
-                    </div>
-                  </label>
-                </div>
-              </div>
-              <ng-template #noLists>
-                <p>No tienes listas creadas aún.</p>
-              </ng-template>
-            </div>
-          </div>
+          
         </div>  
       </div>
     </div>

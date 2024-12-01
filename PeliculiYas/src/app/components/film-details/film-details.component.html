@@ -27,14 +27,14 @@
         </div>
         <div>
           @for (item of film?.genres; track $index) {
-          <div class="badge" href="#">
+          <div class="badge fs-6" href="#">
             {{item.name}}
             <span></span>
           </div>
           }
         </div>
         <div class="dropdown mt-4">
-          <button (click)="onAdd()">Añadir pelicula a lista</button>
+          <button class="badge-button" (click)="onAdd()">Añadir pelicula a lista</button>
           <div *ngIf="add" class="dropdown-content my-3">
             <div *ngIf="listas.length > 0; else noLists">
               <h3>Listas del usuario</h3>
@@ -57,7 +57,7 @@
           </div>
         </div>
         <div>
-          <button class="watch-now align-items-center justify-content-beetwen " (click)="watchTrailer()">Ver Trailer</button>
+          <button class="badge-button align-items-center justify-content-beetwen fs-1 " (click)="watchTrailer()">Ver Trailer</button>
         </div>
       </div>
     </div>

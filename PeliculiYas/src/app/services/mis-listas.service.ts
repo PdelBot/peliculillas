@@ -53,41 +53,41 @@ export class MisListasService {
     return this.http.get<myListDetailsResponse>(`${BASE_URL}/list/${id}?api_key=${API_KEY}&session_id=${sessionId}`)
   }
 
-  add(idFilm: number, id: number, type: string){
+  addFilm(idFilm: number, id: number){
     const sessionId = localStorage.getItem('session_id');
     const body = {
-      items: [
-        {
-          media_type: type,
-          media_id: idFilm
-        }
-      ]
+      media_id: idFilm
     };
 
-    return this.http.post(`${BASE_URL_v4}/list/${id}/items?api_key=${API_KEY}&session_id=${sessionId}`, body);
+    return this.http.post(`${BASE_URL}/list/${id}/add_item?api_key=${API_KEY}&session_id=${sessionId}`, body);
   }
 
-  delete(idFilm: number, id: number, type: string){
+  deleteFilm(idFilm: number, id: number){
     const sessionId = localStorage.getItem('session_id');
     const body = {
-      items: [
-        {
-          media_type: type,
-          media_id: idFilm
-        }
-      ]
-    };
+      media_id: idFilm
+    }; 
 
-    return this.http.delete(`${BASE_URL_v4}/list/${id}/items?api_key=${API_KEY}&session_id=${sessionId}`, {body});
+    return this.http.post(`${BASE_URL}/list/${id}/remove_item?api_key=${API_KEY}&session_id=${sessionId}`, body);
   }
 
-  setList(newName: string, newDescription: string, id:number){
+  setList(newName: string, newDescription: string, posterPath: string, id:number){
     const sessionId = localStorage.getItem('session_id');
     
     const body ={
-      "name": newName,
-      "description": newDescription,
+      name: newName,
+      description: newDescription,
+      poster_path: posterPath,
     }
+
+    console.log('Datos enviados a la API:', {
+      name: newName,
+      description: newDescription,
+      poster_path: posterPath
+    });
     return this.http.put(`${BASE_URL_v4}/list/${id}?api_key=${API_KEY}&session_id=${sessionId}`, body);
+    
   }
+
+  
 }

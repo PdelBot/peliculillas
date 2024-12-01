@@ -24,9 +24,6 @@ export class SerieDetailsComponent implements OnInit {
 
   episodesToShow: number = 20;
   incrementBy: number = 20;
-  type: string = "";
-  checkedLists: { [key: number]: boolean } = {};
-  check: boolean = false;
 
 
 
@@ -34,12 +31,6 @@ export class SerieDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const serieId = this.route.snapshot.paramMap.get('id');
-
-    this.type = this.route.snapshot.url[0].path;
-    if (this.type === "series"){
-      this.type = "tv"
-    }
-    console.log(this.type)    
 
     if (serieId) {
       this.detailsService.getSeriesDetails(+serieId, 'es-ES').subscribe((response) => {
@@ -66,12 +57,6 @@ export class SerieDetailsComponent implements OnInit {
     this.myListService.getListas().subscribe(response => {
       this.listas = response.results;
 
-      this.listas.forEach((list) => {
-        this.myListService.getDetailsList(list.id.toString()).subscribe((response) => {
-          const isInList = response.items.some((item: any) => item.id === this.seriesDetails!.id);
-          this.checkedLists[list.id] = isInList;
-        });
-      });
     })
 
   }
@@ -98,27 +83,5 @@ export class SerieDetailsComponent implements OnInit {
     this.episodesToShow += this.incrementBy;
     }
 
-    onCheckboxChange(event: Event, listId: number): void {
-      const inputElement = event.target as HTMLInputElement;
-  
-      if (inputElement.checked) {
-        this.myListService.add(this.seriesDetails!.id, listId, this.type).subscribe(() => {
-          console.log(`Película añadida a la lista ${listId}`);
-          this.checkedLists[listId] = true; // Actualiza el estado local
-        });
-      } else{
-        this.myListService.delete(this.seriesDetails!.id, listId, this.type).subscribe(() => {
-          console.log(`Película eliminada de la lista ${listId}`);
-          this.checkedLists[listId] = false; // Actualiza el estado local
-        });
-      }
-    }
-    
-    onAdd() {
-      if(!this.add){
-        this.add = true;
-      }else{
-        this.add = false;
-      }
-    }
+
 }

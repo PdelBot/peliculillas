@@ -1,9 +1,10 @@
-import { Component, HostListener, input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, input, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ListService } from '../../services/list.service';
 import { MisListasService } from '../../services/mis-listas.service';
 import { myList, myListResponse } from '../../models/my-list.interface';
 import { myListDetailsResponse } from '../../models/my-list-details.interface';
+import { MisListasDetailsComponent } from '../mis-listas-details/mis-listas-details.component';
 
 @Component({
   selector: 'app-mis-listas',
@@ -24,8 +25,12 @@ export class MisListasComponent implements OnInit {
   listDetails: myListDetailsResponse | undefined;
   selectedListId: number = -1;
   existe: boolean = false;
+  
 
   constructor(private authService: AuthService, private mylistService: MisListasService) { }
+  
+
+
   ngOnInit(): void {
     this.userName = localStorage.getItem('user_name') ?? '';
     this.userPhoto = localStorage.getItem('user_photo')
@@ -90,6 +95,13 @@ export class MisListasComponent implements OnInit {
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
     return `${baseUrl}${this.banner}`;
   }
+
+  fondoLista(poster: string){
+    const baseUrl = 'https://image.tmdb.org/t/p/w500';
+    return `${baseUrl}${poster}`;
+  }
+
+  
 
   createList() {
     this.misListas.forEach(lista => {
