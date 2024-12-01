@@ -7,39 +7,7 @@
         <app-menu-list></app-menu-list>
 
         <div class="listado-pelis">
-<<<<<<< HEAD
-            @for (serie of listadoSeries; track serie.id) {
-=======
-            <!-- @for (serie of listadoSeries; track serie.id) {
->>>>>>> lista-favoritos
-            <a [routerLink]="['/series', serie.id]">
-
-                <div class="card card-serie"
-                    [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(serie?.poster_path || '') + ')'}">
-                    <div class="valoracion-serie" [ngStyle]="getColor({ valoracion: serie.vote_average })">
-                        <h2 class="text-white">{{serie.vote_average | roundedVote}}</h2>
-                    </div>
-                    <div class="text-card">
-                        <h3 class="ms-4">{{serie.name}}</h3>
-                        <div class="detalles d-flex gap-4 ms-4 mb-3">
-                            <p id="fecha">{{serie.first_air_date}}</p>
-                            <p>|</p>
-                            <p id="temporadas">{{getFirstGenreName(serie.genre_ids)}}</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-<<<<<<< HEAD
-=======
-            @if (!isAdded(serie)) {
-            <button (click)="addToFavourites(serie)">Add to favourites
-            </button>
-            }
-            @else {
-            <button (click)="removeFromFavourites(serie)">Remove from favourites
-            </button>
-            }
-            } -->
+          
             @for (serie of listadoSeries; track serie.id) {
             <div class="card card-serie"
                 [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(serie?.poster_path || '') + ')'}">
@@ -111,7 +79,6 @@
 
                 </a>
             </div>
->>>>>>> lista-favoritos
             }
         </div>
         <div class="d-flex justify-content-center align-items-center gap-5">
@@ -130,13 +97,10 @@
             <button class="paginacion" (click)="getNextPage()"><i class="bi bi-caret-right-fill"></i></button>
         </div>
     </div>
-<<<<<<< HEAD
-=======
 </div>
 <div aria-live="polite" aria-atomic="true" style="position: fixed; top: 1rem; right: 1rem; z-index: 1050;">
     <div class="toast" id="favToast" data-delay="3000">
         <div class="toast-body" id="toastMessage">
         </div>
     </div>
->>>>>>> lista-favoritos
 </div>

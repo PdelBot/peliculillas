@@ -20,14 +20,10 @@ export class SerieListComponent {
   currentPage: number = 1;
   totalPages: number = 1;
 
-<<<<<<< HEAD
-  constructor(private serieService: ListService) { }
-=======
 
 
 
   constructor(private serieService: ListService, private favoriteService: FavoritesService, private watchlistService: WatchListService) { }
->>>>>>> lista-favoritos
 
   ngOnInit(): void {
     this.loadSeries();
@@ -91,7 +87,6 @@ export class SerieListComponent {
     return this.serieService.getColorValoracion({ valoracion });
   }
 
-<<<<<<< HEAD
   //para que aparezca la nueva lista
   actualizarListado(nuevoListado: Serie[]) {
     this.listadoSeries = nuevoListado;
@@ -103,7 +98,6 @@ export class SerieListComponent {
     }
     return this.serieService.getGenreName(genreIds[0]);
   }
-=======
   addToFavourites(serie: Serie): void {
     this.favoriteService.addSerieToFavourites(serie).subscribe(response => {
       console.log('Serie añadida a la lista de seguimiento:', response);
@@ -166,5 +160,4 @@ export class SerieListComponent {
     }
   }
 
->>>>>>> lista-favoritos
 }

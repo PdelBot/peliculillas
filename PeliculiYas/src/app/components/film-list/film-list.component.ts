@@ -22,18 +22,14 @@ export class FilmListComponent implements OnInit {
 
   constructor(private filmService: ListService, private favoriteService: FavoritesService, private watchlistService: WatchListService) { };
 
-<<<<<<< HEAD
-  constructor(private filmService: ListService) { };
-
   ngOnInit(): void {
     this.filmService.getPopularFilmDesc().subscribe((response) => {
       this.listadoPeliculas = response.results;
-=======
-  ngOnInit(): void {
+
+    });
     this.loadFilms();
     this.loadFavoriteFilms();
     this.loadWatchlistFilms();
-
   }
   isLoggedIn() {
     return localStorage.getItem('logged_in') === 'true';
@@ -62,51 +58,48 @@ export class FilmListComponent implements OnInit {
     this.watchlistService.getAllWatchListFilms().subscribe(response => {
       this.watchListFilms = response;
       console.log('Series en la lista de seguimiento cargadas:', this.watchListFilms);
->>>>>>> lista-favoritos
     });
   }
+
+
 
 
   getFullImagePath(posterPath: string): string {
-    const baseUrl = 'https://image.tmdb.org/t/p/w500';
-    return `${baseUrl}${posterPath}`;
-  }
+      const baseUrl = 'https://image.tmdb.org/t/p/w500';
+      return `${baseUrl}${posterPath}`;
+    }
 
   getPaginaUno() {
-    this.page = 1;
-    this.filmService.getFilmPage(this.page).subscribe((response) => {
-      this.listadoPeliculas = response.results;
-    });
-  }
+      this.page = 1;
+      this.filmService.getFilmPage(this.page).subscribe((response) => {
+        this.listadoPeliculas = response.results;
+      });
+    }
 
   getNextPage() {
-    this.page += 1;
-    this.filmService.getFilmPage(this.page).subscribe((response) => {
-      this.listadoPeliculas = response.results;
-    });
-  }
+      this.page += 1;
+      this.filmService.getFilmPage(this.page).subscribe((response) => {
+        this.listadoPeliculas = response.results;
+      });
+    }
 
   getLastPage() {
-    this.page -= 1;
-    this.filmService.getFilmPage(this.page).subscribe((response) => {
-      this.listadoPeliculas = response.results;
-    });
-  }
+      this.page -= 1;
+      this.filmService.getFilmPage(this.page).subscribe((response) => {
+        this.listadoPeliculas = response.results;
+      });
+    }
 
   getColor({ valoracion }: { valoracion: number }): { [key: string]: string } {
-    return this.filmService.getColorValoracion({ valoracion });
-  }
+      return this.filmService.getColorValoracion({ valoracion });
+    }
 
-<<<<<<< HEAD
-  //Obtener el primer genero
-=======
   getGenreNames(genreIds: number[]): string[] {
     return genreIds.map(id => this.filmService.getGenreName(id));
   }
 
->>>>>>> lista-favoritos
   getFirstGenreName(genreIds: number[]): string {
-    if (genreIds.length === 0) {
+      if(genreIds.length === 0) {
       return 'Unknown';
     }
     return this.filmService.getGenreName(genreIds[0]);
@@ -189,5 +182,5 @@ export class FilmListComponent implements OnInit {
       toast.show();
     }
   }
-  
+
 }
