@@ -407,7 +407,7 @@ button {
 }
 
 .container input:checked~svg {
-  fill: #E3474F;
+  fill: #4b4b4b;
 }
 
 .favorite-button {

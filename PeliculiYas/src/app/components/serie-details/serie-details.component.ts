@@ -33,14 +33,14 @@ export class SerieDetailsComponent implements OnInit {
   ngOnInit(): void {
     const serieId = this.route.snapshot.paramMap.get('id');
     if (serieId) {
-      this.detailsService.getSeriesDetails(+serieId, 'es-ES').subscribe((response) => {
+      this.detailsService.getSeriesDetails(+serieId).subscribe((response) => {
         this.seriesDetails = response;
 
       });
 
 
 
-      this.detailsService.getSeriesDetails(+serieId, 'es-ES').subscribe(data => {
+      this.detailsService.getSeriesDetails(+serieId).subscribe(data => {
         if (data) {
           this.seriesDetails = data;
           this.serieWatchList = {
@@ -81,7 +81,7 @@ export class SerieDetailsComponent implements OnInit {
           this.loadSeasons(+serieId, this.seasonsId);
           this.rating = (this.seriesDetails.vote_average || 0) / 2;
         } else {
-          this.detailsService.getSeriesDetails(+serieId, 'en-US').subscribe(englishData => {
+          this.detailsService.getSeriesDetails(+serieId).subscribe(englishData => {
             this.seriesDetails = englishData;
             this.seasonsId = englishData.seasons;
             this.loadSeasons(+serieId, this.seasonsId);
@@ -103,7 +103,7 @@ export class SerieDetailsComponent implements OnInit {
     window.location.href = 'http://localhost:4200';
   }
   loadSerieDetails(id: number): void {
-    this.detailsService.getSeriesDetails(id, 'es-ES').subscribe(response => {
+    this.detailsService.getSeriesDetails(id).subscribe(response => {
       this.seriesDetails = response;
       console.log('Series details loaded:', this.seriesDetails);
     });
@@ -125,7 +125,7 @@ export class SerieDetailsComponent implements OnInit {
 
   loadSeasons(serieId: number, seasons: Season[]): void {
     seasons.forEach(season => {
-      this.detailsService.getSeasonDetails(serieId, season.season_number, 'es-ES').subscribe(data => {
+      this.detailsService.getSeasonDetails(serieId, season.season_number).subscribe(data => {
         this.seasons.push(data);
       });
     });

@@ -1,5 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { Language } from '../../models/language.interface';
+import { LanguageSelectorService } from '../../services/language-selector.service';
 
 @Component({
   selector: 'app-menu-list',
@@ -10,8 +12,11 @@ export class MenuListComponent {
 
   userName = '';
   userPhoto = '';
+  languages: Language[] = [];
+  selectedLanguage: string = '';
+  flagUrl: string = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private languageService: LanguageSelectorService) { }
   ngOnInit(): void {
   this.userName = localStorage.getItem('user_name') ?? '';
     this.userPhoto = localStorage.getItem('user_photo')
@@ -19,6 +24,13 @@ export class MenuListComponent {
           'user_photo'
         )}`
       : '';
+      this.languageService.getLanguages().subscribe(response => {
+        this.languages = response;
+      });
+  
+      this.languageService.selectedLanguage$.subscribe(language => {
+        this.selectedLanguage = language;
+      });
   }
 
   private prevScrollPos: number = window.scrollY;
@@ -65,4 +77,13 @@ export class MenuListComponent {
       return this.userPhoto;
  
   }
+  onLanguageChange(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const language = selectElement.value;
+    this.languageService.setSelectedLanguage(language);
+    console.log('Selected language:', this.selectedLanguage);
+    window.location.reload();
+    
+  }
 }
+

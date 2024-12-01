@@ -4,6 +4,8 @@ import { Film } from '../../models/film.interface';
 import { FavoritesService } from '../../services/favorites.service';
 import { WatchListService } from '../../services/watch-list.service';
 import * as bootstrap from 'bootstrap';
+import { Subscription } from 'rxjs';
+import { LanguageSelectorService } from '../../services/language-selector.service';
 
 @Component({
   selector: 'app-film-list',
@@ -20,7 +22,8 @@ export class FilmListComponent implements OnInit {
   totalPages: number = 1;
 
 
-  constructor(private filmService: ListService, private favoriteService: FavoritesService, private watchlistService: WatchListService) { };
+  constructor(private filmService: ListService, private favoriteService: FavoritesService, private watchlistService: WatchListService, private languageService: LanguageSelectorService
+  ) { };
 
   ngOnInit(): void {
     this.filmService.getPopularFilmDesc().subscribe((response) => {
@@ -30,6 +33,9 @@ export class FilmListComponent implements OnInit {
     this.loadFilms();
     this.loadFavoriteFilms();
     this.loadWatchlistFilms();
+    this.languageService.selectedLanguage$.subscribe(() => {
+      this.loadFilms();
+    });
   }
   isLoggedIn() {
     return localStorage.getItem('logged_in') === 'true';
@@ -65,41 +71,41 @@ export class FilmListComponent implements OnInit {
 
 
   getFullImagePath(posterPath: string): string {
-      const baseUrl = 'https://image.tmdb.org/t/p/w500';
-      return `${baseUrl}${posterPath}`;
-    }
+    const baseUrl = 'https://image.tmdb.org/t/p/w500';
+    return `${baseUrl}${posterPath}`;
+  }
 
   getPaginaUno() {
-      this.page = 1;
-      this.filmService.getFilmPage(this.page).subscribe((response) => {
-        this.listadoPeliculas = response.results;
-      });
-    }
+    this.page = 1;
+    this.filmService.getFilmPage(this.page).subscribe((response) => {
+      this.listadoPeliculas = response.results;
+    });
+  }
 
   getNextPage() {
-      this.page += 1;
-      this.filmService.getFilmPage(this.page).subscribe((response) => {
-        this.listadoPeliculas = response.results;
-      });
-    }
+    this.page += 1;
+    this.filmService.getFilmPage(this.page).subscribe((response) => {
+      this.listadoPeliculas = response.results;
+    });
+  }
 
   getLastPage() {
-      this.page -= 1;
-      this.filmService.getFilmPage(this.page).subscribe((response) => {
-        this.listadoPeliculas = response.results;
-      });
-    }
+    this.page -= 1;
+    this.filmService.getFilmPage(this.page).subscribe((response) => {
+      this.listadoPeliculas = response.results;
+    });
+  }
 
   getColor({ valoracion }: { valoracion: number }): { [key: string]: string } {
-      return this.filmService.getColorValoracion({ valoracion });
-    }
+    return this.filmService.getColorValoracion({ valoracion });
+  }
 
   getGenreNames(genreIds: number[]): string[] {
     return genreIds.map(id => this.filmService.getGenreName(id));
   }
 
   getFirstGenreName(genreIds: number[]): string {
-      if(genreIds.length === 0) {
+    if (genreIds.length === 0) {
       return 'Unknown';
     }
     return this.filmService.getGenreName(genreIds[0]);
@@ -182,5 +188,6 @@ export class FilmListComponent implements OnInit {
       toast.show();
     }
   }
+
 
 }

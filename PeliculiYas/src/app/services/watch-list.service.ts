@@ -6,16 +6,14 @@ import { environment } from '../../environments/environment';
 import { WatchListFilmResponse } from '../models/watchlist-film.interface';
 import { Serie } from '../models/serie.interface';
 import { WatchListSeriesResponse } from '../models/watchlist-serie.interface';
+import { LanguageSelectorService } from './language-selector.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WatchListService {
-  addSeriesToWatchList(serie: Serie) {
-    throw new Error('Method not implemented.');
-  }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private languageService: LanguageSelectorService) { }
 
   addFilmToWatchList(film: Film): Observable<any> {
     const sessionId = localStorage.getItem('session_id');
@@ -35,16 +33,20 @@ export class WatchListService {
   getWatchListFilms(page: number): Observable<WatchListFilmResponse> {
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');
+    const language = this.languageService.getSelectedLanguage();
+
 
     return this.http.get<WatchListFilmResponse>(
-      `${environment.apiBaseUrl}/account/${accountId}/watchlist/movies?api_key=${environment.apiKey}&session_id=${sessionId}&page=${page}`
+      `${environment.apiBaseUrl}/account/${accountId}/watchlist/movies?api_key=${environment.apiKey}&session_id=${sessionId}&page=${page}&language=${language}`
     );
   }
   getAllWatchListFilms(): Observable<Film[]> {
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');
+    const language = this.languageService.getSelectedLanguage();
+
     return this.http.get<WatchListFilmResponse>(
-      `${environment.apiBaseUrl}/account/${accountId}/watchlist/movies?api_key=${environment.apiKey}&session_id=${sessionId}`
+      `${environment.apiBaseUrl}/account/${accountId}/watchlist/movies?api_key=${environment.apiKey}&session_id=${sessionId}&language=${language}`
     ).pipe(
       map((response: { total_pages: any; }) => {
         const totalPages = response.total_pages;
@@ -94,17 +96,21 @@ export class WatchListService {
   getWatchListSeries(page: number): Observable<WatchListSeriesResponse> {
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');
+    const language = this.languageService.getSelectedLanguage();
+
 
     return this.http.get<WatchListSeriesResponse>(
-      `${environment.apiBaseUrl}/account/${accountId}/watchlist/tv?api_key=${environment.apiKey}&session_id=${sessionId}&page=${page}`
+      `${environment.apiBaseUrl}/account/${accountId}/watchlist/tv?api_key=${environment.apiKey}&session_id=${sessionId}&page=${page}&language=${language}`
     );
   }
 
   getAllWatchListSeries(): Observable<Serie[]> {
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');
+    const language = this.languageService.getSelectedLanguage();
+
     return this.http.get<WatchListSeriesResponse>(
-      `${environment.apiBaseUrl}/account/${accountId}/watchlist/tv?api_key=${environment.apiKey}&session_id=${sessionId}`
+      `${environment.apiBaseUrl}/account/${accountId}/watchlist/tv?api_key=${environment.apiKey}&session_id=${sessionId}&language=${language}`
     ).pipe(
       map((response: { total_pages: any; }) => {
         const totalPages = response.total_pages;

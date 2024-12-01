@@ -26,6 +26,7 @@ import { WatchListComponent } from './components/watch-list/watch-list.component
 import { WatchListSeriesComponent } from './components/watch-list-series/watch-list-series.component';
 import { WatchListFilmComponent } from './components/watch-list-film/watch-list-film.component';
 import { MenuRightComponent } from './shared/menu-right/menu-right.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -58,6 +59,7 @@ import { MenuRightComponent } from './shared/menu-right/menu-right.component';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
+    FormsModule,
 
   ],
   providers: [

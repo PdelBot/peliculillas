@@ -12,6 +12,11 @@
             </ul>
         </div>
         <div class="right-menu d-flex align-items-center">
+            <select class="form-select" (change)="onLanguageChange($event)" [(ngModel)]="selectedLanguage">
+                <option *ngFor="let language of languages" [value]="language.iso_639_1">
+                    {{ language.english_name }} ({{ language.name }})
+                </option>
+            </select>
             <i class="bi bi-search"></i>
             @if(isLoggedIn()) {
             <div class="dropdown">
@@ -24,18 +29,17 @@
                     <a routerLink="/favorites">
                         <p>Favoritos</p>
                     </a>
+                    <a>
+                        <p>Mis listas</p>
+                    </a>
                     <a routerLink="/watchlist">
                         <p>WatchList</p>
                     </a>
                     <a>
-                        <p>Mis listas</p>
-                    </a>
-                    <a>
                         <p>Valorant</p>
                     </a>
-                    <button (click)="logout()" class="logout">
-                        <i class="bi bi-box-arrow-left"></i>
-                        <p>Cerrar sesión</p>
+                    <button (click)="logout()" class="gap-3 d-flex justify-content-center align-items-start">
+                        <i class="bi bi-box-arrow-left"></i> Cerrar sesión
                     </button>
                 </div>
             </div>
@@ -46,8 +50,6 @@
                 <p>Iniciar sesión</p>
             </button>
             }
-
-
         </div>
     </nav>
 </div>
