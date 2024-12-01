@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Language } from '../../models/language.interface';
 import { LanguageSelectorService } from '../../services/language-selector.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -15,7 +16,9 @@ export class MenuComponent implements OnInit {
   languages: Language[] = [];
   selectedLanguage: string = '';
 
-  constructor(private authService: AuthService, private languageService: LanguageSelectorService) { }
+  constructor(private authService: AuthService, private languageService: LanguageSelectorService, private router : Router) { }
+  query = '';
+
   ngOnInit(): void {
     this.userName = localStorage.getItem('user_name') ?? '';
     this.userPhoto = localStorage.getItem('user_photo')
@@ -85,4 +88,11 @@ export class MenuComponent implements OnInit {
     window.location.reload();
     // Aquí puedes añadir la lógica para cambiar el idioma de la aplicación
   }
+
+  search() {
+    if (this.query.trim()) {
+      this.router.navigate(['/search'], { queryParams: { query: this.query } });
+    }
+  }
+
 }

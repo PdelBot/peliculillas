@@ -27,8 +27,7 @@ import { WatchListSeriesComponent } from './components/watch-list-series/watch-l
 import { WatchListFilmComponent } from './components/watch-list-film/watch-list-film.component';
 import { MenuRightComponent } from './shared/menu-right/menu-right.component';
 import { FormsModule } from '@angular/forms';
-
-
+import { SearchBarResultsComponent } from './components/search-bar-results/search-bar-results.component';
 
 @NgModule({
   declarations: [
@@ -53,14 +52,13 @@ import { FormsModule } from '@angular/forms';
     WatchListSeriesComponent,
     WatchListFilmComponent,
     MenuRightComponent,
-    
+    SearchBarResultsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
-
   ],
   providers: [
     provideAnimationsAsync(),

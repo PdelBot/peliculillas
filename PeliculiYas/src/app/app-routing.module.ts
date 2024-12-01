@@ -14,6 +14,7 @@ import { FavoriteFilmsComponent } from './components/favorite-films/favorite-fil
 import { WatchListComponent } from './components/watch-list/watch-list.component';
 import { WatchListFilmComponent } from './components/watch-list-film/watch-list-film.component';
 import { WatchListSeriesComponent } from './components/watch-list-series/watch-list-series.component';
+import { SearchBarResultsComponent } from './components/search-bar-results/search-bar-results.component';
 
 const routes: Routes = [
   { path: 'principal', component: PrincipalMenuComponent },
@@ -31,6 +32,8 @@ const routes: Routes = [
   { path: 'watchlist/movies', component: WatchListFilmComponent },
   { path: 'watchlist/series', component: WatchListSeriesComponent },
   { path: '', redirectTo: '/principal', pathMatch: 'full' },
+  {path: 'search', component: SearchBarResultsComponent},
+  {path: '', redirectTo: '/principal', pathMatch: 'full'},
 ];
 
 @NgModule({
