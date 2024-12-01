@@ -30,6 +30,13 @@ export class SerieListComponent {
     this.loadFavouriteSeries();
     this.loadAllWatchListSeries();
   }
+  isLoggedIn() {
+    return localStorage.getItem('logged_in') === 'true';
+  }
+  logout() {
+    localStorage.clear();
+    window.location.href = 'http://localhost:4200';
+  }
   loadSeries(): void {
     this.serieService.getSeriesPage(this.currentPage).subscribe((response) => {
       this.listadoSeries = response.results;
@@ -141,5 +148,5 @@ export class SerieListComponent {
       toast.show();
     }
   }
-  
+
 }

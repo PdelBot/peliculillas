@@ -108,6 +108,13 @@ export class FilmDetailsComponent implements OnInit {
 
 
   }
+  isLoggedIn() {
+    return localStorage.getItem('logged_in') === 'true';
+  }
+  logout() {
+    localStorage.clear();
+    window.location.href = 'http://localhost:4200';
+  }
 
   loadFilmDetails(id: number): void {
     this.detailsService.getFilmdeatils(id, 'es-ES').subscribe(response => {
@@ -150,7 +157,7 @@ export class FilmDetailsComponent implements OnInit {
     return `${baseUrl}${path}`;
   }
 
-  addToFavourites(film: Film ): void {
+  addToFavourites(film: Film): void {
     this.favoriteService.addFilmToFavourites(film).subscribe(response => {
       console.log('Serie añadida a la lista de seguimiento:', response);
       this.loadFavouriteFilms(); // Actualizar la lista de seguimiento
@@ -159,7 +166,7 @@ export class FilmDetailsComponent implements OnInit {
   }
 
 
-  removeFromFavourites(film : Film) {
+  removeFromFavourites(film: Film) {
     this.favoriteService.deleteFilmFromFavorite(film).subscribe(response => {
       console.log('Film removed from favourites:', response);
       this.loadFavouriteFilms();

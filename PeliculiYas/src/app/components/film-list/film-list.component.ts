@@ -28,6 +28,13 @@ export class FilmListComponent implements OnInit {
     this.loadWatchlistFilms();
 
   }
+  isLoggedIn() {
+    return localStorage.getItem('logged_in') === 'true';
+  }
+  logout() {
+    localStorage.clear();
+    window.location.href = 'http://localhost:4200';
+  }
 
   loadFilms(): void {
     this.filmService.getFilmPage(this.currentPage).subscribe((response) => {

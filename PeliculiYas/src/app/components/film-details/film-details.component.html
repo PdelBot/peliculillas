@@ -25,6 +25,7 @@
           <p><strong> Calificación: ({{ film?.vote_average }} / 10) </strong> <ngb-rating class="amarillo"
               [(rate)]="rating" [max]="5" [readonly]="true"></ngb-rating> </p>
         </div>
+        @if (isLoggedIn()) {
         <div>
 
           @if (filmFavorite) {
@@ -65,6 +66,7 @@
           }
         </div>
 
+        }
         <div>
           @for (item of film?.genres; track $index) {
           <div class="badge" href="#">

@@ -35,6 +35,7 @@
             @for (serie of listadoSeries; track serie.id) {
             <div class="card card-serie"
                 [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(serie?.poster_path || '') + ')'}">
+                @if (isLoggedIn()) {
                 <div class="dropdown">
                     <div class="d-flex justify-content-center align-items-center">
                         <i class="bi bi-plus-circle-fill"></i>
@@ -89,6 +90,7 @@
                     <h2 class="text-white">{{serie.vote_average | roundedVote}}</h2>
 
                 </div>
+                }
                 <a [routerLink]="['/series', serie.id]">
                     <div class="text-card">
                         <h3 class="ms-4">{{serie.name}}</h3>

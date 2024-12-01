@@ -8,6 +8,7 @@
             @for (peli of listadoPeliculas; track peli.id) {
             <div class="card card-serie"
                 [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(peli?.poster_path || '') + ')'}">
+                @if (isLoggedIn()) {
                 <div class="dropdown">
                     <div class="d-flex justify-content-center align-items-center">
                         <i class="bi bi-plus-circle-fill"></i>
@@ -57,6 +58,7 @@
                         <i class="bi bi-plus-lg"></i>
                     </div>
                 </div>
+                }
                 <div class="valoracion-serie justify-content-beetwen"
                     [ngStyle]="getColor({ valoracion: peli.vote_average })">
                     <h2 class="text-white">{{peli.vote_average | roundedVote}}</h2>

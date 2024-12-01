@@ -95,6 +95,13 @@ export class SerieDetailsComponent implements OnInit {
     }
 
   }
+  isLoggedIn() {
+    return localStorage.getItem('logged_in') === 'true';
+  }
+  logout() {
+    localStorage.clear();
+    window.location.href = 'http://localhost:4200';
+  }
   loadSerieDetails(id: number): void {
     this.detailsService.getSeriesDetails(id, 'es-ES').subscribe(response => {
       this.seriesDetails = response;

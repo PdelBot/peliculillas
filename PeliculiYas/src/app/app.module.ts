@@ -25,6 +25,7 @@ import { FavoriteSerieComponent } from './components/favorite-serie/favorite-ser
 import { WatchListComponent } from './components/watch-list/watch-list.component';
 import { WatchListSeriesComponent } from './components/watch-list-series/watch-list-series.component';
 import { WatchListFilmComponent } from './components/watch-list-film/watch-list-film.component';
+import { MenuRightComponent } from './shared/menu-right/menu-right.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { WatchListFilmComponent } from './components/watch-list-film/watch-list-
     WatchListComponent,
     WatchListSeriesComponent,
     WatchListFilmComponent,
+    MenuRightComponent,
     
   ],
   imports: [
