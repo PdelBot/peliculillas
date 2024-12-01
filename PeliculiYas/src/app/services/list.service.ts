@@ -258,9 +258,9 @@ export class ListService {
       });
   }
 
-  //esto es la vida a quien se le ocurra tocarlo le desintalo el proyecto
+  // Ordenar peliculas y series y filtrar por genero
   getOrderedFilms(criterio: string, generos: number[], page: number): Observable<FilmListResponse> {
-    
+
     const genresQuery = generos.length ? `&with_genres=${generos.join(',')}` : '';
     const language = this.languageService.getSelectedLanguage();
     return this.http.get<FilmListResponse>(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${language}&page=${page}&sort_by=${criterio}${genresQuery}`, {
@@ -271,7 +271,7 @@ export class ListService {
   }
 
   getOrderedSeries(criterio: string, generos: number[], page: number): Observable<SerieListResponse> {
-    
+
     const genresQuery = generos.length ? `&with_genres=${generos.join(',')}` : '';
     const language = this.languageService.getSelectedLanguage();
     return this.http.get<SerieListResponse>(`https://api.themoviedb.org/3/discover/tv?include_adult=false&language=${language}&page=${page}&sort_by=${criterio}${genresQuery}`, {
@@ -281,6 +281,7 @@ export class ListService {
     });
   }
 
+  //buscar peliculas, series y actores
   searchMovies(query: string): Observable<FilmListResponse> {
     return this.http.get<FilmListResponse>(`https://api.themoviedb.org/3/search/movie?query=${query}&language=es-US&page=1&include_adult=false`, {
       headers: {

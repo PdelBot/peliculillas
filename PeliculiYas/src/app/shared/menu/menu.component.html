@@ -17,11 +17,13 @@
                     {{ language.english_name }} ({{ language.name }})
                 </option>
             </select>
-            <i class="bi bi-search"></i>
-            <div>
+           
+            <div class="search-container d-flex align-items-center">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                     [(ngModel)]="query">
-                <button (click)="search()"> <i class="bi bi-search"></i></button>
+                <button class="btn btn-outline-light" (click)="search()">
+                    <i class="bi bi-search"></i>
+                </button>
             </div>
             @if(isLoggedIn()) {
             <div class="dropdown">

@@ -1,6 +1,9 @@
-<app-menu></app-menu>
-<div class="search-results">
-    <div *ngIf="peliculas.length">
+<div>
+    <app-menu></app-menu>
+
+</div>
+<div class="search-results mt-5">
+    <div *ngIf="peliculas.length" class="mt-5">
         <h3>Películas</h3>
         <div class="cards d-flex flex-wrap">
             <div *ngFor="let pelicula of peliculas" class="card-container">
@@ -22,7 +25,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="series.length">
+    <div *ngIf="series.length" class="mt-5">
         <h3>Series</h3>
         <div class="cards d-flex flex-wrap">
             <div *ngFor="let serie of series" class="card-container">
@@ -44,14 +47,14 @@
             </div>
         </div>
     </div>
-    <div *ngIf="actores.length">
+    <div *ngIf="actores.length" class="mt-5">
         <h3>Personas</h3>
         <div class="cards d-flex flex-wrap">
-            <div *ngFor="let persona of actores" class="card-container">
-                <a [routerLink]="['/personas', persona.id]">
-                    <div class="card card-persona">
-                        <div class="text-card">
-                            <h3 class="ms-4">{{persona.name}}</h3>
+            <div *ngFor="let actor of actores" class="card-container">
+                <a [routerLink]="['/personas', actor.id]">
+                    <div class="card card-actor"
+                    [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(actor?.profile_path || '') + ')'}">                        <div class="text-card">
+                            <h3 class="ms-4">{{actor.name}}</h3>
                         </div>
                     </div>
                 </a>

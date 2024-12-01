@@ -31,23 +31,8 @@ export class MenuLateralComponent implements OnInit {
   constructor(private listService: ListService) { }
 
   ngOnInit() {
-    this.cargarListado();
     this.cargarGeneros();
-  }
-
-
-  cargarListado() {
-    if (this.tipo === 'peliculas') {
-      this.listService.getPopularFilmDesc().subscribe(response => {
-        this.listadoPeliculas = response.results;
-        this.listadoFilmChange.emit(this.listadoPeliculas);
-      });
-    } else if (this.tipo === 'series') {
-      this.listService.getPopularSeriesDesc().subscribe(response => {
-        this.listadoSeries = response.results;
-        this.listadoSeriesChange.emit(this.listadoSeries);
-      });
-    }
+    this.buscar('popularity.desc', 1);
   }
 
   cargarGeneros() {
@@ -59,15 +44,6 @@ export class MenuLateralComponent implements OnInit {
       this.listService.getSeriesGenres().subscribe(response => {
         this.generos = response.genres;
       });
-    }
-  }
-
-  toggleGenre(genreId: number): void {
-    const index = this.generosSelecionados.indexOf(genreId);
-    if (index === -1) {
-      this.generosSelecionados.push(genreId);
-    } else {
-      this.generosSelecionados.splice(index, 1);
     }
   }
 
@@ -83,6 +59,19 @@ export class MenuLateralComponent implements OnInit {
         this.listadoSeriesChange.emit(this.listadoSeries);
       });
     }
+  }
+
+  toggleGenre(id: number) {
+    const index = this.generosSelecionados.indexOf(id);
+    if (index > -1) {
+      this.generosSelecionados.splice(index, 1);
+    } else {
+      this.generosSelecionados.push(id);
+    }
+  }
+
+  changePage(page: number, criterio: string) {
+    this.buscar(criterio, page);
   }
 
   desplegable() {
