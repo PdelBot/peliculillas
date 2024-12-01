@@ -1,0 +1,101 @@
+<!-- <div class="favourite-films">
+  <h1>Favourite Films</h1>
+  <div class="films-list">
+    <div *ngFor="let film of favouriteFilms" class="film-card">
+      <img [src]="getFullImagePath(film.poster_path)" alt="{{ film.title }}">
+      <h3>{{ film.title }}</h3>
+      <p>{{ film.release_date }}</p>
+      <button class="bin-button" (click)="removeFromFavourites(film)">
+        <svg class="bin-top" viewBox="0 0 39 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line y1="5" x2="39" y2="5" stroke="white" stroke-width="4"></line>
+          <line x1="12" y1="1.5" x2="26.0357" y2="1.5" stroke="white" stroke-width="3"></line>
+        </svg>
+        <svg class="bin-bottom" viewBox="0 0 33 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <mask id="path-1-inside-1_8_19" fill="white">
+            <path d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"></path>
+          </mask>
+          <path
+            d="M0 0H33H0ZM37 35C37 39.4183 33.4183 43 29 43H4C-0.418278 43 -4 39.4183 -4 35H4H29H37ZM4 43C-0.418278 43 -4 39.4183 -4 35V0H4V35V43ZM37 0V35C37 39.4183 33.4183 43 29 43V35V0H37Z"
+            fill="white" mask="url(#path-1-inside-1_8_19)"></path>
+          <path d="M12 6L12 29" stroke="white" stroke-width="4"></path>
+          <path d="M21 6V29" stroke="white" stroke-width="4"></path>
+        </svg>
+      </button>
+
+    </div>
+  </div>
+</div> -->
+
+<!-- Empieza lo de tey y tal -->
+<app-menu></app-menu>
+<div class="banner" [ngStyle]="{'background': 'no-repeat center/cover url(' + bannerImg() + ')'}">
+  <div class="text">
+    @if (isLoggedIn()) {
+    <div class="d-flex justify-content-start align-items-start gap-3">
+      <img [src]="verificarImg()" alt="avatar" class="avatar" />
+      <p class="username">{{userName}}</p>
+    </div>
+    }
+
+  </div>
+</div>
+<div class="page d-flex row ">
+  <div class="content col-9">
+
+    <hr>
+
+
+    <div class="peliculas">
+      <div *ngFor="let film of watchListFilm" class="card-pelicula d-flex mb-4">
+        <img [src]="getFullImagePath(film.poster_path)" alt="img">
+        <div class="text">
+          <div class="title d-flex">
+            <h1>{{film.title}}</h1>
+
+          </div>
+
+
+          <div class="subtitle d-flex gap-3 ms-4">
+            <!-- <div class="type" style="height: 35px;">
+              {{film.media_type}}
+            </div> -->
+          </div>
+          <p>{{film.overview}}</p>
+          <div class="botones d-flex gap-3 align-items-center">
+            <button class="bin-button" (click)="removeFromWatchList(film)">
+              <svg class="bin-top" viewBox="0 0 39 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line y1="5" x2="39" y2="5" stroke="white" stroke-width="4"></line>
+                <line x1="12" y1="1.5" x2="26.0357" y2="1.5" stroke="white" stroke-width="3"></line>
+              </svg>
+              <svg class="bin-bottom" viewBox="0 0 33 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <mask id="path-1-inside-1_8_19" fill="white">
+                  <path d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"></path>
+                </mask>
+                <path
+                  d="M0 0H33H0ZM37 35C37 39.4183 33.4183 43 29 43H4C-0.418278 43 -4 39.4183 -4 35H4H29H37ZM4 43C-0.418278 43 -4 39.4183 -4 35V0H4V35V43ZM37 0V35C37 39.4183 33.4183 43 29 43V35V0H37Z"
+                  fill="white" mask="url(#path-1-inside-1_8_19)"></path>
+                <path d="M12 6L12 29" stroke="white" stroke-width="4"></path>
+                <path d="M21 6V29" stroke="white" stroke-width="4"></path>
+              </svg>
+            </button>
+            <a class="button" [routerLink]="['/peliculas', film.id]">Detalles</a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="pagination-controls" *ngIf="totalPages! > 1 " style="text-align: center; margin-top: 20px;">
+      <button class="btn" style="background-color: #00FFAE; margin-right: 10px;" (click)="changePage(currentPage - 1)"
+        [disabled]="currentPage === 1">Anterior</button>
+      <span class="text-white" style="margin: 0 10px;">Página {{currentPage}} de {{totalPages}}</span>
+      <button class="btn" style="background-color: #00FFAE; margin-left: 10px;" (click)="changePage(currentPage + 1)"
+        [disabled]="currentPage === totalPages">Siguiente</button>
+    </div>
+  </div>
+
+
+  <div class="right-menu col-3">
+    <app-menu-right></app-menu-right>
+  </div>
+</div>

@@ -13,6 +13,7 @@ import { Genre, GenreListResponse } from '../models/genre.interface';
 })
 export class ListService {
 
+
   private genres: { [id: number]: string } = {};
 
   constructor(private http: HttpClient) {
