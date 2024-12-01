@@ -19,6 +19,13 @@ import { FilmDetailsComponent } from './components/film-details/film-details.com
 import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 import { ApprovedComponent } from './components/approved/approved.component';
+import { FavoriteListComponent } from './components/favorite-list/favorite-list.component';
+import { FavoriteFilmsComponent } from './components/favorite-films/favorite-films.component';
+import { FavoriteSerieComponent } from './components/favorite-serie/favorite-serie.component';
+import { WatchListComponent } from './components/watch-list/watch-list.component';
+import { WatchListSeriesComponent } from './components/watch-list-series/watch-list-series.component';
+import { WatchListFilmComponent } from './components/watch-list-film/watch-list-film.component';
+import { MenuRightComponent } from './shared/menu-right/menu-right.component';
 
 
 
@@ -38,7 +45,14 @@ import { ApprovedComponent } from './components/approved/approved.component';
     SerieDetailsComponent,
     PeopleDetailsComponent,
     ApprovedComponent,
-
+    FavoriteListComponent,
+    FavoriteFilmsComponent,
+    FavoriteSerieComponent,
+    WatchListComponent,
+    WatchListSeriesComponent,
+    WatchListFilmComponent,
+    MenuRightComponent,
+    
   ],
   imports: [
     BrowserModule,

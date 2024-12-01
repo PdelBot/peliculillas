@@ -19,6 +19,7 @@ export class ApprovedComponent implements OnInit {
       this.accountService.getAccountDetails().subscribe((response) => {
         localStorage.setItem('user_name', response.username);
         localStorage.setItem('user_photo', response.avatar.tmdb.avatar_path);
+        localStorage.setItem('user_id', response.id.toString());
         localStorage.setItem('logged_in', 'true');
 
         window.location.href = 'http://localhost:4200/principal';

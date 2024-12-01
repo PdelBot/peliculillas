@@ -5,13 +5,18 @@ import { HttpClient } from '@angular/common/http';
 import { SerieListResponse } from '../models/serie.interface';
 import { ActorListResponse } from '../models/people.interface';
 import { environment } from '../../environments/environment';
+<<<<<<< HEAD
 import { Genre, GenreListResponse } from '../models/genre.interface';
+=======
+import { FavoriteFilmResponse } from '../models/favorite-film-list.interface';
+>>>>>>> lista-favoritos
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListService {
+
 
   private genres: { [id: number]: string } = {};
 
@@ -112,6 +117,7 @@ export class ListService {
     return this.genres[id] || 'Unknown';
   }
 
+<<<<<<< HEAD
   //Generos de series
   getSeriesGenres(): Observable<GenreListResponse> {
     return this.http.get<GenreListResponse>(`${environment.apiBaseUrl}/genre/tv/list`, {
@@ -241,5 +247,7 @@ export class ListService {
       }
     });
   }
+=======
+>>>>>>> lista-favoritos
 
 }
