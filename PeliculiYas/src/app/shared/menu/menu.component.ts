@@ -15,9 +15,10 @@ export class MenuComponent implements OnInit {
   userPhoto = '';
   languages: Language[] = [];
   selectedLanguage: string = '';
+  query = '';
+
 
   constructor(private authService: AuthService, private languageService: LanguageSelectorService, private router : Router) { }
-  query = '';
 
   ngOnInit(): void {
     this.userName = localStorage.getItem('user_name') ?? '';
