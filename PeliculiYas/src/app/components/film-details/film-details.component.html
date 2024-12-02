@@ -6,7 +6,7 @@
     </div>
     <div class="description">
       <div class="title1">
-        <h2>{{film?.original_title}}</h2>
+        <h2>{{film?.title}}</h2>
       </div>
       <div>
         <p class="title2" *ngIf="film?.tagline">{{ film?.tagline }}</p>
@@ -33,8 +33,31 @@
           </div>
           }
         </div>
+        <div class="dropdown mt-4">
+          <button (click)="onAdd()">Añadir pelicula a lista</button>
+          <div *ngIf="add" class="dropdown-content my-3">
+            <div *ngIf="listas.length > 0; else noLists">
+              <h3>Listas del usuario</h3>
+              <div *ngFor="let lista of listas" class="customCheckBoxHolder">
+                <input 
+                    id="{{lista.id}}" class="customCheckBoxInput"
+                    type="checkbox" 
+                    [checked]="checkedLists[lista.id]" 
+                    (change)="onCheckboxChange($event, lista.id)">
+                <label class="customCheckBoxWrapper" for="{{lista.id}}" >
+                    <div class="customCheckBox">
+                      <div class="inner">{{lista.name}}</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <ng-template #noLists>
+              <p>No tienes listas creadas aún.</p>
+            </ng-template>
+          </div>
+        </div>
         <div>
-          <button class="watch-now btn btn-primary align-items-center justify-content-beetwen " (click)="watchTrailer()">Ver Trailer</button>
+          <button class="watch-now align-items-center justify-content-beetwen " (click)="watchTrailer()">Ver Trailer</button>
         </div>
       </div>
     </div>

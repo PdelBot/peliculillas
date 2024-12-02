@@ -1,0 +1,92 @@
+<app-menu></app-menu>
+<div class="banner" [ngStyle]="{'background': 'no-repeat center/cover url(' + bannerImg() + ')'}">
+    <div class="text">
+        @if (isLoggedIn()) {
+        <div class="d-flex justify-content-start align-items-start gap-3">
+            <img [src]="userPhoto" alt="avatar" class="avatar" />
+            <p class="username">{{userName}}</p>
+        </div>
+        }
+
+    </div>
+</div>
+
+<div class="content d-flex row me-0">
+    <div class="mislistas col-9 ">
+        <div class="title d-flex">
+            <i class="bi bi-list-ul"></i>
+            <h1>Mis listas</h1>
+
+        </div>
+        <div class="buttons d-flex gap-3">
+            <div class="create d-flex">
+                <button *ngIf="misListas.length>0&&!create" (click)="On(1)" class="createList d-flex gap-2"><i
+                        class="bi bi-plus-circle"></i>Crear
+                    lista</button>
+                <input *ngIf="misListas.length>0&&create" type="text" [(ngModel)]="nameList"
+                    placeholder="Nombre de la lista" required>
+                <input *ngIf="misListas.length>0&&create" type="text" [(ngModel)]="description"
+                    placeholder="Descripción" required>
+                <button *ngIf="misListas.length>0&&create" (click)="createList()" class="createList d-flex gap-2"><i
+                        class="bi bi-plus-circle"></i>Crear
+                    lista</button>
+                <button *ngIf="misListas.length>0&&create" (click)="Of(1)" class="createList d-flex gap-2">X</button>
+            </div>
+            <div class="delete d-flex text-white">
+                <button *ngIf="misListas.length>0&&!delet" (click)="On(2)" class="createList d-flex gap-2"><i
+                        class="bi bi-plus-circle"></i>Borrar lista</button>
+                <label *ngIf="misListas.length>0&&delet" for="listSelector"></label>
+                <select *ngIf="misListas.length>0&&delet" id="listSelector" [(ngModel)]="selectedListId">
+                    <option [value]="-1" selected disabled hidden>Selecciona una lista</option>
+                    <option *ngFor="let list of misListas" [value]="list.id">{{ list.name }}</option>
+                </select>
+                <button *ngIf="misListas.length>0&&delet" (click)="deleteList(selectedListId!)"
+                    class="createList d-flex gap-2"><i class="bi bi-plus-circle"></i>Borrar lista</button>
+                <button *ngIf="misListas.length>0&&delet" (click)="Of(2)" class="createList d-flex gap-2">X</button>
+            </div>
+            <div class="clear d-flex">
+                <button *ngIf="misListas.length>0&&!clear" (click)="On(3)" class="createList d-flex gap-2"><i
+                        class="bi bi-plus-circle"></i>Limpiar lista</button>
+                <label *ngIf="misListas.length>0&&clear" for="listSelector"></label>
+                <select *ngIf="misListas.length>0&&clear" id="listSelector" [(ngModel)]="selectedListId">
+                    <option [value]="-1" selected disabled hidden>Selecciona una lista</option>
+                    <option *ngFor="let list of misListas" [value]="list.id">{{ list.name }}</option>
+                </select>
+                <button *ngIf="misListas.length>0&&clear" (click)="clearList(selectedListId!)"
+                    class="createList d-flex gap-2"><i class="bi bi-plus-circle"></i>Limpiar lista</button>
+                <button *ngIf="misListas.length>0&&clear" (click)="Of(3)" class="createList d-flex gap-2">X</button>
+            </div>
+        </div>
+        <div class="content-list">
+            @if(misListas.length === 0){
+            <div class="card null-card">
+                <p>No ha creado todavia una lista</p>
+                <button (click)="createList()" class="createList d-flex gap-2"><i class="bi bi-plus-circle"></i>Crear
+                    lista</button>
+            </div>
+            }@else{
+            <div class="listas">
+                <div *ngFor="let list of misListas">
+                <a [routerLink]="['/misListas', list.id]">
+                    <div class="card card-list" [ngStyle]="{
+                            'background': 'linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.801)), no-repeat center/cover url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI_3Y9V7xx2X31XhNIYE53QCidDkrQgxm9tg&s)'
+                          }">
+                        <div class="text-list">
+                            <h1>{{list.name}}</h1>
+                            <p id="description">{{list.description}}</p>
+                            <p id="count">añadidas: {{list.item_count}}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            </div>
+    
+            }
+        </div>
+    </div>
+    
+    <div class="right-menu col-3">
+        <app-menu-right></app-menu-right>
+    </div>
+</div>
+

@@ -6,7 +6,7 @@
     </div>
     <div class="description">
       <div class="title1">
-        <h2> {{ seriesDetails?.original_name }} </h2>
+        <h2> {{ seriesDetails?.name }} </h2>
       </div>
       <div>
         <p class="title1" *ngIf="seriesDetails?.tagline">{{ seriesDetails?.tagline }}</p>
@@ -27,6 +27,29 @@
             <span></span>
           </div>
           }
+          <div class="dropdown mt-4">
+            <button (click)="onAdd()">Añadir pelicula a lista</button>
+            <div *ngIf="add" class="dropdown-content my-3">
+              <div *ngIf="listas.length > 0; else noLists">
+                <h3>Listas del usuario</h3>
+                <div *ngFor="let lista of listas" class="customCheckBoxHolder">
+                  <input 
+                      id="{{lista.id}}" class="customCheckBoxInput"
+                      type="checkbox" 
+                      [checked]="checkedLists[lista.id]" 
+                      (change)="onCheckboxChange($event, lista.id)">
+                  <label class="customCheckBoxWrapper" for="{{lista.id}}" >
+                      <div class="customCheckBox">
+                        <div class="inner">{{lista.name}}</div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <ng-template #noLists>
+                <p>No tienes listas creadas aún.</p>
+              </ng-template>
+            </div>
+          </div>
         </div>  
       </div>
     </div>
@@ -41,19 +64,23 @@
       </li>
     </ul>
     <div *ngIf="selectedSeason">
-      <div>
-        @for (episode of selectedSeason.episodes; track selectedSeason.episodes.indexOf(episode)) {
-        <div class="episode-card">
+      <div class="episodes">
+       <!-- @for (episode of selectedSeason.episodes; track selectedSeason.episodes.indexOf(episode)) {-->
+        <div *ngFor="let episode of selectedSeason.episodes | slice:0:episodesToShow; let i = index" class="episode-card d-flex gap-3 my-4">
           <div class="episode-thumbnail">
-            <img *ngIf="episode.still_path" [src]="getImgUrl(episode.still_path)" alt="{{ episode.name }}">
+            <img *ngIf="episode.still_path" [src]="getImgUrl(episode.still_path)" alt="{{ episode.name }}" class="card-img">
+            <img *ngIf="!episode.still_path" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQumqw6UawRn7rOgAvevIfEnX55015CA-oTeA&s" alt="img no encontrada" class="card-img">
           </div>
           <div class="episode-info">
-            <h6>{{ episode.episode_number }}. {{ episode.name }}</h6>
+            <h4>{{ episode.episode_number }}. {{ episode.name }}</h4>
             <span>{{ episode.air_date }} | {{ episode.runtime }} minutos</span>
-            <p>{{ episode.overview }}</p>
+            <p class="text w-75 mt-2">{{ episode.overview }}</p>
           </div>
         </div>
-        }
+      <!-- }-->
+        <div *ngIf="episodesToShow < selectedSeason.episodes.length" class="text-center my-4">
+          <button class="btn btn-primary" (click)="loadMoreEpisodes()">Ver más</button>
+        </div>
       </div>
     </div>
   </div>

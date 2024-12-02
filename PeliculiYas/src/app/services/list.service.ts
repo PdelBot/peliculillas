@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 import { Genre, GenreListResponse } from '../models/genre.interface';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,6 +27,7 @@ export class ListService {
     return this.http.get<FilmListResponse>(`${environment.apiBaseUrl}/movie/popular`, {
       headers: {
         'Authorization': `Bearer ${environment.access_token}`
+
       }
     });
   }
@@ -33,7 +35,9 @@ export class ListService {
   getOneFilm(id: number): Observable<Film> {
     return this.http.get<Film>(`${environment.apiBaseUrl}/movie/${id}`, {
       headers: {
+
         'Authorization': `Bearer ${environment.access_token}`,
+
       }
     })
   }
@@ -43,7 +47,9 @@ export class ListService {
   getPopularSeries(): Observable<SerieListResponse> {
     return this.http.get<SerieListResponse>(`${environment.apiBaseUrl}/tv/popular?language=es-US&page=1`, {
       headers: {
+
         'Authorization': `Bearer ${environment.access_token}`,
+
       }
     });
   }
@@ -53,7 +59,9 @@ export class ListService {
   getActors(): Observable<ActorListResponse> {
     return this.http.get<ActorListResponse>(`${environment.apiBaseUrl}/person/popular?language=es-US&page=1`, {
       headers: {
+
         'Authorization': `Bearer ${environment.access_token}`,
+
       }
     });
   }
@@ -63,7 +71,9 @@ export class ListService {
   getFilmPage(page: number): Observable<FilmListResponse> {
     return this.http.get<FilmListResponse>(`${environment.apiBaseUrl}/movie/popular?language=es-US&page=${page}`, {
       headers: {
+
         'Authorization': `Bearer ${environment.access_token}`,
+
       }
     });
   }
@@ -72,7 +82,9 @@ export class ListService {
   getSeriesPage(page: number): Observable<SerieListResponse> {
     return this.http.get<SerieListResponse>(`${environment.apiBaseUrl}/tv/popular?language=es-US&page=${page}`, {
       headers: {
+
         'Authorization': `Bearer ${environment.access_token}`,
+
       }
     });
   }
@@ -81,7 +93,9 @@ export class ListService {
   getActorPage(page: number): Observable<ActorListResponse> {
     return this.http.get<ActorListResponse>(`${environment.apiBaseUrl}/person/popular?language=es-US&page=${page}`, {
       headers: {
+
         'Authorization': `Bearer ${environment.access_token}`,
+
       }
     });
   }
@@ -99,7 +113,9 @@ export class ListService {
   private loadGenres() {
     this.http.get<{ genres: { id: number, name: string }[] }>(`${environment.apiBaseUrl}/genre/movie/list?language=es-US`, {
       headers: {
+
         'Authorization': `Bearer ${environment.access_token}`,
+
       }
     }).subscribe(response => {
       response.genres.forEach(genre => {

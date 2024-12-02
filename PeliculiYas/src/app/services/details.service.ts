@@ -7,7 +7,10 @@ import { FilmDetailsResponse } from '../models/film-details.interface';
 import { FilmCreditsResponse } from '../models/film-credits.interface';
 import { SerieDetaisResponse } from '../models/series-details.interface';
 import { SeasonDetailsResponse } from '../models/season-details.interface';
+
 import { environment } from '../../environments/environment';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +30,9 @@ export class DetailsService {
   getPeopleCredits(id: number): Observable<CombinedCreditsResponse> {
     return this.http.get<CombinedCreditsResponse>(`${environment.apiBaseUrl}/person/${id}/combined_credits`, {
       headers: {
+
         Authorization: `Bearer ${environment.access_token}`,
+
       },
     });
   }
@@ -36,7 +41,9 @@ export class DetailsService {
   getFilmdeatils(id: number, language: string): Observable<FilmDetailsResponse> {
     return this.http.get<FilmDetailsResponse>(`${environment.apiBaseUrl}/movie/${id}?language=${language}`, {
       headers: {
+
         Authorization: `Bearer ${environment.access_token}`,
+
       },
     });
   }
@@ -44,7 +51,9 @@ export class DetailsService {
   getFilmCredits(id: number): Observable<FilmCreditsResponse> {
     return this.http.get<FilmCreditsResponse>(`${environment.apiBaseUrl}/movie/${id}/credits`, {
       headers: {
+
         Authorization: `Bearer ${environment.access_token}`,
+
       },
     });
   }
@@ -52,7 +61,9 @@ export class DetailsService {
   getSeriesDetails(id: number, language: string): Observable<SerieDetaisResponse> {
     return this.http.get<SerieDetaisResponse>(`${environment.apiBaseUrl}/tv/${id}?language=${language}`, {
       headers: {
+
         Authorization: `Bearer ${environment.access_token}`,
+
       },
     });
   }
@@ -60,6 +71,7 @@ export class DetailsService {
   getSeasonDetails(id: number, seasonNumber: number, language: string): Observable<SeasonDetailsResponse> {
     return this.http.get<SeasonDetailsResponse>(`${environment.apiBaseUrl}/tv/${id}/season/${seasonNumber}?language=${language}`, {
       headers: {
+
         Authorization: `Bearer ${environment.access_token}`,
       },
     });
@@ -69,6 +81,7 @@ export class DetailsService {
     return this.http.get(`${environment.apiBaseUrl}/movie/${id}/videos`, {
       headers: {
         Authorization: `Bearer ${environment.access_token}`,
+
       }
     });
   }

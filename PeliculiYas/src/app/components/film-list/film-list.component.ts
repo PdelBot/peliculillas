@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ListService } from '../../services/list.service';
 import { Film } from '../../models/film.interface';
+import { MisListasService } from '../../services/mis-listas.service';
+import { myList, myListResponse } from '../../models/my-list.interface';
 
 @Component({
   selector: 'app-film-list',
@@ -8,10 +10,11 @@ import { Film } from '../../models/film.interface';
   styleUrl: './film-list.component.css'
 })
 export class FilmListComponent implements OnInit {
-
-
+  misListas: myList[] = [];
+  selectedListId: string = "";
   page = 1;
   listadoPeliculas: Film[] = [];
+
 
   constructor(private filmService: ListService) { };
 
@@ -63,5 +66,7 @@ export class FilmListComponent implements OnInit {
   actualizarListado(nuevoListado: Film[]) {
     this.listadoPeliculas = nuevoListado;
   }
+
+  
 
 }

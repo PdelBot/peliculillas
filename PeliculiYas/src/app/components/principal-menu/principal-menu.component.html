@@ -1,7 +1,7 @@
 <app-menu></app-menu>
 
 <div class="banner-home"
-    [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(peliculaMasPopular?.poster_path || '') + ')'}">
+    [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(peliculaMasPopular?.backdrop_path || '') + ')'}">
     <div class="text">
         <h1 class="ms-3">{{peliculaMasPopular?.title}}</h1>
         <div class="detalles d-flex gap-4 ms-3">
@@ -11,10 +11,10 @@
             <p>|</p>
             <p id="temporadas">{{peliculaMasPopular?.vote_average}}</p>
         </div>
-        <a [routerLink]="['/peliculas', peliculaMasPopular?.id]">
-        <button class="watch-now btn btn-primary align-items-center justify-content-beetwen ">
-            Ver detalles</button>
-        </a>
+        
+
+        <a [routerLink]="['/peliculas', peliculaMasPopular?.id]" class="watch-now btn btn-primary align-items-center justify-content-beetwen ">Ver ahora</a>
+
     </div>
 </div>
 

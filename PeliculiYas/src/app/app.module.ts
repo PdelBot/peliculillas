@@ -19,6 +19,11 @@ import { FilmDetailsComponent } from './components/film-details/film-details.com
 import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 import { ApprovedComponent } from './components/approved/approved.component';
+import { MisListasComponent } from './components/mis-listas/mis-listas.component';
+import { MisListasDetailsComponent } from './components/mis-listas-details/mis-listas-details.component';
+import { FormsModule } from '@angular/forms';
+import { MenuRightComponent } from './shared/menu-right/menu-right.component';
+import { SerieNamePipe } from './pipes/serie-name.pipe';
 
 
 
@@ -38,13 +43,16 @@ import { ApprovedComponent } from './components/approved/approved.component';
     SerieDetailsComponent,
     PeopleDetailsComponent,
     ApprovedComponent,
-
+    MisListasComponent,
+    MisListasDetailsComponent,
+    MenuRightComponent,
+    SerieNamePipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-
+    FormsModule
   ],
   providers: [
     provideAnimationsAsync(),

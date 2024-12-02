@@ -8,6 +8,8 @@ import { FilmDetailsComponent } from './components/film-details/film-details.com
 import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 import { ApprovedComponent } from './components/approved/approved.component';
+import { MisListasComponent } from './components/mis-listas/mis-listas.component';
+import { MisListasDetailsComponent } from './components/mis-listas-details/mis-listas-details.component';
 
 const routes: Routes = [
   {path: 'principal', component: PrincipalMenuComponent},
@@ -17,7 +19,9 @@ const routes: Routes = [
   {path: 'peliculas/:id', component: FilmDetailsComponent}, 
   {path: 'series/:id', component: SerieDetailsComponent},
   {path: 'actores/:id', component: PeopleDetailsComponent},
-  { path: 'approved', component: ApprovedComponent },
+  {path: 'approved', component: ApprovedComponent },
+  {path: 'misListas', component: MisListasComponent},
+  {path: 'misListas/:id', component: MisListasDetailsComponent},
   {path: '', redirectTo: '/principal', pathMatch: 'full'},
 ];
 
