@@ -9,24 +9,22 @@ import { environment } from '../../environments/environment';
 export class RatingService {
   private apiKey = environment.apiKey;
   private apiUrl = environment.apiBaseUrl;
-  private sessionId = localStorage.getItem('session_id'); // Obtener la sesión del usuario
-  private accountId = localStorage.getItem('account_id'); // Obtener el ID del usuario
-
+  private sessionId = localStorage.getItem('session_id'); 
+  private accountId = localStorage.getItem('account_id'); 
   constructor(private http: HttpClient) {}
 
-  // Obtener la calificación del usuario para una película específica
+  // Para las peliculas
   getUserRating(movieId: number): Observable<any> {
     const url = `${this.apiUrl}/movie/${movieId}/account_states?api_key=${this.apiKey}&session_id=${this.sessionId}`;
     return this.http.get(url);
   }
 
-  // Guardar la calificación del usuario en TMDb
   saveRating(movieId: number, rating: number): Observable<any> {
     const url = `${this.apiUrl}/movie/${movieId}/rating?api_key=${this.apiKey}&session_id=${this.sessionId}`;
     return this.http.post(url, { value: rating });
   }
 
-  // Borrar la calificación del usuario en TMDb
+  
   deleteRating(movieId: number): Observable<any> {
     const url = `${this.apiUrl}/movie/${movieId}/rating?api_key=${this.apiKey}&session_id=${this.sessionId}`;
     return this.http.delete(url);
@@ -49,15 +47,20 @@ export class RatingService {
   }
 
 
-  // Para la lista de valoraciones de series 
+  // Para la lista de valoraciones 
 
   getRatedSeries(page: number): Observable<any> {
-    const sessionId = localStorage.getItem('session_id');
-    const accountId = localStorage.getItem('account_id');
   
     return this.http.get<any>(
-      `${environment.apiBaseUrl}/account/${accountId}/rated/tv?api_key=${environment.apiKey}&session_id=${sessionId}&page=${page}`
+      `${environment.apiBaseUrl}/account/${this.accountId}/rated/tv?api_key=${environment.apiKey}&session_id=${this.sessionId}&page=${page}`
     );
   }
-}
+
+
+  getRatedMovies(page: number): Observable<any> {
+    const url = `${this.apiUrl}/account/${this.accountId}/rated/movies?api_key=${this.apiKey}&session_id=${this.sessionId}&page=${page}`;
+    return this.http.get<any>(url);
+  }
   
+
+}

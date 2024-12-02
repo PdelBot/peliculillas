@@ -20,6 +20,8 @@ import { SerieDetailsComponent } from './components/serie-details/serie-details.
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 import { ApprovedComponent } from './components/approved/approved.component';
 import { RatingComponent } from './components/rating/rating.component';
+import { MenuRightComponent } from './shared/menu-right/menu-right.component';
+import { RatingPeliculasComponent } from './components/rating-peliculas/rating-peliculas.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { RatingComponent } from './components/rating/rating.component';
     PeopleDetailsComponent,
     ApprovedComponent,
     RatingComponent,
-    
+    MenuRightComponent,
+    RatingPeliculasComponent
   ],
   imports: [
     BrowserModule,

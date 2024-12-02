@@ -1,0 +1,43 @@
+<app-menu></app-menu>
+<div class="container">
+  <h2 class="title text-white">Películas Puntuadas</h2>
+  <div *ngIf="ratedMovies.length > 0; else noRatings" class="peliculas">
+    <div class="movies-list">
+      <div class="card-pelicula" *ngFor="let movie of ratedMovies">
+        <a routerLink="/movies/{{ movie.id }}" class="card-link">
+          <div style="display: flex; align-items: center;">
+            <div style="margin-right: 15px;">
+              <img [src]="getImgUrl(movie.poster_path)" alt="{{ movie.title }}" />
+            </div>
+            <div class="text text-white">
+              <h5>{{ movie.title }}</h5>
+              <p><strong>Calificación:</strong> {{ movie.rating }} / 10</p>
+              <p><strong>Fecha:</strong> {{ movie.release_date }}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Controles de paginación -->
+    <div class="pagination-controls" style="text-align: center; margin-top: 20px;">
+      <button
+        class="button"
+        [disabled]="currentPage === 1"
+        (click)="changePage(currentPage - 1)">
+        Anterior
+      </button>
+      <span class="pagination-info text-white">Página {{ currentPage }} de {{ totalPages }}</span>
+      <button
+        class="button"
+        [disabled]="currentPage === totalPages"
+        (click)="changePage(currentPage + 1)">
+        Siguiente
+      </button>
+    </div>
+  </div>
+
+  <ng-template #noRatings>
+    <p class="content">No has puntuado ninguna película aún.</p>
+  </ng-template>
+</div>

@@ -9,6 +9,7 @@ import { SerieDetailsComponent } from './components/serie-details/serie-details.
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 import { ApprovedComponent } from './components/approved/approved.component';
 import { RatingComponent } from './components/rating/rating.component';
+import { RatingPeliculasComponent } from './components/rating-peliculas/rating-peliculas.component'; 
 
 const routes: Routes = [
   {path: 'principal', component: PrincipalMenuComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'actores/:id', component: PeopleDetailsComponent},
   {path: 'approved', component: ApprovedComponent },
   {path: 'rating', component: RatingComponent },
+  {path : 'ratingPeliculas', component: RatingPeliculasComponent},
   {path: '', redirectTo: '/principal', pathMatch: 'full'},
 
 ];
