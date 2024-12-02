@@ -17,7 +17,7 @@ export class SerieNamePipe implements PipeTransform {
     }
     
    
-    this.serieService.getSeriesDetails(id, 'es').subscribe(response => {
+    this.serieService.getSeriesDetails(id).subscribe(response => {
       this.name = response.name;
     }) 
     return this.name;

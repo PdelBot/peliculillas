@@ -8,7 +8,7 @@ import { myList } from '../../models/my-list.interface';
 import { WatchListService } from '../../services/watch-list.service';
 import { FavoritesService } from '../../services/favorites.service';
 import { Serie } from '../../models/serie.interface';
-
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-serie-details',

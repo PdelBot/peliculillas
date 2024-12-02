@@ -1,10 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ListService } from '../../services/list.service';
 import { Film } from '../../models/film.interface';
-
 import { MisListasService } from '../../services/mis-listas.service';
 import { myList, myListResponse } from '../../models/my-list.interface';
-
 import { FavoritesService } from '../../services/favorites.service';
 import { WatchListService } from '../../services/watch-list.service';
 import * as bootstrap from 'bootstrap';

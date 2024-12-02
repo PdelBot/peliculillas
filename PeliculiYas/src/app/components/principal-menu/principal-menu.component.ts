@@ -23,7 +23,7 @@ export class PrincipalMenuComponent {
     this.filmService.getPopularFilm().subscribe((response) => {
       this.listadoPeliculas = response.results;
 
-      this.detailService.getFilmdeatils(this.masPopular(this.listadoPeliculas), 'es-ES').subscribe((response) =>{
+      this.detailService.getFilmdeatils(this.masPopular(this.listadoPeliculas)).subscribe((response) =>{
         this.peliculaMasPopular = response;
       })
       
