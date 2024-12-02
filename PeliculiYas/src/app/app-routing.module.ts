@@ -18,6 +18,9 @@ import { WatchListFilmComponent } from './components/watch-list-film/watch-list-
 import { WatchListSeriesComponent } from './components/watch-list-series/watch-list-series.component';
 import { SearchBarResultsComponent } from './components/search-bar-results/search-bar-results.component';
 import { FilteredResultsComponent } from './components/filtered-results/filtered-results.component';
+import { RatingComponent } from './components/rating/rating.component';
+import { RatingPeliculasComponent } from './components/rating-peliculas/rating-peliculas.component'; 
+import { RatingMenuComponent } from './components/rating-menu/rating-menu.component';
 
 const routes: Routes = [
   { path: 'principal', component: PrincipalMenuComponent },
@@ -34,11 +37,13 @@ const routes: Routes = [
   { path: 'watchlist', component: WatchListComponent },
   { path: 'watchlist/movies', component: WatchListFilmComponent },
   { path: 'watchlist/series', component: WatchListSeriesComponent },
-  { path: '', redirectTo: '/principal', pathMatch: 'full' },
   { path: 'search', component: SearchBarResultsComponent },
   { path: 'filtered-results', component: FilteredResultsComponent },
   { path: 'misListas', component: MisListasComponent },
   { path: 'misListas/:id', component: MisListasDetailsComponent },
+  {path: 'rating', component: RatingComponent },
+  {path : 'ratingPeliculas', component: RatingPeliculasComponent},
+  { path: 'ratingMenu', component: RatingMenuComponent },
   { path: '', redirectTo: '/principal', pathMatch: 'full' },
 ];
 

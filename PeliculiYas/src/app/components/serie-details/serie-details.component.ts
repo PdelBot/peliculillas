@@ -9,6 +9,7 @@ import { WatchListService } from '../../services/watch-list.service';
 import { FavoritesService } from '../../services/favorites.service';
 import { Serie } from '../../models/serie.interface';
 import * as bootstrap from 'bootstrap';
+import { RatingService } from '../../services/rating.service';
 
 @Component({
   selector: 'app-serie-details',
@@ -18,7 +19,6 @@ import * as bootstrap from 'bootstrap';
 export class SerieDetailsComponent implements OnInit {
 
   add: boolean = false;
-  
   seriesDetails: SerieDetaisResponse | undefined;
   seasonsId: Season[] = [];
   seasons: SeasonDetailsResponse[] = [];
@@ -36,10 +36,12 @@ export class SerieDetailsComponent implements OnInit {
   serieFavorite: Serie | undefined;
   currentPage: number = 1;
   seriesDetail: Serie | undefined;
+  userRatingS: number = 0;
 
 
 
-  constructor(private detailsService: DetailsService, private route: ActivatedRoute, private watchListService: WatchListService, private favoriteService: FavoritesService, private myListService: MisListasService) { }
+  constructor(private detailsService: DetailsService, private route: ActivatedRoute, 
+    private watchListService: WatchListService, private favoriteService: FavoritesService, private myListService: MisListasService, private ratingService: RatingService ) { }
 
 
   ngOnInit(): void {
@@ -123,6 +125,15 @@ export class SerieDetailsComponent implements OnInit {
         });
       });
     })
+
+    // Cargar la calificación del usuario desde TMDb
+    this.ratingService.getUserRatingS(+serieId!).subscribe({
+      next: (response) => {
+        this.userRatingS = response.rated?.value || 0; 
+      },
+      error: (err) => console.error('Error al obtener la calificación del usuario:', err),
+    });
+
 
   }
   isLoggedIn() {
@@ -257,5 +268,29 @@ export class SerieDetailsComponent implements OnInit {
     }
   }
 
+// Guardar la calificación del usuario
+saveRatingS(newRating: number): void {
+  if (this.seriesDetails) {
+    this.ratingService.saveRatingS(this.seriesDetails.id, newRating).subscribe({
+      next: () => {
+        this.userRatingS = newRating; // Actualizamos la calificación actual en la vista
+        console.log(`Calificación de ${newRating} guardada exitosamente en TMDb`);
+      },
+      error: (err) => console.error('Error al guardar la calificación en TMDb:', err),
+    });
+  }
+}
 
+// Borrar la calificación del usuario
+deleteRatingS(): void {
+  if (this.seriesDetails) {
+    this.ratingService.deleteRatingS(this.seriesDetails.id).subscribe({
+      next: () => {
+        this.userRatingS = 0; // Actualizamos la calificación actual en la vista
+        console.log('Calificación eliminada exitosamente de TMDb');
+      },
+      error: (err) => console.error('Error al eliminar la calificación en TMDb:', err),
+    });
+  }
+}
 }

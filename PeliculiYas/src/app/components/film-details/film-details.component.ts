@@ -11,7 +11,9 @@ import { MisListasService } from '../../services/mis-listas.service';
 import { Film } from '../../models/film.interface';
 import { FavoritesService } from '../../services/favorites.service';
 import { WatchListService } from '../../services/watch-list.service';
+import { RatingService } from '../../services/rating.service';
 import * as bootstrap from 'bootstrap';
+
 
 
 
@@ -39,6 +41,7 @@ export class FilmDetailsComponent implements OnInit {
   filmFavorite: Film | undefined;
   currentPage: number = 1;
   filmDetail: Film | undefined;
+  userRating: number = 0;  
 
 
   constructor(
@@ -47,11 +50,13 @@ export class FilmDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private favoriteService: FavoritesService,
     private watchListService: WatchListService,
-    private myListService: MisListasService
+    private myListService: MisListasService,
+    private ratingService: RatingService
   ) { }
 
   ngOnInit(): void {
     const filmId = this.route.snapshot.paramMap.get('id');
+    
 
     this.type = this.route.snapshot.url[0].path;
     if (this.type === "peliculas"){
@@ -131,6 +136,13 @@ export class FilmDetailsComponent implements OnInit {
       this.loadFavouriteFilms();
       this.loadAllWatchListFilms();
 
+    this.ratingService.getUserRating(+filmId).subscribe({
+      next: (response) => {
+        this.userRating = response.rated?.value || 0; 
+      },
+      error: (err) => console.error('Error al obtener la calificación del usuario:', err),
+    });
+  
     }
 
 
@@ -265,5 +277,28 @@ export class FilmDetailsComponent implements OnInit {
     }
   }
 
+  saveRating(newRating: number): void {
+    if (this.film) {
+      this.ratingService.saveRating(this.film.id, newRating).subscribe({
+        next: () => {
+          this.userRating = newRating; // Actualizamos la calificación actual en la vista
+          console.log(`Calificación de ${newRating} guardada exitosamente en TMDb`);
+        },
+        error: (err) => console.error('Error al guardar la calificación en TMDb:', err),
+      });
+    }
+  }
+
+  deleteRating(): void {
+    if (this.film) {
+      this.ratingService.deleteRating(this.film.id).subscribe({
+        next: () => {
+          this.userRating = 0; // Actualizamos la calificación actual en la vista
+          console.log('Calificación eliminada exitosamente de TMDb');
+        },
+        error: (err) => console.error('Error al eliminar la calificación en TMDb:', err),
+      });
+    }
+  }
 }
 

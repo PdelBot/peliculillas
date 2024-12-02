@@ -16,7 +16,6 @@ import { FilmListComponent } from './components/film-list/film-list.component';
 import { PeopleListComponent } from './components/people-list/people-list.component';
 import { MenuListComponent } from './shared/menu-list/menu-list.component';
 import { FilmDetailsComponent } from './components/film-details/film-details.component';
-import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 import { ApprovedComponent } from './components/approved/approved.component';
 import { FavoriteListComponent } from './components/favorite-list/favorite-list.component';
@@ -32,6 +31,11 @@ import { FilteredResultsComponent } from './components/filtered-results/filtered
 import { MisListasComponent } from './components/mis-listas/mis-listas.component';
 import { MisListasDetailsComponent } from './components/mis-listas-details/mis-listas-details.component';
 import { SerieNamePipe } from './pipes/serie-name.pipe';
+import { CommonModule } from '@angular/common';
+import { RatingMenuComponent } from './components/rating-menu/rating-menu.component';
+import { RatingComponent } from './components/rating/rating.component';
+import { RatingPeliculasComponent } from './components/rating-peliculas/rating-peliculas.component';
+import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
 
 
 @NgModule({
@@ -47,7 +51,6 @@ import { SerieNamePipe } from './pipes/serie-name.pipe';
     PeopleListComponent,
     MenuListComponent,
     FilmDetailsComponent,
-    SerieDetailsComponent,
     PeopleDetailsComponent,
     ApprovedComponent,
     FavoriteListComponent,
@@ -63,6 +66,10 @@ import { SerieNamePipe } from './pipes/serie-name.pipe';
     MisListasDetailsComponent,
     MenuRightComponent,
     SerieNamePipe,
+    RatingMenuComponent,
+    RatingComponent,
+    RatingPeliculasComponent,
+    SerieDetailsComponent
 
   ],
   imports: [
@@ -70,6 +77,7 @@ import { SerieNamePipe } from './pipes/serie-name.pipe';
     AppRoutingModule,
     NgbModule,
     FormsModule,
+    CommonModule
   ],
   providers: [
     provideAnimationsAsync(),
