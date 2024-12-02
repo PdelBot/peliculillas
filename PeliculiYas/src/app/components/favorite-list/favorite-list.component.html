@@ -23,7 +23,7 @@
 
       <div class="listas">
         <div class="card card-list" [ngStyle]="{
-          'background': 'linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.801)), no-repeat center/cover url(https://preview.redd.it/i-could-not-find-a-minimal-op-desktop-background-i-liked-so-v0-kzqx7h08k2fa1.png?width=1080&crop=smart&auto=webp&s=83e9db11cab55993b1fd9290dc95f6b715b96664)'
+          'background': 'linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.801)), no-repeat center/cover url('+getFilmPosterPath() + ')'
         }">
           <div class="text-list">
             <h1>Películas Favoritas</h1>
@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="card card-list" [ngStyle]="{
-            'background': 'linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.801)), no-repeat center/cover url(https://preview.redd.it/i-could-not-find-a-minimal-op-desktop-background-i-liked-so-v0-kzqx7h08k2fa1.png?width=1080&crop=smart&auto=webp&s=83e9db11cab55993b1fd9290dc95f6b715b96664)'
+            'background': 'linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.801)), no-repeat center/cover url( '+getSeriePosterPath() + ')'
           }">
           <div class="text-list">
             <h1>Series Favoritas</h1>

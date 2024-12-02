@@ -4,6 +4,8 @@ import { FavoriteFilmResponse, FilmFavorite } from '../../models/favorite-film-l
 import { Film } from '../../models/film.interface';
 import { FavoritesService } from '../../services/favorites.service';
 import { Router } from '@angular/router';
+import { FavoriteSerie } from '../../models/favorite-serie.interface';
+import { Serie } from '../../models/serie.interface';
 
 @Component({
   selector: 'app-favorite-list',
@@ -12,7 +14,10 @@ import { Router } from '@angular/router';
 })
 export class FavoriteListComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private favoriteService: FavoritesService) { }
+
+  favoriteFilms: FilmFavorite[] = [];
+  favoriteSeries: Serie[] = [];
 
   userName = '';
   userPhoto = '';
@@ -28,9 +33,22 @@ export class FavoriteListComponent implements OnInit {
       )}`
       : '';
 
+      this.loadFavoriteFilms();
+      this.loadFavoriteSeries();
 
+  }
+  loadFavoriteFilms(): void {
+    this.favoriteService.getAllFavoriteFilms().subscribe(response => {
+      this.favoriteFilms = response;
+      console.log('Series en la lista de seguimiento cargadas:', this.favoriteFilms);
+    });
+  }
 
-
+  loadFavoriteSeries(): void {
+    this.favoriteService.getAllFavoriteSeries().subscribe(response => {
+      this.favoriteSeries = response;
+      console.log('Series en la lista de seguimiento cargadas:', this.favoriteFilms);
+    });
   }
 
   navigateToMovies(): void {
@@ -59,5 +77,22 @@ export class FavoriteListComponent implements OnInit {
     }
     return this.userPhoto;
 
+  }
+  getFilmPosterPath(): string {
+
+    if (this.favoriteFilms.length === 0) {
+      return 'https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg';
+    } else {
+
+      return `https://image.tmdb.org/t/p/w500${this.favoriteFilms[0].poster_path}`;
+    }
+  }
+  getSeriePosterPath(): string {
+    if (this.favoriteFilms.length === 0) {
+      return 'https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg';
+    } else {
+
+      return `https://image.tmdb.org/t/p/w500${this.favoriteSeries[0].poster_path}`;
+    }
   }
 }

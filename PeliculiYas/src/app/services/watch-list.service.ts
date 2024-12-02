@@ -40,6 +40,7 @@ export class WatchListService {
       `${environment.apiBaseUrl}/account/${accountId}/watchlist/movies?api_key=${environment.apiKey}&session_id=${sessionId}&page=${page}&language=${language}`
     );
   }
+
   getAllWatchListFilms(): Observable<Film[]> {
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');
@@ -63,6 +64,7 @@ export class WatchListService {
       switchMap(obs => obs)
     );
   }
+
   deleteFilmFromWatchList(film: Film): Observable<any> {
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');

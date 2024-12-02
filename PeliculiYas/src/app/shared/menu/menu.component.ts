@@ -18,7 +18,7 @@ export class MenuComponent implements OnInit {
   query = '';
 
 
-  constructor(private authService: AuthService, private languageService: LanguageSelectorService, private router : Router) { }
+  constructor(private authService: AuthService, private languageService: LanguageSelectorService, private router: Router) { }
 
   ngOnInit(): void {
     this.userName = localStorage.getItem('user_name') ?? '';
@@ -27,13 +27,13 @@ export class MenuComponent implements OnInit {
         'user_photo'
       )}`
       : '';
-      this.languageService.getLanguages().subscribe(response => {
-        this.languages = response;
-      });
-  
-      this.languageService.selectedLanguage$.subscribe(language => {
-        this.selectedLanguage = language;
-      });
+    this.languageService.getLanguages().subscribe(response => {
+      this.languages = response;
+    });
+
+    this.languageService.selectedLanguage$.subscribe(language => {
+      this.selectedLanguage = language;
+    });
   }
 
   private prevScrollPos: number = window.scrollY;
@@ -80,14 +80,13 @@ export class MenuComponent implements OnInit {
     return this.userPhoto;
 
   }
- 
+
   onLanguageChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     const language = selectElement.value;
     this.languageService.setSelectedLanguage(language);
     console.log('Selected language:', this.selectedLanguage);
     window.location.reload();
-    // Aquí puedes añadir la lógica para cambiar el idioma de la aplicación
   }
 
   search() {
