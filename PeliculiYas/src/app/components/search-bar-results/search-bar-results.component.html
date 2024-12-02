@@ -4,35 +4,90 @@
     <div class="listado col-9">
         <app-menu-list></app-menu-list>
         <div class="mt-5">
-            <h3>Películas</h3>
+            <h3 class="text-white"  >Películas</h3>
             <div class="listado-pelis">
-                @for (pelicula of peliculas; track pelicula.id) {
-
-                <div class="card-container">
-                    <a [routerLink]="['/peliculas', pelicula.id]">
-                        <div class="card card-film"
-                            [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(pelicula?.poster_path || '') + ')'}">
-                            <div class="valoracion-film" [ngStyle]="getColor({ valoracion: pelicula.vote_average })">
-                                <h2 class="text-white">{{pelicula.vote_average | roundedVote}}</h2>
-                            </div>
-                            <div class="text-card">
-                                <h3 class="ms-4">{{pelicula.title}}</h3>
-                                <div class="detalles d-flex gap-4 ms-4 mb-3">
-                                    <p id="fecha">{{pelicula.release_date}}</p>
-                                    <p>|</p>
-                                </div>
-                            </div>
+                @for (pelicula of listadoPeliculas; track pelicula.id) {
+                <div class="card card-serie"
+                    [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(pelicula?.poster_path || '') + ')'}">
+                    @if (isLoggedIn()) {
+                    <div class="dropdown">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="bi bi-plus-circle-fill"></i>
                         </div>
+
+                        <div class="dropdown-content">
+
+                            <i>
+                                <button class="favorite-button"
+                                    (click)="isAddedFilm(pelicula) ? removeFromFavouritesFilm(pelicula) : addToFavouritesFilm(pelicula)">
+                                    <label class="container">
+                                        <input type="checkbox" [checked]="isAddedWatchListFilms(pelicula)">
+                                        <div class="checkmark">
+                                            <svg viewBox="0 0 256 256">
+                                                <rect fill="none" height="256" width="256"></rect>
+                                                <path [attr.fill]="isAddedFilm(pelicula) ? 'red' : 'none'"
+                                                    [attr.stroke]="isAddedFilm(pelicula) ? 'none' : 'black'"
+                                                    d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z"
+                                                    stroke-width="20px"></path>
+                                            </svg>
+                                        </div>
+                                    </label>
+                                </button>
+
+
+                            </i>
+
+
+                            <i>
+                                <button class="favorite-button"
+                                    (click)="isAddedWatchListFilms(pelicula) ? removeFromWatchListFilms(pelicula) : addToWatchlistFilms(pelicula)">
+                                    <label class="ui-bookmark">
+                                        <input type="checkbox">
+                                        <div class="bookmark">
+                                            <svg viewBox="0 0 32 32">
+                                                <g>
+                                                    <path
+                                                        [attr.fill]="isAddedWatchListFilms(pelicula) ? 'gold' : 'grey'"
+                                                        [attr.stroke]="isAddedWatchListFilms(pelicula) ? 'none' : 'black'"
+                                                        d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z">
+                                                    </path>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </label>
+                                </button>
+                            </i>
+                            <i class="bi bi-plus-lg"></i>
+                        </div>
+                    </div>
+                    }
+                    <div class="valoracion-serie justify-content-beetwen"
+                        [ngStyle]="getColor({ valoracion: pelicula.vote_average })">
+                        <h2 class="text-white">{{pelicula.vote_average | roundedVote}}</h2>
+                    </div>
+                    <a [routerLink]="['/peliculas', pelicula.id]">
+                        <div class="text-card">
+                            <h3 class="ms-4">{{pelicula.title}}</h3>
+                            <div class="detalles d-flex gap-4 ms-4 mb-3">
+                                <p id="fecha">{{pelicula.release_date}}</p>
+                                <p>|</p>
+                                <p id="temporadas">{{getFirstGenreNameFilms(pelicula.genre_ids)}}</p>
+
+                            </div>
+
+
+                        </div>
+
                     </a>
                 </div>
                 }
             </div>
             <br>
 
-            <h3>Series</h3>
+            <h3 class="text-white" >Series</h3>
             <div class="listado-pelis">
 
-                @for (serie of series; track serie.id) {
+                @for (serie of listadoSeries; track serie.id) {
                 <div class="card-container">
                     <a [routerLink]="['/series', serie.id]">
                         <div class="card card-serie"
@@ -50,11 +105,81 @@
                         </div>
                     </a>
                 </div>
+                <div class="card card-serie"
+                    [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(serie?.poster_path || '') + ')'}">
+                    @if (isLoggedIn()) {
+                    <div class="dropdown">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="bi bi-plus-circle-fill"></i>
+                        </div>
+
+                        <div class="dropdown-content">
+
+                            <i>
+                                <button class="favorite-button"
+                                    (click)="isAddedSerie(serie) ? removeFromFavouritesSerie(serie) : addToFavouritesSerie(serie)">
+                                    <label class="container">
+                                        <input type="checkbox" [checked]="isAddedWatchListSerie(serie)">
+                                        <div class="checkmark">
+                                            <svg viewBox="0 0 256 256">
+                                                <rect fill="none" height="256" width="256"></rect>
+                                                <path [attr.fill]="isAddedSerie(serie) ? 'red' : 'none'"
+                                                    [attr.stroke]="isAddedSerie(serie) ? 'none' : 'black'"
+                                                    d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z"
+                                                    stroke-width="20px"></path>
+                                            </svg>
+                                        </div>
+                                    </label>
+                                </button>
+                            </i>
+
+
+                            <i>
+                                <button class="favorite-button"
+                                    (click)="isAddedWatchListSerie(serie) ? removeFromWatchListSerie(serie) : addToWatchlistSerie(serie)">
+                                    <label class="ui-bookmark">
+                                        <input type="checkbox">
+                                        <div class="bookmark">
+                                            <svg viewBox="0 0 32 32">
+                                                <g>
+                                                    <path [attr.fill]="isAddedWatchListSerie(serie) ? 'gold' : 'grey'"
+                                                        [attr.stroke]="isAddedWatchListSerie(serie) ? 'none' : 'black'"
+                                                        d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z">
+                                                    </path>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </label>
+                                </button>
+                            </i>
+                            <i class="bi bi-plus-lg"></i>
+                        </div>
+                    </div>
+                    <div class="valoracion-serie justify-content-beetwen"
+                        [ngStyle]="getColor({ valoracion: serie.vote_average })">
+
+
+                        <h2 class="text-white">{{serie.vote_average | roundedVote}}</h2>
+
+                    </div>
+                    }
+                    <a [routerLink]="['/series', serie.id]">
+                        <div class="text-card">
+                            <h3 class="ms-4">{{serie.name}}</h3>
+                            <div class="detalles d-flex gap-4 ms-4 mb-3">
+                                <p id="fecha">{{serie.first_air_date}}</p>
+                                <p>|</p>
+                                <p id="temporadas">{{serie.origin_country}}</p>
+                            </div>
+                        </div>
+
+                    </a>
+                </div>
                 }
             </div>
             <br>
             x
-            <h3>Personas</h3>
+            <h3 class="text-white" >Personas</h3>
             <div class="listado-pelis">
 
                 @for (actor of actores; track actor.id) {

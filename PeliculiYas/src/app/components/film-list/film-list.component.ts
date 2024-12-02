@@ -141,8 +141,6 @@ export class FilmListComponent implements OnInit {
   isAdded(film: Film): boolean {
 
     return this.favouriteFilms.some(favouriteFilm => favouriteFilm.id === film.id);
-
-
   }
 
 
