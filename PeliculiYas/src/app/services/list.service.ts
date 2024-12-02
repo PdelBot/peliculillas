@@ -4,8 +4,10 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SerieListResponse } from '../models/serie.interface';
 import { ActorListResponse } from '../models/people.interface';
+import { environment } from '../../environments/environments';
 
-const ACCESS_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMjA0YWMyNTA4ZmFmYTllN2Y5YjU0NDY1OGFjYjI1MCIsIm5iZiI6MTczMTY3Njk0NC43Mzg4MjcyLCJzdWIiOiI2NzMxYmRkNzYxNjI2YWMxMDZiZTY4MDMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.fE-T_bfqIFWaQZ3YjfPigPZFwtmGaCJ50Zf4dAnov4c'
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +26,7 @@ export class ListService {
   getPopularFilm(): Observable<FilmListResponse> {
     return this.http.get<FilmListResponse>('https://api.themoviedb.org/3/movie/popular?language=es-US&page=1', {
       headers: {
-        'Authorization': `Bearer ${ACCESS_TOKEN}`
+        'Authorization': `Bearer ${environment.accessToken}`
       }
     });
   }
@@ -32,7 +34,7 @@ export class ListService {
   getOneFilm (id:number): Observable<Film>{
     return this.http.get<Film>(`https://api.themoviedb.org/3/movie/${id}`, {
       headers: {
-        'Authorization': `Bearer ${ACCESS_TOKEN}`,
+        'Authorization': `Bearer ${environment.accessToken}`,
       }
     })
   }
@@ -42,7 +44,7 @@ export class ListService {
   getPopularSeries(): Observable<SerieListResponse> {
     return this.http.get<SerieListResponse>(`https://api.themoviedb.org/3/tv/popular?language=es-US&page=1`, {
       headers: {
-        'Authorization': `Bearer ${ACCESS_TOKEN}`,
+        'Authorization': `Bearer ${environment.accessToken}`,
       }
     });
   }
@@ -52,7 +54,7 @@ export class ListService {
   getActors(): Observable<ActorListResponse> {
     return this.http.get<ActorListResponse>(`https://api.themoviedb.org/3/person/popular?language=es-US&page=1`, {
       headers: {
-        'Authorization': `Bearer ${ACCESS_TOKEN}`,
+        'Authorization': `Bearer ${environment.accessToken}`,
       }
     });
   }
@@ -62,7 +64,7 @@ export class ListService {
   getFilmPage(page: number): Observable<FilmListResponse> {
     return this.http.get<FilmListResponse>(`https://api.themoviedb.org/3/movie/popular?language=es-US&page=${page}`, {
       headers: {
-        'Authorization': `Bearer ${ACCESS_TOKEN}`,
+        'Authorization': `Bearer ${environment.accessToken}`,
       }
     });
   }
@@ -70,7 +72,7 @@ export class ListService {
   getSeriesPage(page: number): Observable<SerieListResponse> {
     return this.http.get<SerieListResponse>(`https://api.themoviedb.org/3/tv/popular?language=es-US&page=${page}`, {
       headers: {
-        'Authorization': `Bearer ${ACCESS_TOKEN}`,
+        'Authorization': `Bearer ${environment.accessToken}`,
       }
     });
   }
@@ -78,7 +80,7 @@ export class ListService {
   getActorPage(page: number): Observable<ActorListResponse> {
     return this.http.get<ActorListResponse>(`https://api.themoviedb.org/3/person/popular?language=es-US&page=${page}`, {
       headers: {
-        'Authorization': `Bearer ${ACCESS_TOKEN}`,
+        'Authorization': `Bearer ${environment.accessToken}`,
       }
     });
   }
@@ -96,7 +98,7 @@ export class ListService {
   private loadGenres() {
     this.http.get<{ genres: { id: number, name: string }[] }>('https://api.themoviedb.org/3/genre/movie/list?language=es-US', {
       headers: {
-        'Authorization': `Bearer ${ACCESS_TOKEN}`,
+        'Authorization': `Bearer ${environment.accessToken}`,
       }
     }).subscribe(response => {
       response.genres.forEach(genre => {

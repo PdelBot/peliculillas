@@ -26,7 +26,7 @@ export class MisListasDetailsComponent implements OnInit {
   editar: boolean = false;
   newName: string = "";
   newDescription: string = "";
-  
+
 
 
 
@@ -71,7 +71,7 @@ export class MisListasDetailsComponent implements OnInit {
 
     this.prevScrollPos = currentScrollPos;
 
-    
+
 
   }
 
@@ -111,8 +111,10 @@ export class MisListasDetailsComponent implements OnInit {
 
   delete(idFilm: number, id: number, type: string) {
     return this.mylistService.delete(idFilm, id, type).subscribe(response => {
-      console.log('borrado correctamente', response)
-      window.location.reload();
+      console.log('borrado correctamente', response);
+      this.mylistService.getDetailsList(this.idList).subscribe(response => {
+        this.list = response;
+      });
     }
     )
   }

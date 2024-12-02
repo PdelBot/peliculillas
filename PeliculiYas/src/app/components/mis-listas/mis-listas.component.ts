@@ -3,7 +3,10 @@ import { AuthService } from '../../services/auth.service';
 import { ListService } from '../../services/list.service';
 import { MisListasService } from '../../services/mis-listas.service';
 import { myList, myListResponse } from '../../models/my-list.interface';
-import { myListDetailsResponse } from '../../models/my-list-details.interface';
+import { filmList, myListDetailsResponse } from '../../models/my-list-details.interface';
+import { Film } from '../../models/film.interface';
+import { Serie } from '../../models/serie.interface';
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-mis-listas',
@@ -24,6 +27,9 @@ export class MisListasComponent implements OnInit {
   listDetails: myListDetailsResponse | undefined;
   selectedListId: number = -1;
   existe: boolean = false;
+  items: filmList[] = [];
+  lista: myListDetailsResponse | undefined;
+  
 
   constructor(private authService: AuthService, private mylistService: MisListasService) { }
   ngOnInit(): void {
@@ -34,9 +40,13 @@ export class MisListasComponent implements OnInit {
       )}`
       : '';
 
+      this.verificarImg()
+
+
     this.mylistService.getListas().subscribe((response) => {
       this.misListas = response.results;
     });
+    
 
 
   }
@@ -57,7 +67,14 @@ export class MisListasComponent implements OnInit {
     }
 
     this.prevScrollPos = currentScrollPos;
+
+  
+  
   }
+
+
+
+
   createRequestToken() {
     this.authService.createRequestToken().subscribe((response) => {
       localStorage.setItem('token', response.request_token);
@@ -78,6 +95,7 @@ export class MisListasComponent implements OnInit {
 
   verificarImg() {
     const partes: string[] = this.userPhoto.split("/").filter(part => part !== '');
+    console.log(this.userPhoto)
 
     if (partes[partes.length - 1] === "originalnull") {
       this.userPhoto = "https://static.wikia.nocookie.net/mamarre-estudios-espanol/images/9/9f/Benjamin.png/revision/latest?cb=20201222175350&path-prefix=es"
@@ -90,6 +108,8 @@ export class MisListasComponent implements OnInit {
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
     return `${baseUrl}${this.banner}`;
   }
+
+ 
 
   createList() {
     this.misListas.forEach(lista => {
@@ -170,4 +190,22 @@ export class MisListasComponent implements OnInit {
     }
   }
 
+  
+  
+  
+
+  getFullImg(poster: string): string {
+    const baseUrl = 'https://image.tmdb.org/t/p/w500';
+    if (!poster) {
+      console.warn('Poster path vacío o indefinido.');
+      return 'assets/default-image.jpg'; // Opcional: imagen por defecto
+    }
+    return `${baseUrl}${poster}`;
+  }
+
+  
+  
+  
+  
+ 
 }

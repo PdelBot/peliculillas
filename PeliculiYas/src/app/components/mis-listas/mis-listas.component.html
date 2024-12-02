@@ -3,7 +3,7 @@
     <div class="text">
         @if (isLoggedIn()) {
         <div class="d-flex justify-content-start align-items-start gap-3">
-            <img [src]="verificarImg()" alt="avatar" class="avatar" />
+            <img [src]="userPhoto" alt="avatar" class="avatar" />
             <p class="username">{{userName}}</p>
         </div>
         }
@@ -66,10 +66,10 @@
             </div>
             }@else{
             <div class="listas">
-                @for (list of misListas; track list.id) {
+                <div *ngFor="let list of misListas">
                 <a [routerLink]="['/misListas', list.id]">
                     <div class="card card-list" [ngStyle]="{
-                            'background': 'linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.801)), no-repeat center/cover url(https://preview.redd.it/i-could-not-find-a-minimal-op-desktop-background-i-liked-so-v0-kzqx7h08k2fa1.png?width=1080&crop=smart&auto=webp&s=83e9db11cab55993b1fd9290dc95f6b715b96664)'
+                            'background': 'linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.801)), no-repeat center/cover url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI_3Y9V7xx2X31XhNIYE53QCidDkrQgxm9tg&s)'
                           }">
                         <div class="text-list">
                             <h1>{{list.name}}</h1>
@@ -78,7 +78,7 @@
                         </div>
                     </div>
                 </a>
-                }
+            </div>
             </div>
     
             }
