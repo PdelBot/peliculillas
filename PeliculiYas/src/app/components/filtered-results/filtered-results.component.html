@@ -1,0 +1,61 @@
+<div class="films d-flex row">
+    <app-menu-lateral class="col-2"></app-menu-lateral>
+    <div class="listado col-9">
+        <app-menu-list></app-menu-list>
+        <div class="content-container">
+            @if (tipo === "peliculas") {
+            <div>
+                <div class="listado-pelis">
+                    @for (pelicula of listadoPeliculas; track pelicula.id) {
+                    <div class="card-container">
+                        <a [routerLink]="['/peliculas', pelicula.id]">
+                            <div class="card card-film"
+                                [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(pelicula?.poster_path || '') + ')'}">
+                                <div class="valoracion-film"
+                                    [ngStyle]="getColor({ valoracion: pelicula.vote_average })">
+                                    <h2 class="text-white">{{pelicula.vote_average | roundedVote}}</h2>
+                                </div>
+                                <div class="text-card">
+                                    <h3 class="ms-4">{{pelicula.title}}</h3>
+                                    <div class="detalles d-flex gap-4 ms-4 mb-3">
+                                        <p id="fecha">{{pelicula.release_date}}</p>
+                                        <p>|</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+                    }
+                </div>
+            </div>
+            }
+            @if (tipo === "series") {
+            <div>
+                <div class="listado-pelis">
+                    @for(serie of listadoSeries; track serie.id) {
+                    <div class="card-container">
+                        <a [routerLink]="['/series', serie.id]">
+                            <div class="card card-serie"
+                                [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(serie?.poster_path || '') + ')'}">
+                                <div class="valoracion-serie" [ngStyle]="getColor({ valoracion: serie.vote_average })">
+                                    <h2 class="text-white">{{serie.vote_average | roundedVote}}</h2>
+                                </div>
+                                <div class="text-card">
+                                    <h3 class="ms-4">{{serie.name}}</h3>
+                                    <div class="detalles d-flex gap-4 ms-4 mb-3">
+                                        <p id="fecha">{{serie.first_air_date}}</p>
+                                        <p>|</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    }
+                </div>
+
+            </div>
+            }
+        </div>
+    </div>
+</div>

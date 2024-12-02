@@ -12,7 +12,7 @@ import { ListService } from '../../services/list.service';
 })
 export class SearchBarResultsComponent implements OnInit {
 
-  query: string = '';
+  query = '';
   peliculas: Film[] = [];
   series: Serie[] = [];
   actores: Actor[] = [];

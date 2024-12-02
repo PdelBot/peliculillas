@@ -22,6 +22,7 @@
     max-width: 300px;
     margin: 10px;
 }
+
 .card-film,
 .card-serie,
 .card-actor {
@@ -34,7 +35,7 @@
 
 
 .valoracion-film,
-.valoracion-serie{
+.valoracion-serie {
     width: 2.5em;
     height: 2.5em;
     text-align: center;
@@ -50,26 +51,22 @@
     opacity: 0.9;
 }
 
-.text-card {
+.text-card{
     height: 110px;
-    background-color: rgba(255, 255, 255, 80%);
+    background-color:rgba(255, 255, 255, 80%);
     border-radius: 0px 0px 10px 10px / 0px 0px 10px 10px;
     padding-top: 20px;
     color: black;
 }
 
-.text-card h3 {
+.text-card h3{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
-    font-size: clamp(18px, 1.2vw, 50px);
-    /* Ajustar texto dinámicamente */
-    line-height: 1.2;
-    /* Espaciado entre líneas */
-    word-wrap: break-word;
-    /* Romper palabras largas */
+    font-size: clamp(18px, 1.2vw, 50px); /* Ajustar texto dinámicamente */
+    line-height: 1.2; /* Espaciado entre líneas */
+    word-wrap: break-word; /* Romper palabras largas */
 }
-
 
 .text-card .detalles {
     font-size: 14px;

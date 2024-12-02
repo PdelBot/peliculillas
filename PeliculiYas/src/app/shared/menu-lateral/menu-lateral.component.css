@@ -5,6 +5,7 @@
   width: 275px;
   box-shadow: 2px 0px 100px #894dd1;
   position:fixed;
+  z-index: 1000;
   
 }
 

@@ -3,6 +3,7 @@ import { Film } from '../../models/film.interface';
 import { ListService } from '../../services/list.service';
 import { Serie } from '../../models/serie.interface';
 import { Genre } from '../../models/genre.interface';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -25,14 +26,16 @@ export class MenuLateralComponent implements OnInit {
   listadoSeriesFiltrado: Serie[] = [];
   @Output() listadoFilmChange = new EventEmitter<Film[]>();
   @Output() listadoSeriesChange = new EventEmitter<Serie[]>();
+  currentSort = 'popularity.desc';
+  currentPage = 1;
 
 
 
-  constructor(private listService: ListService) { }
+  constructor(private listService: ListService,  private router: Router) { }
 
+ 
   ngOnInit() {
     this.cargarGeneros();
-    this.buscar('popularity.desc', 1);
   }
 
   cargarGeneros() {
@@ -47,32 +50,52 @@ export class MenuLateralComponent implements OnInit {
     }
   }
 
-  buscar(criterio: string, page: number = 1) {
+  buscar(sort: string, page: number) {
+    this.currentSort = sort;
+    this.currentPage = page;
+
     if (this.tipo === 'peliculas') {
-      this.listService.getOrderedFilms(criterio, this.generosSelecionados, page).subscribe(response => {
-        this.listadoPeliculas = response.results;
-        this.listadoFilmChange.emit(this.listadoPeliculas);
+      this.listService.getAllFilteredFilms(sort, this.generosSelecionados).subscribe((data: Film[]) => {
+        this.listadoPeliculas = data;
+        this.aplicarFiltros();
+        this.router.navigate(['/filtered-results'], { queryParams: { tipo: this.tipo, generos: this.generosSelecionados.join(','), sort: this.currentSort } });
       });
     } else if (this.tipo === 'series') {
-      this.listService.getOrderedSeries(criterio, this.generosSelecionados, page).subscribe(response => {
-        this.listadoSeries = response.results;
-        this.listadoSeriesChange.emit(this.listadoSeries);
+      this.listService.getAllFilteredSeries(sort, this.generosSelecionados).subscribe((data: Serie[]) => {
+        this.listadoSeries = data;
+        this.aplicarFiltros();
+        this.router.navigate(['/filtered-results'], { queryParams: { tipo: this.tipo, generos: this.generosSelecionados.join(','), sort: this.currentSort } });
       });
     }
   }
 
-  toggleGenre(id: number) {
-    const index = this.generosSelecionados.indexOf(id);
+  aplicarFiltros() {
+    if (this.tipo === 'peliculas') {
+      this.listadoPeliculasFiltrado = this.listadoPeliculas.filter(pelicula => 
+        this.generosSelecionados.length === 0 || this.generosSelecionados.includes(pelicula.genre_ids[0])
+      );
+      this.listadoFilmChange.emit(this.listadoPeliculasFiltrado);
+    } else if (this.tipo === 'series') {
+      this.listadoSeriesFiltrado = this.listadoSeries.filter(serie => 
+        this.generosSelecionados.length === 0 || this.generosSelecionados.includes(serie.genre_ids[0])
+      );
+      this.listadoSeriesChange.emit(this.listadoSeriesFiltrado);
+    }
+  }
+
+  toggleGenre(generoId: number) {
+    const index = this.generosSelecionados.indexOf(generoId);
     if (index > -1) {
       this.generosSelecionados.splice(index, 1);
     } else {
-      this.generosSelecionados.push(id);
+      this.generosSelecionados.push(generoId);
     }
   }
 
-  changePage(page: number, criterio: string) {
-    this.buscar(criterio, page);
+  onPageChange(page: number) {
+    this.buscar(this.currentSort, page);
   }
+
 
   desplegable() {
     this.isOpen = !this.isOpen;

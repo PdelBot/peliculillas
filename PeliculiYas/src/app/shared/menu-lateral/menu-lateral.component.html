@@ -24,17 +24,18 @@
                 <label for="genero">Género:</label>
                 @for (genero of generos; track genero.id) {
                 <div>
-                    <input type="checkbox" id="genero{{genero.id}}" value="{{genero.id}}"
+                    <input type="checkbox" id="genero{{genero.id}}" [value]="genero.id"
                         (change)="toggleGenre(genero.id)">
                     <label for="genero{{genero.id}}">{{genero.name}}</label>
                 </div>
                 }
             </div>
-            <button (click)="buscar(ordenSelectPeliculas.value)">Buscar</button>
+            <button (click)="buscar(ordenSelectPeliculas.value, currentPage)">Buscar</button>
             }
         </div>
 
-        <div *ngIf="tipo === 'series'">
+        <div>
+            @if (tipo=="series") {
             <label for="orden2">Ordenar por:</label>
             <select id="orden2" #ordenSelectSeries>
                 <option value="popularity.asc">Popularidad Ascendente</option>
@@ -52,6 +53,7 @@
                 </div>
                 }
             </div>
-            <button (click)="buscar(ordenSelectSeries.value)">Buscar</button>
+            <button (click)="buscar(ordenSelectSeries.value, currentPage)">Buscar</button>
+            }
         </div>
     </div>

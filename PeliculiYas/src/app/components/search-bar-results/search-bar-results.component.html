@@ -1,63 +1,74 @@
-<div>
-    <app-menu></app-menu>
+<div class="films d-flex row">
 
-</div>
-<div class="search-results mt-5">
-    <div *ngIf="peliculas.length" class="mt-5">
-        <h3>Películas</h3>
-        <div class="cards d-flex flex-wrap">
-            <div *ngFor="let pelicula of peliculas" class="card-container">
-                <a [routerLink]="['/peliculas', pelicula.id]">
-                    <div class="card card-film"
-                        [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(pelicula?.poster_path || '') + ')'}">
-                        <div class="valoracion-film" [ngStyle]="getColor({ valoracion: pelicula.vote_average })">
-                            <h2 class="text-white">{{pelicula.vote_average | roundedVote}}</h2>
-                        </div>
-                        <div class="text-card">
-                            <h3 class="ms-4">{{pelicula.title}}</h3>
-                            <div class="detalles d-flex gap-4 ms-4 mb-3">
-                                <p id="fecha">{{pelicula.release_date}}</p>
-                                <p>|</p>
+    <app-menu-lateral class="col-2"></app-menu-lateral>
+    <div class="listado col-9">
+        <app-menu-list></app-menu-list>
+        <div class="mt-5">
+            <h3>Películas</h3>
+            <div class="listado-pelis">
+                @for (pelicula of peliculas; track pelicula.id) {
+
+                <div class="card-container">
+                    <a [routerLink]="['/peliculas', pelicula.id]">
+                        <div class="card card-film"
+                            [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(pelicula?.poster_path || '') + ')'}">
+                            <div class="valoracion-film" [ngStyle]="getColor({ valoracion: pelicula.vote_average })">
+                                <h2 class="text-white">{{pelicula.vote_average | roundedVote}}</h2>
+                            </div>
+                            <div class="text-card">
+                                <h3 class="ms-4">{{pelicula.title}}</h3>
+                                <div class="detalles d-flex gap-4 ms-4 mb-3">
+                                    <p id="fecha">{{pelicula.release_date}}</p>
+                                    <p>|</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
+                }
             </div>
-        </div>
-    </div>
-    <div *ngIf="series.length" class="mt-5">
-        <h3>Series</h3>
-        <div class="cards d-flex flex-wrap">
-            <div *ngFor="let serie of series" class="card-container">
-                <a [routerLink]="['/series', serie.id]">
-                    <div class="card card-serie"
-                        [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(serie?.poster_path || '') + ')'}">
-                        <div class="valoracion-serie" [ngStyle]="getColor({ valoracion: serie.vote_average })">
-                            <h2 class="text-white">{{serie.vote_average | roundedVote}}</h2>
-                        </div>
-                        <div class="text-card">
-                            <h3 class="ms-4">{{serie.name}}</h3>
-                            <div class="detalles d-flex gap-4 ms-4 mb-3">
-                                <p id="fecha">{{serie.first_air_date}}</p>
-                                <p>|</p>
+            <br>
+
+            <h3>Series</h3>
+            <div class="listado-pelis">
+
+                @for (serie of series; track serie.id) {
+                <div class="card-container">
+                    <a [routerLink]="['/series', serie.id]">
+                        <div class="card card-serie"
+                            [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(serie?.poster_path || '') + ')'}">
+                            <div class="valoracion-serie" [ngStyle]="getColor({ valoracion: serie.vote_average })">
+                                <h2 class="text-white">{{serie.vote_average | roundedVote}}</h2>
+                            </div>
+                            <div class="text-card">
+                                <h3 class="ms-4">{{serie.name}}</h3>
+                                <div class="detalles d-flex gap-4 ms-4 mb-3">
+                                    <p id="fecha">{{serie.first_air_date}}</p>
+                                    <p>|</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
+                }
             </div>
-        </div>
-    </div>
-    <div *ngIf="actores.length" class="mt-5">
-        <h3>Personas</h3>
-        <div class="cards d-flex flex-wrap">
-            <div *ngFor="let actor of actores" class="card-container">
-                <a [routerLink]="['/personas', actor.id]">
-                    <div class="card card-actor"
-                    [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(actor?.profile_path || '') + ')'}">                        <div class="text-card">
-                            <h3 class="ms-4">{{actor.name}}</h3>
+            <br>
+            x
+            <h3>Personas</h3>
+            <div class="listado-pelis">
+
+                @for (actor of actores; track actor.id) {
+                <div class="card-container">
+                    <a [routerLink]="['/personas', actor.id]">
+                        <div class="card card-actor"
+                            [ngStyle]="{'background': 'no-repeat center/cover url(' + getFullImagePath(actor?.profile_path || '') + ')'}">
+                            <div class="text-card">
+                                <h3 class="ms-4">{{actor.name}}</h3>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
+                }
             </div>
         </div>
     </div>
