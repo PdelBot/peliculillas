@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -10,6 +10,7 @@ export class RatingService {
   private apiKey = environment.apiKey;
   private apiUrl = environment.apiBaseUrl;
   private sessionId = localStorage.getItem('session_id'); // Obtener la sesión del usuario
+  private accountId = localStorage.getItem('account_id'); // Obtener el ID del usuario
 
   constructor(private http: HttpClient) {}
 
@@ -48,16 +49,15 @@ export class RatingService {
   }
 
 
-  // Para la lista de valoraciones
+  // Para la lista de valoraciones de series 
 
-getRatedSeries(): Observable<any> {
-  const url = `${this.apiUrl}/account/{account_id}/rated/tv?api_key=${this.apiKey}&session_id=${this.sessionId}&language=es-ES`;
-  return this.http.get(url);
-}
-
-
-
+  getRatedSeries(page: number): Observable<any> {
+    const sessionId = localStorage.getItem('session_id');
+    const accountId = localStorage.getItem('account_id');
   
-
+    return this.http.get<any>(
+      `${environment.apiBaseUrl}/account/${accountId}/rated/tv?api_key=${environment.apiKey}&session_id=${sessionId}&page=${page}`
+    );
+  }
 }
   
