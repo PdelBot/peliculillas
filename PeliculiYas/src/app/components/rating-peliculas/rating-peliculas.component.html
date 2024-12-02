@@ -1,4 +1,16 @@
 <app-menu></app-menu>
+<div class="banner" [ngStyle]="{'background': 'no-repeat center/cover url(' + bannerImg() + ')'}">
+  <div class="text">
+    @if (isLoggedIn()) {
+    <div class="d-flex justify-content-start align-items-start gap-3">
+      <img [src]="verificarImg()" alt="avatar" class="avatar" />
+      <p class="username">{{userName}}</p>
+    </div>
+    }
+
+  </div>
+  <app-menu-right></app-menu-right>
+</div>
 <div class="container">
   <h2 class="title text-white">Películas Puntuadas</h2>
   <div *ngIf="ratedMovies.length > 0; else noRatings" class="peliculas">

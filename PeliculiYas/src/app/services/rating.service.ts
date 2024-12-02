@@ -61,6 +61,4 @@ export class RatingService {
     const url = `${this.apiUrl}/account/${this.accountId}/rated/movies?api_key=${this.apiKey}&session_id=${this.sessionId}&page=${page}`;
     return this.http.get<any>(url);
   }
-  
-
 }

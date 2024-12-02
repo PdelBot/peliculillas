@@ -10,6 +10,7 @@ import { PeopleDetailsComponent } from './components/people-details/people-detai
 import { ApprovedComponent } from './components/approved/approved.component';
 import { RatingComponent } from './components/rating/rating.component';
 import { RatingPeliculasComponent } from './components/rating-peliculas/rating-peliculas.component'; 
+import { RatingMenuComponent } from './components/rating-menu/rating-menu.component';
 
 const routes: Routes = [
   {path: 'principal', component: PrincipalMenuComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'approved', component: ApprovedComponent },
   {path: 'rating', component: RatingComponent },
   {path : 'ratingPeliculas', component: RatingPeliculasComponent},
+  { path: 'ratingMenu', component: RatingMenuComponent },
   {path: '', redirectTo: '/principal', pathMatch: 'full'},
 
 ];

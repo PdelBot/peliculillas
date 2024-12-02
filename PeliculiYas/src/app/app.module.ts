@@ -22,6 +22,7 @@ import { ApprovedComponent } from './components/approved/approved.component';
 import { RatingComponent } from './components/rating/rating.component';
 import { MenuRightComponent } from './shared/menu-right/menu-right.component';
 import { RatingPeliculasComponent } from './components/rating-peliculas/rating-peliculas.component';
+import { RatingMenuComponent } from './components/rating-menu/rating-menu.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { RatingPeliculasComponent } from './components/rating-peliculas/rating-p
     ApprovedComponent,
     RatingComponent,
     MenuRightComponent,
-    RatingPeliculasComponent
+    RatingPeliculasComponent,
+    RatingMenuComponent
   ],
   imports: [
     BrowserModule,
