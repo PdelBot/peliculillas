@@ -19,12 +19,19 @@ import { FilmDetailsComponent } from './components/film-details/film-details.com
 import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
 import { PeopleDetailsComponent } from './components/people-details/people-details.component';
 import { ApprovedComponent } from './components/approved/approved.component';
+import { FavoriteListComponent } from './components/favorite-list/favorite-list.component';
+import { FavoriteFilmsComponent } from './components/favorite-films/favorite-films.component';
+import { FavoriteSerieComponent } from './components/favorite-serie/favorite-serie.component';
+import { WatchListComponent } from './components/watch-list/watch-list.component';
+import { WatchListSeriesComponent } from './components/watch-list-series/watch-list-series.component';
+import { WatchListFilmComponent } from './components/watch-list-film/watch-list-film.component';
+import { MenuRightComponent } from './shared/menu-right/menu-right.component';
+import { FormsModule } from '@angular/forms';
+import { SearchBarResultsComponent } from './components/search-bar-results/search-bar-results.component';
+import { FilteredResultsComponent } from './components/filtered-results/filtered-results.component';
 import { MisListasComponent } from './components/mis-listas/mis-listas.component';
 import { MisListasDetailsComponent } from './components/mis-listas-details/mis-listas-details.component';
-import { FormsModule } from '@angular/forms';
-import { MenuRightComponent } from './shared/menu-right/menu-right.component';
 import { SerieNamePipe } from './pipes/serie-name.pipe';
-
 
 
 @NgModule({
@@ -43,16 +50,26 @@ import { SerieNamePipe } from './pipes/serie-name.pipe';
     SerieDetailsComponent,
     PeopleDetailsComponent,
     ApprovedComponent,
+    FavoriteListComponent,
+    FavoriteFilmsComponent,
+    FavoriteSerieComponent,
+    WatchListComponent,
+    WatchListSeriesComponent,
+    WatchListFilmComponent,
+    MenuRightComponent,
+    SearchBarResultsComponent,
+    FilteredResultsComponent,
     MisListasComponent,
     MisListasDetailsComponent,
     MenuRightComponent,
     SerieNamePipe,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     provideAnimationsAsync(),

@@ -17,7 +17,7 @@ export class PeopleListComponent {
   constructor(private peopleService: ListService) { }
 
   ngOnInit(): void {
-    this.peopleService.getActors().subscribe((response) => {
+    this.peopleService.getActorPage(this.page).subscribe((response) => {
       this.listadoActores = response.results;
     });
   }

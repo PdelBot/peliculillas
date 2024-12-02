@@ -1,0 +1,53 @@
+<app-menu></app-menu>
+<div class="banner" [ngStyle]="{'background': 'no-repeat center/cover url(' + bannerImg() + ')'}">
+  <div class="text">
+    @if (isLoggedIn()) {
+    <div class="d-flex justify-content-start align-items-start gap-3">
+      <img [src]="verificarImg()" alt="avatar" class="avatar" />
+      <p class="username">{{userName}}</p>
+    </div>
+    }
+
+  </div>
+</div>
+
+<div class="content d-flex row me-0">
+  <div class="mislistas col-9 ">
+    <div class="title d-flex">
+      <i class="bi bi-list-ul"></i>
+      <h1>Favoritos</h1>
+
+    </div>
+    <div class="content-list">
+
+
+      <div class="listas">
+        <div class="card card-list" [ngStyle]="{
+          'background': 'linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.801)), no-repeat center/cover url('+getFilmPosterPath() + ')'
+        }">
+          <div class="text-list">
+            <h1>Películas Favoritas</h1>
+            <p class="card-text">Ver tu lista de películas favoritas.</p>
+            <button class="btn btn-primary" (click)="navigateToMovies()">Ver Películas</button>
+          </div>
+        </div>
+        <div class="card card-list" [ngStyle]="{
+            'background': 'linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.801)), no-repeat center/cover url( '+getSeriePosterPath() + ')'
+          }">
+          <div class="text-list">
+            <h1>Series Favoritas</h1>
+            <p class="card-text">Ver tu lista de series favoritas.</p>
+            <button class="btn btn-primary" (click)="navigateToSeries()">Ver Series</button>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="right-menu col-3">
+    <app-menu-right></app-menu-right>
+  </div>
+</div>
