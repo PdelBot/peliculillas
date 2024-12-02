@@ -7,13 +7,15 @@
     <div class="right-menu d-flex align-items-stretch gap-4 text-white fs-4 mt-4 ms-4">
         <select class="form-select" (change)="onLanguageChange($event)" [(ngModel)]="selectedLanguage">
             <option *ngFor="let language of languages" [value]="language.iso_639_1">
-              {{ language.name }}
+                {{ language.name }}
             </option>
         </select>
-        <i class="bi bi-search"></i>
-        <div>
+
+        <div class="search-container d-flex align-items-center">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="query">
-            <button (click)="search()"> <i class="bi bi-search"></i></button>
+            <button class="btn btn-outline-light" (click)="search()">
+                <i class="bi bi-search"></i>
+            </button>
         </div>
         @if(isLoggedIn()) {
         <div class="dropdown">
@@ -26,7 +28,7 @@
                 <a routerLink="/favorites">
                     <p>Favoritos</p>
                 </a>
-                <a >
+                <a>
                     <p>Mis listas</p>
                 </a>
                 <a routerLink="/watchlist">

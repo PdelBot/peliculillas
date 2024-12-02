@@ -20,9 +20,6 @@ export class SerieListComponent {
   currentPage: number = 1;
   totalPages: number = 1;
 
-
-
-
   constructor(private serieService: ListService, private favoriteService: FavoritesService, private watchlistService: WatchListService) { }
 
   ngOnInit(): void {

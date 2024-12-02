@@ -28,6 +28,7 @@ import { WatchListFilmComponent } from './components/watch-list-film/watch-list-
 import { MenuRightComponent } from './shared/menu-right/menu-right.component';
 import { FormsModule } from '@angular/forms';
 import { SearchBarResultsComponent } from './components/search-bar-results/search-bar-results.component';
+import { FilteredResultsComponent } from './components/filtered-results/filtered-results.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { SearchBarResultsComponent } from './components/search-bar-results/searc
     WatchListFilmComponent,
     MenuRightComponent,
     SearchBarResultsComponent,
+    FilteredResultsComponent,
   ],
   imports: [
     BrowserModule,

@@ -289,6 +289,3 @@ button {
     -webkit-animation-delay: var(--icon-anmt-duration);
     animation-delay: var(--icon-anmt-duration);
 }
-.text-white{
-    color: white;   
-}

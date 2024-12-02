@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Film } from '../../models/film.interface';
 import { Serie } from '../../models/serie.interface';
-import { Actor } from '../../models/people.interface';
 import { ActivatedRoute } from '@angular/router';
 import { ListService } from '../../services/list.service';
 import { FavoritesService } from '../../services/favorites.service';
@@ -10,40 +9,44 @@ import { LanguageSelectorService } from '../../services/language-selector.servic
 import * as bootstrap from 'bootstrap';
 
 @Component({
-  selector: 'app-search-bar-results',
-  templateUrl: './search-bar-results.component.html',
-  styleUrl: './search-bar-results.component.css'
+  selector: 'app-filtered-results',
+  templateUrl: './filtered-results.component.html',
+  styleUrl: './filtered-results.component.css'
 })
-export class SearchBarResultsComponent implements OnInit {
+export class FilteredResultsComponent implements OnInit{
 
-  query = '';
   listadoPeliculas: Film[] = [];
   listadoSeries: Serie[] = [];
-  actores: Actor[] = [];
+  tipo: 'peliculas' | 'series' = 'peliculas';
+  generosSelecionados: number[] = [];
+  sort: string = 'popularity.desc';
   favouriteFilms: Film[] = [];
   watchListFilms: Film[] = [];
   favoriteSeries: Serie[] = [];
   watchListSeries: Serie[] = [];
-  
-  constructor(private route: ActivatedRoute, private listService: ListService,
-    private favoriteService: FavoritesService, private watchlistService: WatchListService, private languageService: LanguageSelectorService
-  ) { }
+
+  constructor(private route: ActivatedRoute, private listService: ListService, 
+    private favoriteService: FavoritesService, private watchlistService: WatchListService, private languageService: LanguageSelectorService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.query = params['query'] || '';
-      if (this.query) {
-        this.listService.searchMovies(this.query).subscribe(response => {
-          this.listadoPeliculas = response.results;
-        });
-        this.listService.searchSeries(this.query).subscribe(response => {
-          this.listadoSeries = response.results;
-        });
-        this.listService.searchPeople(this.query).subscribe(response => {
-          this.actores = response.results;
-        });
-      }
+      this.tipo = params['tipo'] || 'peliculas';
+      this.generosSelecionados = params['generos'] ? params['generos'].split(',').map(Number) : [];
+      this.sort = params['sort'] || 'popularity.desc';
+      this.buscar();
     });
+  }
+
+  buscar() {
+    if (this.tipo === 'peliculas') {
+      this.listService.getAllFilteredFilms(this.sort, this.generosSelecionados).subscribe((data: Film[]) => {
+        this.listadoPeliculas = data;
+      });
+    } else if (this.tipo === 'series') {
+      this.listService.getAllFilteredSeries(this.sort, this.generosSelecionados).subscribe((data: Serie[]) => {
+        this.listadoSeries = data;
+      });
+    }
   }
   getFullImagePath(posterPath: string): string {
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
