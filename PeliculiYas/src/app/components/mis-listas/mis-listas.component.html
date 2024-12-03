@@ -1,0 +1,101 @@
+<app-menu></app-menu>
+<div class="banner" [ngStyle]="{'background': 'no-repeat center/cover url(' + bannerImg() + ')'}">
+    <div class="text">
+        @if (isLoggedIn()) {
+        <div class="d-flex justify-content-start align-items-start gap-3">
+            <img [src]="userPhoto" alt="avatar" class="avatar" />
+            <p class="username">{{userName}}</p>
+        </div>
+        }
+
+    </div>
+</div>
+
+<div class="content d-flex row me-0">
+    <div class="mislistas col-9 ">
+        <div class="title d-flex">
+            <i class="bi bi-list-ul"></i>
+            <h1>Mis listas</h1>
+
+        </div>
+        <div class="buttons d-flex gap-3">
+            <div ngbDropdown class="dropdown">
+                <button ngbDropdownToggle class="createList" type="button" id="dropdownCreate" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Crear lista</button>
+                <div ngbDropdownMenu  class="dropdown-menu" aria-labelledby="dropdownCreate">
+                    <input type="text" [(ngModel)]="nameList"
+                    placeholder="Nombre de la lista" required>
+                <input type="text" [(ngModel)]="description"
+                    placeholder="Descripción" required>
+                <button (click)="createList()" class="createList d-flex gap-2"><i
+                        class="bi bi-plus-circle"></i>Crear
+                    lista</button>
+                </div>
+            </div>
+            <div ngbDropdown class="dropdown">
+                <button ngbDropdownToggle class="createList" type="button" id="dropdownDelete" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Borrar lista</button>
+                <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownDelete">
+                    <label for="listSelector"></label>
+                    <select id="listSelector border border-0" [(ngModel)]="selectedListId">
+                        <option [value]="-1" selected disabled hidden>Selecciona una lista</option>
+                        <option *ngFor="let list of misListas" [value]="list.id">{{ list.name }}</option>
+                    </select>
+                    <button (click)="deleteList(selectedListId!)"
+                        class="createList d-flex gap-2"><i class="bi bi-plus-circle"></i>Borrar lista</button>
+                </div>
+            </div>
+            <div ngbDropdown class="dropdown">
+                <button ngbDropdownToggle class="createList" type="button" id="dropdownClear" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Borrar lista</button>
+                <div ngbDropdownMenu  class="dropdown-menu" aria-labelledby="dropdownClear">
+                    <label for="listSelector"></label>
+                    <select id="listSelector" [(ngModel)]="selectedListId">
+                        <option [value]="-1" selected disabled hidden>Selecciona una lista</option>
+                        <option *ngFor="let list of misListas" [value]="list.id">{{ list.name }}</option>
+                    </select>
+                    <button (click)="clearList(selectedListId!)"
+                        class="createList d-flex gap-2"><i class="bi bi-plus-circle"></i>Limpiar lista</button>
+                </div>
+            </div>
+        </div>
+
+       
+        <div class="content-list">
+            @if(misListas.length === 0){
+            <div class="card null-card">
+                <p>No ha creado todavia una lista</p>
+                <button (click)="createList()" class="createList d-flex gap-2"><i class="bi bi-plus-circle"></i>Crear
+                    lista</button>
+            </div>
+            }@else{
+            <div class="listas">
+                <div *ngFor="let list of misListas">
+                <a [routerLink]="['/misListas', list.id]">
+                    <div class="card card-list">
+                        <div class="text-list">
+                            <h1>{{list.name}}</h1>
+                            <p id="description">{{list.description}}</p>
+                            <p id="count">añadidas: {{list.item_count}}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            </div>
+    
+            }
+        </div>
+    </div>
+    
+    <div class="right-menu col-3">
+        <app-menu-right></app-menu-right>
+    </div>
+
+    <div aria-live="polite" aria-atomic="true" style="position: fixed; top: 1rem; left: 94rem; z-index: 1050;">
+        <div class="toast" id="favToast" data-delay="3000">
+          <div class="toast-body text-black" id="toastMessage">
+          </div>
+        </div>
+      </div>
+</div>
+

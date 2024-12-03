@@ -12,30 +12,50 @@
             </ul>
         </div>
         <div class="right-menu d-flex align-items-center">
-            <i class="bi bi-search"></i>
-            @if(isLoggedIn()) {
-                <div class="dropdown">
-                    <div class="d-flex justify-content-center align-items-center">
-                        <img [src]="verificarImg()" alt="avatar" class="avatar" />
-                        <p class="username">{{userName}}</p>
-                    </div>
-                    
-                    <div class="dropdown-content">
-                        <a><p>Favoritos</p></a>
-                        <a><p>Mis listas</p></a>
-                        <a><p>Valorant</p></a>
-                        <button (click)="logout()" class="logout">
-                            <i class="bi bi-box-arrow-left"></i> 
-                            <p>Cerrar sesión</p>
-                        </button>
-                    </div>
-                </div>
-                
-            }@else {
-                <button class="login btn btn-sm" (click)="createRequestToken()">
-                    <i class="bi bi-box-arrow-in-right"></i>
-                    <p>Iniciar sesión</p>
+            <select class="form-select" (change)="onLanguageChange($event)" [(ngModel)]="selectedLanguage">
+                <option *ngFor="let language of languages" [value]="language.iso_639_1">
+                    {{ language.name }}
+                </option>
+            </select>
+           
+            <div class="search-container d-flex align-items-center">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                    [(ngModel)]="query">
+                <button class="btn btn-outline-light" (click)="search()">
+                    <i class="bi bi-search"></i>
                 </button>
+            </div>
+            @if(isLoggedIn()) {
+            <div class="dropdown">
+                <div class="d-flex justify-content-center align-items-center">
+                    <img [src]="verificarImg()" alt="avatar" class="avatar" />
+                    <p class="username">{{userName}}</p>
+                </div>
+
+                <div class="dropdown-content">
+                    <a routerLink="/favorites">
+                        <p>Favoritos</p>
+                    </a>
+                    <a routerLink="/misListas">
+                        <p>Mis listas</p>
+                    </a>
+                    <a routerLink="/watchlist">
+                        <p>WatchList</p>
+                    </a>
+                    <a routerLink="/ratingMenu">
+                        <p>Valoraciones</p>
+                    </a>
+                    <button (click)="logout()" class="gap-3 d-flex justify-content-center align-items-start">
+                        <i class="bi bi-box-arrow-left"></i> Cerrar sesión
+                    </button>
+                </div>
+            </div>
+
+            }@else {
+            <button class="login btn btn-sm" (click)="createRequestToken()">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <p>Iniciar sesión</p>
+            </button>
             }
         </div>
     </nav>

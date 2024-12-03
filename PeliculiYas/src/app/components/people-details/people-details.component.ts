@@ -19,15 +19,15 @@ export class PeopleDetailsComponent implements OnInit {
     const personId = this.route.snapshot.paramMap.get('id');
 
     if (personId) {
-      this.detailsService.getPeopleDetails(+personId, 'es-ES').subscribe((response) => {
+      this.detailsService.getPeopleDetails(+personId).subscribe((response) => {
         this.person = response;
       });
 
-      this.detailsService.getPeopleDetails(+personId, 'es-ES').subscribe(data => {
+      this.detailsService.getPeopleDetails(+personId).subscribe(data => {
         if (data.biography) {
           this.person = data;
         } else {
-          this.detailsService.getPeopleDetails(+personId, 'en-US').subscribe(englishData => {
+          this.detailsService.getPeopleDetails(+personId).subscribe(englishData => {
             this.person = englishData;
           });
         }

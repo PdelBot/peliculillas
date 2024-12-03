@@ -1,0 +1,56 @@
+<app-menu></app-menu>
+<div class="banner" [ngStyle]="{'background': 'no-repeat center/cover url(' + bannerImg() + ')'}">
+  <div class="text">
+    @if (isLoggedIn()) {
+    <div class="d-flex justify-content-start align-items-start gap-3">
+      <img [src]="verificarImg()" alt="avatar" class="avatar" />
+      <p class="username">{{userName}}</p>
+    </div>
+    }
+
+  </div>
+</div>
+<div class="container d-flex row me-0">
+  <div class="peliculas col-9">
+    <h2 class="title text-white">Series Puntuadas</h2>
+    <div *ngIf="ratedSeries.length > 0; else noRatings" class="peliculas">
+      <div class="series-list">
+        <div class="card-pelicula" *ngFor="let series of ratedSeries">
+          <a routerLink="/series/{{ series.id }}" class="card-link">
+            <div style="display: flex; align-items: center;">
+              <div style="margin-right: 15px;">
+                <img [src]="getImgUrl(series.poster_path)" alt="{{ series.name }}" />
+              </div>
+              <div class="text text-white">
+                <h5>{{ series.name }}</h5>
+                <p><strong>Calificación:</strong> {{ series.rating }} / 10</p>
+                <p><strong>Fecha:</strong> {{ series.first_air_date }}</p>
+              </div>
+              <div style="margin-left: auto; display: flex; align-items: center;">
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Controles de paginación -->
+      <div class="pagination-controls" style="text-align: center; margin-top: 20px;">
+        <button class="button" [disabled]="currentPage === 1" (click)="changePage(currentPage - 1)">
+          Anterior
+        </button>
+        <span class="pagination-info text-white ">Página {{ currentPage }} de {{ totalPages }}</span>
+        <button class="button" [disabled]="currentPage === totalPages" (click)="changePage(currentPage + 1)">
+          Siguiente
+        </button>
+      </div>
+    </div>
+
+    <ng-template #noRatings>
+      <p class="content">No has puntuado ninguna serie aún.</p>
+    </ng-template>
+  </div>
+
+  <div class="right-menu col-3">
+    <app-menu-right></app-menu-right>
+  </div>
+</div>

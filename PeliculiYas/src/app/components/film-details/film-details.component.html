@@ -6,7 +6,7 @@
     </div>
     <div class="description">
       <div class="title1">
-        <h2>{{film?.original_title}}</h2>
+        <h2>{{film?.title}}</h2>
       </div>
       <div>
         <p class="title2" *ngIf="film?.tagline">{{ film?.tagline }}</p>
@@ -25,7 +25,7 @@
           <p><strong> Calificación: ({{ film?.vote_average }} / 10) </strong> <ngb-rating class="amarillo"
               [(rate)]="rating" [max]="5" [readonly]="true"></ngb-rating> </p>
         </div>
-        <div>
+        <div class="mb-3">
           @for (item of film?.genres; track $index) {
           <div class="badge" href="#">
             {{item.name}}
@@ -33,8 +33,119 @@
           </div>
           }
         </div>
+        @if (isLoggedIn()) {
+        <div class="actions d-flex gap-3">
+
+          @if (filmFavorite) {
+          <button class="faq-button"
+            (click)="isAdded(filmFavorite) ? removeFromFavourites(filmFavorite) : addToFavourites(filmFavorite)">
+            <label class="container-button">
+              <input type="checkbox" [checked]="isAdded(filmFavorite)">
+              <div class="checkmark">
+                <svg viewBox="0 0 256 256">
+                  <rect fill="none" height="256" width="256"></rect>
+                  <path [attr.fill]="isAdded(filmFavorite) ? 'red' : 'none'"
+                    [attr.stroke]="isAdded(filmFavorite) ? 'none' : 'black'"
+                    d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z"
+                    stroke-width="20px"></path>
+                </svg>
+              </div>
+            </label>
+            <span class="tooltip">favoritos</span>
+          </button>
+          }
+
+          @if (filmWatchList) {
+          <button class="faq-button"
+            (click)="isAddedWatchList(filmWatchList) ? removeFromWatchList(filmWatchList) : addToWatchlist(filmWatchList)">
+            <label class="ui-bookmark">
+              <input type="checkbox">
+              <div class="bookmark">
+                <svg viewBox="0 0 32 32">
+                  <g>
+                    <path [attr.fill]="isAddedWatchList(filmWatchList) ? 'gold' : 'grey'"
+                      [attr.stroke]="isAddedWatchList(filmWatchList) ? 'none' : 'black'"
+                      d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z">
+                    </path>
+                  </g>
+                </svg>
+              </div>
+            </label>
+            <span class="tooltip">watchList</span>
+          </button>
+          }
+
+          @if(film){
+          <div ngbDropdown class="rating ">
+            <button class="faq-button" ngbDropdownToggle type="button" id="dropdownRating" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <i class="bi bi-star-fill text-warning"></i>
+              <span class="tooltip">valorar</span>
+            </button>
+            <div ngbDropdownMenu class="rating-drop" aria-labelledby="dropdownRating">
+              <div class="user-rating">
+                <h3>Tu calificación:</h3>
+                <p *ngIf="userRating > 0; else noRating"></p>
+                <ng-template #noRating>
+                  <p>Aún no has calificado esta película.</p>
+                </ng-template>
+              </div>
+
+              <!-- Botones para calificar -->
+              <div>
+                <div class="rating-stars">
+                  <button class="delete" (click)="deleteRating()">
+                    <svg viewBox="0 0 448 512" class="svgIcon">
+                      <path
+                        d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z">
+                      </path>
+                    </svg>
+                  </button>
+                  <span *ngFor="let star of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; let i = index" class="star"
+                    [class.filled]="star <= userRating" (click)="saveRating(star)">
+                    ★
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          }
+          <div ngbDropdown class="add-list">
+            <button ngbDropdownToggle class="faq-button" ngbDropdownToggle type="button" id="dropdownAddList" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+              <svg class="text-white" height="25" width="25" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="currentColor"></path></svg> 
+              <span class="tooltip">Añadir</span>
+            </button>
+            <div ngbDropdownMenu class="add-list-drop" aria-labelledby="dropdownAddList">
+              <div *ngIf="listas.length > 0; else noLists">
+                <h3>Listas del usuario</h3>
+                <div *ngFor="let lista of listas" class="customCheckBoxHolder">
+                  <input id="{{lista.id}}" class="customCheckBoxInput" type="checkbox"
+                    [checked]="checkedLists[lista.id]" (change)="onCheckboxChange($event, lista.id)">
+                  <label class="customCheckBoxWrapper" for="{{lista.id}}">
+                    <div class="customCheckBox">
+                      <div class="inner">{{lista.name}}</div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <ng-template #noLists>
+                <p>No tienes listas creadas aún.</p>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        }
+
+
+
+
+
         <div>
-          <button class="watch-now btn btn-primary align-items-center justify-content-beetwen " (click)="watchTrailer()">Ver Trailer</button>
+
+          <button class="watch-now align-items-center justify-content-beetwen " (click)="watchTrailer()">Ver
+            Trailer</button>
+
         </div>
       </div>
     </div>
@@ -47,15 +158,22 @@
 
       @for (credits of listCast; track listCast.indexOf(credits)) {
       <div class="card" *ngIf="credits.profile_path && credits.name">
-        <a [routerLink]="['/actores', credits.id]">    
-        <img [src]="getImgUrl(credits.profile_path || '')" alt="NOMBRE">
-        <div class="card-text">
-          <p>{{credits.name}}</p>
-        </div>
-      </a>
+        <a [routerLink]="['/actores', credits.id]">
+          <img [src]="getImgUrl(credits.profile_path || '')" alt="NOMBRE">
+          <div class="card-text">
+            <p>{{credits.name}}</p>
+          </div>
+        </a>
       </div>
-    }
+      }
     </div>
 
+  </div>
+</div>
+
+<div aria-live="polite" aria-atomic="true" style="position: fixed; top: 1rem; right: 1rem; z-index: 1050;">
+  <div class="toast" id="favToast" data-delay="3000">
+    <div class="toast-body text-black" id="toastMessage">
+    </div>
   </div>
 </div>

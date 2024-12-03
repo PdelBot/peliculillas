@@ -1,5 +1,8 @@
 import { Component, HostListener } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { Language } from '../../models/language.interface';
+import { LanguageSelectorService } from '../../services/language-selector.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-list',
@@ -10,15 +13,28 @@ export class MenuListComponent {
 
   userName = '';
   userPhoto = '';
+  languages: Language[] = [];
+  selectedLanguage: string = '';
+  flagUrl: string = '';
+  query: string = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private languageService: LanguageSelectorService, private router: Router) { }
+
+
   ngOnInit(): void {
-  this.userName = localStorage.getItem('user_name') ?? '';
+    this.userName = localStorage.getItem('user_name') ?? '';
     this.userPhoto = localStorage.getItem('user_photo')
       ? `https://image.tmdb.org/t/p/original${localStorage.getItem(
-          'user_photo'
-        )}`
+        'user_photo'
+      )}`
       : '';
+    this.languageService.getLanguages().subscribe(response => {
+      this.languages = response;
+    });
+
+    this.languageService.selectedLanguage$.subscribe(language => {
+      this.selectedLanguage = language;
+    });
   }
 
   private prevScrollPos: number = window.scrollY;
@@ -56,13 +72,27 @@ export class MenuListComponent {
     window.location.href = 'http://localhost:4200';
   }
 
-  verificarImg(){
+  verificarImg() {
     const partes: string[] = this.userPhoto.split("/").filter(part => part !== '');
-    
-    if(partes[partes.length-1]==="originalnull"){
+
+    if (partes[partes.length - 1] === "originalnull") {
       this.userPhoto = "https://static.wikia.nocookie.net/mamarre-estudios-espanol/images/9/9f/Benjamin.png/revision/latest?cb=20201222175350&path-prefix=es"
     }
-      return this.userPhoto;
- 
+    return this.userPhoto;
+
   }
+  onLanguageChange(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const language = selectElement.value;
+    this.languageService.setSelectedLanguage(language);
+    console.log('Selected language:', this.selectedLanguage);
+    window.location.reload();
+
+  }
+  search() {
+    if (this.query.trim()) {
+      this.router.navigate(['/search'], { queryParams: { query: this.query } });
+    }
+  }
+
 }

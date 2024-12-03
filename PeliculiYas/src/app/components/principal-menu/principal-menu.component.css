@@ -1,27 +1,48 @@
-
-
-.banner-home{
+.banner-home {
     width: 100%;
     height: 550px;
-} 
+}
 
-.banner-home .text{
+.banner-home .text {
     color: white;
     position: relative;
     padding-top: 300px;
     padding-left: 40px;
 }
 
-.watch-now{
-    color: white;
-    font-size: 25px;
-    padding: 15px 40px 15px 40px;
-    width: 300px;
+.watch-now {
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(30deg, #ff0000, #e15b5b);
     border-radius: 20px;
-    background-color: #2637d4;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 24px;
+    padding: 0.6em 1.5em;
 }
 
-.detalles p{
+.watch-now:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse512 1.5s infinite;
+   }
+   
+   @keyframes pulse512 {
+    0% {
+     box-shadow: 0 0 0 0 #ff000066;
+    }
+   
+    70% {
+     box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+    }
+   
+    100% {
+     box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+    }
+   }
+
+.detalles p {
     font-size: 12px;
 }
 
@@ -29,76 +50,76 @@
 cards
 */
 
-.cards{
+.cards {
     display: flex;
-    overflow-x: auto; 
-    scrollbar-width: none; 
-    -ms-overflow-style: none; 
-    gap: 30px; 
-    padding: 10px; 
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    gap: 30px;
+    padding: 10px;
 }
 
 
 
-.card-film{
+.card-film {
     min-width: 250px;
     height: 350px;
     border-radius: 10px;
     justify-content: flex-end;
 }
 
-.card-serie{
+.card-serie {
     min-width: 400px;
     height: 350px;
     border-radius: 10px;
     justify-content: flex-end;
 }
 
-.text-card{
+.text-card {
     height: 110px;
-    background-color:rgba(255, 255, 255, 80%);
+    background-color: rgba(255, 255, 255, 80%);
     border-radius: 0px 0px 10px 10px / 0px 0px 10px 10px;
     padding-top: 20px;
 }
 
-.text-card h3{
+.text-card h3 {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
-    font-size: clamp(18px, 1vw, 30px); 
-    line-height: 1.2; 
-    word-wrap: break-word; 
+    font-size: clamp(18px, 1vw, 30px);
+    line-height: 1.2;
+    word-wrap: break-word;
 }
 
-.valoracion-film{
+.valoracion-film {
     width: 3.5em;
     height: 3.5em;
     text-align: center;
     position: relative;
     left: 70%;
     bottom: 45%;
-    border-radius: 50%; 
+    border-radius: 50%;
     display: flex;
-    align-items: center; 
-    justify-content: center; 
-    color: white; 
-    font-size: 1.2em; 
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2em;
     opacity: 0.9;
 }
 
 
-.valoracion-serie{
+.valoracion-serie {
     width: 3.5em;
     height: 3.5em;
     text-align: center;
     position: relative;
     left: 300px;
     bottom: 160px;
-    border-radius: 50%; 
+    border-radius: 50%;
     display: flex;
-    align-items: center; 
-    justify-content: center; 
-    color: white; 
-    font-size: 1.2em; 
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2em;
     opacity: 0.9;
 }

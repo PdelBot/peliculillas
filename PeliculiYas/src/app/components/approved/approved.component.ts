@@ -14,13 +14,15 @@ export class ApprovedComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.authService.createSession().subscribe((response) => {
       localStorage.setItem('session_id', response.session_id);
       this.accountService.getAccountDetails().subscribe((response) => {
         localStorage.setItem('user_name', response.username);
         localStorage.setItem('user_photo', response.avatar.tmdb.avatar_path);
+        localStorage.setItem('user_id', response.id.toString());
         localStorage.setItem('logged_in', 'true');
-
+        localStorage.setItem('user_id', response.id.toString());
         window.location.href = 'http://localhost:4200/principal';
       });
     });
