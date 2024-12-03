@@ -13,22 +13,30 @@
 
         <div>
             @if (tipo=="peliculas") {
-            <label for="orden1">Ordenar por:</label>
-            <select id="orden1" #ordenSelectPeliculas>
-                <option value="popularity.desc">Popularidad Descendente</option>
-                <option value="popularity.asc">Popularidad Ascendente</option>
-                <option value="vote_average.asc">Valoración Ascendente</option>
-                <option value="vote_average.desc">Valoración Descendente</option>
-            </select>
+            <div class="select">
+                <label for="orden1">Ordenar por:</label>
+                <select id="orden1" #ordenSelectPeliculas>
+                    <option value="popularity.desc">Popularidad Descendente</option>
+                    <option value="popularity.asc">Popularidad Ascendente</option>
+                    <option value="vote_average.asc">Valoración Ascendente</option>
+                    <option value="vote_average.desc">Valoración Descendente</option>
+                </select>
+            </div>
+            
             <div class="col-6">
                 <label for="genero">Género:</label>
+                <div class="control-check">
                 @for (genero of generos; track genero.id) {
-                <div>
-                    <input type="checkbox" id="genero{{genero.id}}" [value]="genero.id"
-                        (change)="toggleGenre(genero.id)">
-                    <label for="genero{{genero.id}}">{{genero.name}}</label>
-                </div>
+                    
+                    <input class="customCheckBoxInput" type="checkbox" id="genero{{genero.id}}" [value]="genero.id"
+                        (change)="toggleGenre(genero.id)" >
+                    <label class="customCheckBoxWrapper" for="genero{{genero.id}}">
+                        <div class="customCheckBox">
+                            <div class="inner">{{genero.name}}</div>
+                          </div>
+                    </label>
                 }
+                </div>
             </div>
             <button (click)="buscar(ordenSelectPeliculas.value, currentPage)">Buscar</button>
             }

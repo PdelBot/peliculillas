@@ -8,6 +8,10 @@
   z-index: 1000;
 }
 
+.menu{
+  margin-left: 10px;
+}
+
 .titulo{
     margin-bottom: 30px;
 }
@@ -56,39 +60,111 @@
   .logo{
     width: 70px;
 }
-input[type="checkbox"] + label:before {
-	content: "";
-	width: 26px;
-	height: 26px;
-	float: left;
-	margin: 0.5em 0.5em 0 0;
-	border: 2px solid #ccc;
-	background: #fff;
+
+
+.customCheckBoxHolder {
+  margin: 5px;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: start; /* Center items horizontally */
 }
-input[type="checkbox"]:checked + label:before {
-	border-color: #0fbf12;
-}
-input[type="checkbox"]:checked + label:after {
-  content: "";
-  width: 12px;
-  height: 6px;
-  border: 4px solid #0fbf12;
-  float: left;
-  margin-left: -1.95em;
-  border-right: 0;
-  border-top: 0;
-  margin-top: 1em;
-  transform: rotate(-55deg);
-}
-input[type="checkbox"] {
-	display: none;
-}
-input[type="checkbox"] + label {
-  font-weight: bold;
-  line-height: 3em;
-  color: #ccc;
+
+.customCheckBox {
+  width: 100%; /* Ensures each checkbox has the same width */
+  position: relative;
+  overflow: hidden;
   cursor: pointer;
+  user-select: none;
+  padding: 25px 50px;
+  background-color: rgba(0, 0, 0, 0.16);
+  border-radius: 0px;
+  color: rgba(255, 255, 255, 0.7);
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 300ms;
+  transition-property: color, background-color, box-shadow;
+  display: flex;
+  height: 32px;
+  align-items: center;
+  box-shadow:
+    rgba(0, 0, 0, 0.15) 0px 2px 1px 0px inset,
+    rgba(255, 255, 255, 0.17) 0px 1px 1px 0px;
+  outline: none;
+  justify-content: center;
+  min-width: 55px;
 }
-input[type="checkbox"]:checked + label {
-  color: #0fbf12;
+
+.customCheckBox:hover {
+  background-color: #2c2c2c;
+  color: white;
+  box-shadow:
+    rgba(0, 0, 0, 0.23) 0px -4px 1px 0px inset,
+    rgba(255, 255, 255, 0.17) 0px -1px 1px 0px,
+    rgba(0, 0, 0, 0.17) 0px 2px 4px 1px;
 }
+
+.customCheckBox .inner {
+  font-size: 18px;
+  font-weight: 900;
+  pointer-events: none;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 300ms;
+  transition-property: transform;
+  transform: translateY(0px);
+}
+
+.customCheckBox:hover .inner {
+  transform: translateY(-2px);
+}
+
+.customCheckBoxWrapper {
+  width: 50%; /* Ensures each wrapper takes full width of the holder */
+}
+
+/* Multiple Checkboxes can be chained together for a radio input */
+.customCheckBoxWrapper:first-of-type .customCheckBox {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-right: 0px;
+}
+
+.customCheckBoxWrapper:last-of-type .customCheckBox {
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-left: 0px;
+}
+
+.customCheckBoxInput {
+  display: none;
+}
+
+.customCheckBoxInput:checked + .customCheckBoxWrapper .customCheckBox {
+  background-color: #2d6737;
+  color: white;
+  box-shadow:
+    rgba(0, 0, 0, 0.23) 0px -4px 1px 0px inset,
+    rgba(255, 255, 255, 0.17) 0px -1px 1px 0px,
+    rgba(0, 0, 0, 0.17) 0px 2px 4px 1px;
+}
+
+.customCheckBoxInput:checked + .customCheckBoxWrapper .customCheckBox .inner {
+  transform: translateY(-2px);
+}
+
+.customCheckBoxInput:checked + .customCheckBoxWrapper .customCheckBox:hover {
+  background-color: #34723f;
+  box-shadow:
+    rgba(0, 0, 0, 0.26) 0px -4px 1px 0px inset,
+    rgba(255, 255, 255, 0.17) 0px -1px 1px 0px,
+    rgba(0, 0, 0, 0.15) 0px 3px 6px 2px;
+}
+
+.customCheckBoxWrapper .customCheckBox:hover .inner {
+  transform: translateY(-2px);
+}
+
+.control-check{
+  display: grid;
+  grid-template-columns: repeat(2, 90%);
+  gap: 10px;
+}
+

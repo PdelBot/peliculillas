@@ -48,6 +48,8 @@ export class MisListasDetailsComponent implements OnInit {
     if (this.idList) {
       this.mylistService.getDetailsList(this.idList).subscribe(response => {
         this.list = response;
+        this.newName = response.name;
+        this.newDescription = response.description;
       });
 
 

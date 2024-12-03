@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1e1e1e;
   color: #ffffff;
   min-height: 100vh;
   margin: 0;
@@ -83,18 +82,7 @@
   color: #e0e0e0;
 }
 
-button {
-  margin-top: 1em;
-  position: relative;
-  font-size: 1.2em;
-  padding: 0.7em 1.4em;
-  background-color: #2637d4;
-  text-decoration: none;
-  border: none;
-  border-radius: 0.5em;
-  color: #dedede;
-  box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.3);
-}
+
 
 
 /* Diseño del reparto */
@@ -172,12 +160,14 @@ button {
   padding: 8px 16px;
   color: white;
   font-weight: 500;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  background: #2637d4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  background:  linear-gradient(#FF9936, 80%, #b5620e) ;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-   border-radius: 999px;
+  border-radius: 999px;
    user-select: none;
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.3);
+  font-size: 16px;
 }
 
 .customCheckBoxHolder {
@@ -280,70 +270,7 @@ button {
   transform: translateY(-2px);
 }
 
-/* From Uiverse.io by cssbuttons-io */ 
-button {
-  appearance: button;
-  background-color: #970e21;
-  border: solid transparent;
-  border-radius: 16px;
-  border-width: 0 0 4px;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: .8px;
-  line-height: 20px;
-  margin: 0;
-  outline: none;
-  overflow: visible;
-  padding: 13px 19px;
-  text-align: center;
-  text-transform: uppercase;
-  touch-action: manipulation;
-  transform: translateZ(0);
-  transition: filter .2s;
-  user-select: none;
-  -webkit-user-select: none;
-  vertical-align: middle;
-  white-space: nowrap;
- }
- 
- button:after {
-  background-clip: padding-box;
-  background-color: #FE1F3C;
-  border: solid transparent;
-  border-radius: 16px;
-  border-width: 0 0 4px;
-  bottom: -4px;
-  content: "";
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: -1;
- }
- 
- button:main, button:focus {
-  user-select: auto;
- }
- 
- button:hover:not(:disabled) {
-  filter: brightness(1.1);
- }
- 
- button:disabled {
-  cursor: auto;
- }
- 
- button:active:after {
-  border-width: 0 0 0px;
- }
- 
- button:active {
-  padding-bottom: 10px;
- }
+
 
 .ui-bookmark {
   --icon-size: 24px;
@@ -665,4 +592,100 @@ button {
 .delete:hover {
   transition-duration: .3s;
   background-color: rgb(255, 69, 69);
+}
+
+.faq-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background-color: #ffe53b ;
+  background-image: linear-gradient(147deg, #ffe53b  0%, #ff2525 40%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.151);
+  position: relative;
+}
+
+.faq-button svg, i {
+  height: 1.5em;
+  fill: white;
+}
+.faq-button:hover svg, i {
+  animation: jello-vertical 0.7s both;
+}
+@keyframes jello-vertical {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  40% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  50% {
+    transform: scale3d(0.85, 1.15, 1);
+  }
+  65% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  75% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.tooltip {
+  position: absolute;
+  top: -20px;
+  opacity: 0;
+  background-color: #ffe53b ;
+  background-image: linear-gradient(147deg, #ffe53b  0%, #ff2525 74%);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 0.2s;
+  pointer-events: none;
+  letter-spacing: 0.5px;
+}
+
+.tooltip::before {
+  position: absolute;
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: #ff2525;
+  background-size: 1000%;
+  background-position: center;
+  transform: rotate(45deg);
+  bottom: -15%;
+  transition-duration: 0.3s;
+}
+
+.faq-button:hover .tooltip {
+  top: -40px;
+  opacity: 1;
+  transition-duration: 0.3s;
+}
+
+.rating-drop{
+  width: 550px;
+  padding: 20px 30px;
+}
+
+.add-list-drop{
+  width: 300px;
+  padding: 20px 30px;
+}
+
+.add-list-drop div{
+  width: 200px;
 }

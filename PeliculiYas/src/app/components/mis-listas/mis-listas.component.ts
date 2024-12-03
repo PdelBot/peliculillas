@@ -1,12 +1,9 @@
 import { Component, HostListener, input, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { ListService } from '../../services/list.service';
 import { MisListasService } from '../../services/mis-listas.service';
-import { myList, myListResponse } from '../../models/my-list.interface';
+import { myList } from '../../models/my-list.interface';
 import { filmList, myListDetailsResponse } from '../../models/my-list-details.interface';
-import { Film } from '../../models/film.interface';
-import { Serie } from '../../models/serie.interface';
-import { catchError, map, Observable, of } from 'rxjs';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-mis-listas',
@@ -73,6 +70,11 @@ export class MisListasComponent implements OnInit {
   }
 
 
+  recargarListas(){
+    this.mylistService.getListas().subscribe((response) => {
+      this.misListas = response.results;
+    });
+  }
 
 
   createRequestToken() {
@@ -114,14 +116,16 @@ export class MisListasComponent implements OnInit {
   createList() {
     this.misListas.forEach(lista => {
       if(this.nameList.toLowerCase() === lista.name.toLowerCase()){
-        alert("El nombre de la lista ya existe")
         this.existe = true;
+        this.showToast("El nombre de la lista ya existe")
+        this.recargarListas();
       }
     });
     if (this.existe === false){
       this.mylistService.createList(this.nameList, this.description).subscribe(response => {
         console.log('hola', response)
-        window.location.reload();
+        this.recargarListas();
+        this.showToast('Se ha creado la lista correctamente')
       }
       );
     }
@@ -130,15 +134,16 @@ export class MisListasComponent implements OnInit {
 
   deleteList(id: number) {
     this.mylistService.deleteList(id).subscribe(response => {
-      console.log('borrate', response);
-      window.location.reload();
+      console.log('borrate', response);     
+      this.recargarListas();
+      this.showToast('Se ha borrado la lista correctamente')
     });
   }
 
   clearList(id: number) {
     this.mylistService.clearList(id).subscribe(response => {
       console.log('limpiar', response);
-      window.location.reload();
+      this.showToast('Se ha limpiado la lista correctamente')
     })
   }
 
@@ -157,38 +162,7 @@ export class MisListasComponent implements OnInit {
 
   }
 
-  On(tipe: number) {
-    switch (tipe) {
-      case 1:
-        this.create = true;
-        break;
-
-      case 2:
-        this.delet = true;
-        break;
-
-      case 3:
-        this.clear = true;
-        break;
-    }
-
-  }
-
-   Of(tipe: number) {
-    switch (tipe) {
-      case 1:
-        this.create = false;
-        break;
-
-      case 2:
-        this.delet = false;
-        break;
-
-      case 3:
-        this.clear = false;
-        break;
-    }
-  }
+  
 
   
   
@@ -203,6 +177,18 @@ export class MisListasComponent implements OnInit {
     return `${baseUrl}${poster}`;
   }
 
+  showToast(message: string) {
+    const toastMessage = document.getElementById('toastMessage');
+    if (toastMessage) {
+      toastMessage.textContent = message;
+    }
+
+    const toastElement = document.getElementById('favToast');
+    if (toastElement) {
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+    }
+  }
   
   
   

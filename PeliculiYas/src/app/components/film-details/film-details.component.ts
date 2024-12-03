@@ -42,6 +42,7 @@ export class FilmDetailsComponent implements OnInit {
   currentPage: number = 1;
   filmDetail: Film | undefined;
   userRating: number = 0;  
+  addItem: boolean = true;
 
 
   constructor(
@@ -220,11 +221,13 @@ export class FilmDetailsComponent implements OnInit {
     if (inputElement.checked) {
       this.myListService.add(this.film!.id, listId, this.type).subscribe(() => {
         console.log(`Película añadida a la lista ${listId}`);
+        this.showToast('Película añadida a la lista');
         this.checkedLists[listId] = true; // Actualiza el estado local
       });
     } else{
       this.myListService.delete(this.film!.id, listId, this.type).subscribe(() => {
         console.log(`Película eliminada de la lista ${listId}`);
+        this.showToast('Película eliminada de la lista');
         this.checkedLists[listId] = false; // Actualiza el estado local
       });
     }

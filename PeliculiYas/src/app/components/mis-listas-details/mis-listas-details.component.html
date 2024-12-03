@@ -42,6 +42,12 @@
         </div>
 
         <div class="peliculas">
+            @if(list!.items.length === 0){
+                <div class="card-pelicula d-flex">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk_KNjisz2NoRq4seWMQ3qSiVu-aGNW_XMbQ&s" alt="img">
+                    <p class="d-flex fs-1 ms-5 align-items-center ">No hay todavia peliculas añadidas</p>
+                </div>
+            }
             <div *ngFor="let film of list?.items" class="card-pelicula d-flex mb-4">
                 <img [src]="getFullImagePath(film.poster_path)" alt="img">
                 <div class="text">

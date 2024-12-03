@@ -25,11 +25,19 @@
           <p><strong> Calificación: ({{ film?.vote_average }} / 10) </strong> <ngb-rating class="amarillo"
               [(rate)]="rating" [max]="5" [readonly]="true"></ngb-rating> </p>
         </div>
+        <div class="mb-3">
+          @for (item of film?.genres; track $index) {
+          <div class="badge" href="#">
+            {{item.name}}
+            <span></span>
+          </div>
+          }
+        </div>
         @if (isLoggedIn()) {
-        <div>
+        <div class="actions d-flex gap-3">
 
           @if (filmFavorite) {
-          <button class="favorite-button"
+          <button class="faq-button"
             (click)="isAdded(filmFavorite) ? removeFromFavourites(filmFavorite) : addToFavourites(filmFavorite)">
             <label class="container-button">
               <input type="checkbox" [checked]="isAdded(filmFavorite)">
@@ -43,11 +51,12 @@
                 </svg>
               </div>
             </label>
+            <span class="tooltip">favoritos</span>
           </button>
           }
 
           @if (filmWatchList) {
-          <button class="favorite-button"
+          <button class="faq-button"
             (click)="isAddedWatchList(filmWatchList) ? removeFromWatchList(filmWatchList) : addToWatchlist(filmWatchList)">
             <label class="ui-bookmark">
               <input type="checkbox">
@@ -62,68 +71,80 @@
                 </svg>
               </div>
             </label>
+            <span class="tooltip">watchList</span>
           </button>
           }
-        </div>
 
-        }
-        <div>
-          <div class="user-rating">
-            <h3>Tu calificación:</h3>
-            <p *ngIf="userRating > 0; else noRating"></p>
-            <ng-template #noRating>
-              <p>Aún no has calificado esta película.</p>
-            </ng-template>
-          </div>
+          @if(film){
+          <div ngbDropdown class="rating ">
+            <button class="faq-button" ngbDropdownToggle type="button" id="dropdownRating" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <i class="bi bi-star-fill text-warning"></i>
+              <span class="tooltip">valorar</span>
+            </button>
+            <div ngbDropdownMenu class="rating-drop" aria-labelledby="dropdownRating">
+              <div class="user-rating">
+                <h3>Tu calificación:</h3>
+                <p *ngIf="userRating > 0; else noRating"></p>
+                <ng-template #noRating>
+                  <p>Aún no has calificado esta película.</p>
+                </ng-template>
+              </div>
 
-          <!-- Botones para calificar -->
-          <div>
-            <div class="rating-stars">
-              <button class="delete"  (click)="deleteRating()">
-                <svg viewBox="0 0 448 512" class="svgIcon"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>
-              </button>
-              <span *ngFor="let star of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; let i = index" class="star"
-                [class.filled]="star <= userRating" (click)="saveRating(star)">
-                ★
-              </span>
-            </div>
-          </div>
-        </div>
-        
-        <div>
-          @for (item of film?.genres; track $index) {
-          <div class="badge" href="#">
-            {{item.name}}
-            <span></span>
-          </div>
-          }
-        </div>
-        <div class="dropdown mt-4">
-          <button (click)="onAdd()">Añadir pelicula a lista</button>
-          <div *ngIf="add" class="dropdown-content my-3">
-            <div *ngIf="listas.length > 0; else noLists">
-              <h3>Listas del usuario</h3>
-              <div *ngFor="let lista of listas" class="customCheckBoxHolder">
-                <input 
-                    id="{{lista.id}}" class="customCheckBoxInput"
-                    type="checkbox" 
-                    [checked]="checkedLists[lista.id]" 
-                    (change)="onCheckboxChange($event, lista.id)">
-                <label class="customCheckBoxWrapper" for="{{lista.id}}" >
-                    <div class="customCheckBox">
-                      <div class="inner">{{lista.name}}</div>
-                  </div>
-                </label>
+              <!-- Botones para calificar -->
+              <div>
+                <div class="rating-stars">
+                  <button class="delete" (click)="deleteRating()">
+                    <svg viewBox="0 0 448 512" class="svgIcon">
+                      <path
+                        d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z">
+                      </path>
+                    </svg>
+                  </button>
+                  <span *ngFor="let star of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; let i = index" class="star"
+                    [class.filled]="star <= userRating" (click)="saveRating(star)">
+                    ★
+                  </span>
+                </div>
               </div>
             </div>
-            <ng-template #noLists>
-              <p>No tienes listas creadas aún.</p>
-            </ng-template>
+          </div>
+          }
+          <div ngbDropdown class="add-list">
+            <button ngbDropdownToggle class="faq-button" ngbDropdownToggle type="button" id="dropdownAddList" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+              <svg class="text-white" height="25" width="25" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="currentColor"></path></svg> 
+              <span class="tooltip">Añadir</span>
+            </button>
+            <div ngbDropdownMenu class="add-list-drop" aria-labelledby="dropdownAddList">
+              <div *ngIf="listas.length > 0; else noLists">
+                <h3>Listas del usuario</h3>
+                <div *ngFor="let lista of listas" class="customCheckBoxHolder">
+                  <input id="{{lista.id}}" class="customCheckBoxInput" type="checkbox"
+                    [checked]="checkedLists[lista.id]" (change)="onCheckboxChange($event, lista.id)">
+                  <label class="customCheckBoxWrapper" for="{{lista.id}}">
+                    <div class="customCheckBox">
+                      <div class="inner">{{lista.name}}</div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <ng-template #noLists>
+                <p>No tienes listas creadas aún.</p>
+              </ng-template>
+            </div>
           </div>
         </div>
+        }
+
+
+
+
+
         <div>
 
-          <button class="watch-now align-items-center justify-content-beetwen " (click)="watchTrailer()">Ver Trailer</button>
+          <button class="watch-now align-items-center justify-content-beetwen " (click)="watchTrailer()">Ver
+            Trailer</button>
 
         </div>
       </div>
@@ -149,9 +170,10 @@
 
   </div>
 </div>
+
 <div aria-live="polite" aria-atomic="true" style="position: fixed; top: 1rem; right: 1rem; z-index: 1050;">
   <div class="toast" id="favToast" data-delay="3000">
-    <div class="toast-body" id="toastMessage">
+    <div class="toast-body text-black" id="toastMessage">
     </div>
   </div>
 </div>

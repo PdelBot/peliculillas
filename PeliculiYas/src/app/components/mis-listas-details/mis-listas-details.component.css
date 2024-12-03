@@ -40,7 +40,7 @@
     height: 600px;
     padding-left: 100px;
     overflow-y: auto; 
-    scrollbar-width: none; 
+    
 }
 
 .card-pelicula{
@@ -154,3 +154,8 @@
   overflow-y: auto;
 }
 
+.null-card{
+  width: 400px;
+  height: 100px;
+  margin: 40px 40px;
+}

@@ -19,44 +19,48 @@
 
         </div>
         <div class="buttons d-flex gap-3">
-            <div class="create d-flex">
-                <button *ngIf="misListas.length>0&&!create" (click)="On(1)" class="createList d-flex gap-2"><i
-                        class="bi bi-plus-circle"></i>Crear
-                    lista</button>
-                <input *ngIf="misListas.length>0&&create" type="text" [(ngModel)]="nameList"
+            <div ngbDropdown class="dropdown">
+                <button ngbDropdownToggle class="createList" type="button" id="dropdownCreate" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Crear lista</button>
+                <div ngbDropdownMenu  class="dropdown-menu" aria-labelledby="dropdownCreate">
+                    <input type="text" [(ngModel)]="nameList"
                     placeholder="Nombre de la lista" required>
-                <input *ngIf="misListas.length>0&&create" type="text" [(ngModel)]="description"
+                <input type="text" [(ngModel)]="description"
                     placeholder="Descripción" required>
-                <button *ngIf="misListas.length>0&&create" (click)="createList()" class="createList d-flex gap-2"><i
+                <button (click)="createList()" class="createList d-flex gap-2"><i
                         class="bi bi-plus-circle"></i>Crear
                     lista</button>
-                <button *ngIf="misListas.length>0&&create" (click)="Of(1)" class="createList d-flex gap-2">X</button>
+                </div>
             </div>
-            <div class="delete d-flex text-white">
-                <button *ngIf="misListas.length>0&&!delet" (click)="On(2)" class="createList d-flex gap-2"><i
-                        class="bi bi-plus-circle"></i>Borrar lista</button>
-                <label *ngIf="misListas.length>0&&delet" for="listSelector"></label>
-                <select *ngIf="misListas.length>0&&delet" id="listSelector" [(ngModel)]="selectedListId">
-                    <option [value]="-1" selected disabled hidden>Selecciona una lista</option>
-                    <option *ngFor="let list of misListas" [value]="list.id">{{ list.name }}</option>
-                </select>
-                <button *ngIf="misListas.length>0&&delet" (click)="deleteList(selectedListId!)"
-                    class="createList d-flex gap-2"><i class="bi bi-plus-circle"></i>Borrar lista</button>
-                <button *ngIf="misListas.length>0&&delet" (click)="Of(2)" class="createList d-flex gap-2">X</button>
+            <div ngbDropdown class="dropdown">
+                <button ngbDropdownToggle class="createList" type="button" id="dropdownDelete" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Borrar lista</button>
+                <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownDelete">
+                    <label for="listSelector"></label>
+                    <select id="listSelector border border-0" [(ngModel)]="selectedListId">
+                        <option [value]="-1" selected disabled hidden>Selecciona una lista</option>
+                        <option *ngFor="let list of misListas" [value]="list.id">{{ list.name }}</option>
+                    </select>
+                    <button (click)="deleteList(selectedListId!)"
+                        class="createList d-flex gap-2"><i class="bi bi-plus-circle"></i>Borrar lista</button>
+                </div>
             </div>
-            <div class="clear d-flex">
-                <button *ngIf="misListas.length>0&&!clear" (click)="On(3)" class="createList d-flex gap-2"><i
-                        class="bi bi-plus-circle"></i>Limpiar lista</button>
-                <label *ngIf="misListas.length>0&&clear" for="listSelector"></label>
-                <select *ngIf="misListas.length>0&&clear" id="listSelector" [(ngModel)]="selectedListId">
-                    <option [value]="-1" selected disabled hidden>Selecciona una lista</option>
-                    <option *ngFor="let list of misListas" [value]="list.id">{{ list.name }}</option>
-                </select>
-                <button *ngIf="misListas.length>0&&clear" (click)="clearList(selectedListId!)"
-                    class="createList d-flex gap-2"><i class="bi bi-plus-circle"></i>Limpiar lista</button>
-                <button *ngIf="misListas.length>0&&clear" (click)="Of(3)" class="createList d-flex gap-2">X</button>
+            <div ngbDropdown class="dropdown">
+                <button ngbDropdownToggle class="createList" type="button" id="dropdownClear" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Borrar lista</button>
+                <div ngbDropdownMenu  class="dropdown-menu" aria-labelledby="dropdownClear">
+                    <label for="listSelector"></label>
+                    <select id="listSelector" [(ngModel)]="selectedListId">
+                        <option [value]="-1" selected disabled hidden>Selecciona una lista</option>
+                        <option *ngFor="let list of misListas" [value]="list.id">{{ list.name }}</option>
+                    </select>
+                    <button (click)="clearList(selectedListId!)"
+                        class="createList d-flex gap-2"><i class="bi bi-plus-circle"></i>Limpiar lista</button>
+                </div>
             </div>
         </div>
+
+       
         <div class="content-list">
             @if(misListas.length === 0){
             <div class="card null-card">
@@ -68,9 +72,7 @@
             <div class="listas">
                 <div *ngFor="let list of misListas">
                 <a [routerLink]="['/misListas', list.id]">
-                    <div class="card card-list" [ngStyle]="{
-                            'background': 'linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.801)), no-repeat center/cover url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI_3Y9V7xx2X31XhNIYE53QCidDkrQgxm9tg&s)'
-                          }">
+                    <div class="card card-list">
                         <div class="text-list">
                             <h1>{{list.name}}</h1>
                             <p id="description">{{list.description}}</p>
@@ -88,5 +90,12 @@
     <div class="right-menu col-3">
         <app-menu-right></app-menu-right>
     </div>
+
+    <div aria-live="polite" aria-atomic="true" style="position: fixed; top: 1rem; left: 94rem; z-index: 1050;">
+        <div class="toast" id="favToast" data-delay="3000">
+          <div class="toast-body text-black" id="toastMessage">
+          </div>
+        </div>
+      </div>
 </div>
 
