@@ -15,53 +15,59 @@
             @if (tipo=="peliculas") {
             <div class="select">
                 <label for="orden1">Ordenar por:</label>
-                <select id="orden1" #ordenSelectPeliculas>
+                <select id="orden1" class="customFilterSelect" #ordenSelectPeliculas>
                     <option value="popularity.desc">Popularidad Descendente</option>
                     <option value="popularity.asc">Popularidad Ascendente</option>
                     <option value="vote_average.asc">Valoración Ascendente</option>
                     <option value="vote_average.desc">Valoración Descendente</option>
                 </select>
             </div>
-            
+
             <div class="col-6">
-                <label for="genero">Género:</label>
+                <label for="genero" class="mb-2">Género:</label>
                 <div class="control-check">
-                @for (genero of generos; track genero.id) {
-                    
+                    @for (genero of generos; track genero.id) {
+
                     <input class="customCheckBoxInput" type="checkbox" id="genero{{genero.id}}" [value]="genero.id"
-                        (change)="toggleGenre(genero.id)" >
+                        (change)="toggleGenre(genero.id)">
                     <label class="customCheckBoxWrapper" for="genero{{genero.id}}">
                         <div class="customCheckBox">
                             <div class="inner">{{genero.name}}</div>
-                          </div>
+                        </div>
                     </label>
-                }
+                    }
                 </div>
             </div>
-            <button (click)="buscar(ordenSelectPeliculas.value, currentPage)">Buscar</button>
+            <button (click)="buscar(ordenSelectPeliculas.value, currentPage)" class="searchButton">Buscar</button>
             }
         </div>
 
         <div>
             @if (tipo=="series") {
             <label for="orden2">Ordenar por:</label>
-            <select id="orden2" #ordenSelectSeries>
+            <select id="orden2" class="customFilterSelect" #ordenSelectSeries>
                 <option value="popularity.asc">Popularidad Ascendente</option>
                 <option value="popularity.desc">Popularidad Descendente</option>
                 <option value="vote_average.asc">Valoración Ascendente</option>
                 <option value="vote_average.desc">Valoración Descendente</option>
             </select>
-            <div>
-                <label for="genero">Género:</label>
-                @for (genero of generos; track genero.id) {
-                <div>
-                    <input type="checkbox" id="genero{{genero.id}}" value="{{genero.id}}"
+            <div class="col-6">
+                <label for="genero" class="mb-2">Género:</label>
+                <div class="control-check">
+                    @for (genero of generos; track genero.id) {
+
+                    <input class="customCheckBoxInput" type="checkbox" id="genero{{genero.id}}" [value]="genero.id"
                         (change)="toggleGenre(genero.id)">
-                    <label for="genero{{genero.id}}">{{genero.name}}</label>
+                    <label class="customCheckBoxWrapper" for="genero{{genero.id}}">
+                        <div class="customCheckBox">
+                            <div class="inner">{{genero.name}}</div>
+                        </div>
+                    </label>
+                    }
                 </div>
-                }
             </div>
-            <button (click)="buscar(ordenSelectSeries.value, currentPage)">Buscar</button>
+            <button (click)="buscar(ordenSelectSeries.value, currentPage)" class="searchButton">Buscar</button>
             }
         </div>
     </div>
+</div>
